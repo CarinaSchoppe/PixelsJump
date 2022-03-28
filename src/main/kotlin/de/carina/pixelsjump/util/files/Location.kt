@@ -15,15 +15,32 @@ import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 
 class Location(val name: String, val Location: org.bukkit.Location) {
-    private lateinit var file: File
-    lateinit var ymlConfiguration: YamlConfiguration
 
-    init {
-        file = File("plugins/PixelsJumpRemastered/locations/$name.yml")
-        ymlConfiguration = YamlConfiguration.loadConfiguration(file)
+    companion object {
+        val locations = mutableListOf<Location>()
+        fun load() {
+            val directory = File("plugins/PixelsJumpRemastered/locations")
+            if (!directory.exists()) directory.mkdir()
+            for (file in directory.listFiles()) {
+                val config = YamlConfiguration.loadConfiguration(file)
+                val name = file.name.replace(".yml", "")
+                val world = config.getString("world")
+                val x = config.getDouble("x")
+                val y = config.getDouble("y")
+                val z = config.getDouble("z")
+                val yaw = config.getDouble("yaw")
+                val pitch = config.getDouble("pitch")
+                val location = org.bukkit.Location(org.bukkit.Bukkit.getWorld(world!!), x, y, z, yaw.toFloat(), pitch.toFloat())
+                locations.add(Location(name, location))
+            }
+        }
     }
 
-    fun save() {
+    private var file: File = File("plugins/PixelsJumpRemastered/locations/$name.yml")
+    private var ymlConfiguration: YamlConfiguration = YamlConfiguration.loadConfiguration(file)
+
+
+    fun saveLocation() {
         ymlConfiguration.set("world", Location.world.name)
         ymlConfiguration.set("x", Location.x)
         ymlConfiguration.set("y", Location.y)

@@ -12,9 +12,9 @@
 package de.carina.pixelsjump
 
 import de.carina.pixelsjump.util.files.Configuration
+import de.carina.pixelsjump.util.files.Location
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.stats.Statistics
-import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -24,15 +24,10 @@ class PixelsJump : JavaPlugin() {
     companion object {
         lateinit var instance: PixelsJump
         var prefix = "§8[§6PixelsJump§8]§r"
+        val utility = de.carina.pixelsjump.util.Utility()
 
-        fun sendMessage(messagePath: String) {
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!))
-        }
-
-        fun messageConverter(messagePath: String): String {
-            return prefix + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!)
-        }
     }
+
 
     override fun onEnable() {
         instance = this
@@ -40,14 +35,15 @@ class PixelsJump : JavaPlugin() {
         prefix = ChatColor.translateAlternateColorCodes('&', Configuration.ymlConfiguration.getString("prefix")!!)
         Messages.loadMessages()
         Statistics.loadStats()
+        Location.load()
         // Plugin startup logic
-        sendMessage("load")
+        utility.sendMessage("load")
 
     }
 
     override fun onDisable() {
         // Plugin shutdown logic
-        sendMessage("unload")
+        utility.sendMessage("unload")
 
     }
 
