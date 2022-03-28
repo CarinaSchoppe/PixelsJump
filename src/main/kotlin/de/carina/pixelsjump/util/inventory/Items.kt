@@ -31,6 +31,10 @@ object Items {
 
     }
 
+    fun arenaItem(name: String): ItemStack {
+        return ItemBuilder(Material.OAK_SIGN, 1).addItemName(name).addItemLore(listOf("Click to open the Arena")).build()
+    }
+
     fun finishArenaBuildItem(): ItemStack {
         return ItemBuilder(Material.DIAMOND, 1).addItemName("Finish Arena").addItemLore(listOf("Click to finish the Arena")).build()
 

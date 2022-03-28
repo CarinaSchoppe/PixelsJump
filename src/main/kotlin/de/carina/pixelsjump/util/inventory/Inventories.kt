@@ -11,10 +11,20 @@
 
 package de.carina.pixelsjump.util.inventory
 
+import de.carina.pixelsjump.util.ArenaHelper
 import org.bukkit.inventory.Inventory
 
 object Inventories {
     fun starterInventory(): Inventory {
         return InventoryBuilder("Arena Builder", 9).addItem(Items.startLocationItem(), 1).addItem(Items.endLocationItem(), 3).addItem(Items.finishArenaBuildItem(), 8).fillInventory(Items.paneFillerItem()).buildInventory()
+    }
+
+    fun arenaInventory(): Inventory {
+        var builder = InventoryBuilder("Arenas", (ArenaHelper.arenas.size / 9 + 1) * 9)
+        for ((index, arena) in ArenaHelper.arenas.withIndex()) {
+            builder.addItem(Items.arenaItem(arena.name), index).fillInventory(Items.paneFillerItem())
+        }
+
+        return builder.buildInventory()
     }
 }
