@@ -15,6 +15,6 @@ import org.bukkit.inventory.Inventory
 
 object Inventories {
     fun starterInventory(): Inventory {
-        return InventoryBuilder("§aArena Builder", 9).addItem(Items.startLocationItem(), 1).addItem(Items.endLocationItem(), 3).addItem(Items.finishArenaBuildItem(), 8).fillInventory(Items.paneFillerItem()).buildInventory()
+        return InventoryBuilder("Arena Builder", 9).addItem(Items.startLocationItem(), 1).addItem(Items.endLocationItem(), 3).addItem(Items.finishArenaBuildItem(), 8).fillInventory(Items.paneFillerItem()).buildInventory()
     }
 }

@@ -9,17 +9,17 @@ import org.bukkit.entity.Player
 class LocationAdder(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
-        if (PixelsJump.utility.preCommandStuff(sender, command, args, 3, "add", "pixelsjump.addLocation"))
+        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 3, "add", "pixelsjump.addLocation"))
             return
 
 
         //format: <type> <name> <position>
         val player = sender as Player
         val arena = ArenaHelper.getArena(args[1])
-        if (args[2] == "start") {
+        if (args[2].equals("start", true)) {
             arena.addStartLocation(player.location)
             sender.sendMessage(PixelsJump.utility.messageConverter("add-start").replace("%arena%", args[1]))
-        } else if (args[2] == "end") {
+        } else if (args[2].equals("end", true)) {
             arena.addEndLocation(player.location)
             sender.sendMessage(PixelsJump.utility.messageConverter("add-end").replace("%arena%", args[1]))
         }

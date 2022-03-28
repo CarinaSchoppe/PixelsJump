@@ -18,11 +18,11 @@ import org.bukkit.inventory.ItemStack
 object Items {
 
     fun startLocationItem(): ItemStack {
-        return ItemBuilder(Material.OAK_DOOR, 1).addItemName("§aAdd Location Start").addItemLore(listOf("§7Click to add a new Location to the Arena")).build()
+        return ItemBuilder(Material.OAK_DOOR, 1).addItemName("Add Location Start").addItemLore(listOf("Click to add a new Location to the Arena")).build()
     }
 
     fun endLocationItem(): ItemStack {
-        return ItemBuilder(Material.GRASS_BLOCK, 1).addItemName("§aAdd Location End").addItemLore(listOf("§7Click to add a new Location to the Arena")).build()
+        return ItemBuilder(Material.GRASS_BLOCK, 1).addItemName("Add Location End").addItemLore(listOf("Click to add a new Location to the Arena")).build()
 
     }
 
@@ -32,7 +32,7 @@ object Items {
     }
 
     fun finishArenaBuildItem(): ItemStack {
-        return ItemBuilder(Material.DIAMOND, 1).addItemName("§aFinish Arena").addItemLore(listOf("§7Click to finish the Arena")).build()
+        return ItemBuilder(Material.DIAMOND, 1).addItemName("Finish Arena").addItemLore(listOf("Click to finish the Arena")).build()
 
     }
 }

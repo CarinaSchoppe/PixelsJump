@@ -12,6 +12,7 @@
 package de.carina.pixelsjump.util
 
 import de.carina.pixelsjump.PixelsJump
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
@@ -35,16 +36,33 @@ object ArenaHelper {
                 for (key in ymlConfiguration.getKeys(false)) {
                     if (key == "start") {
                         //load the start location based on the config
-                        arena.addStartLocation(ymlConfiguration.getLocation(key)!!)
+                        var location: Location
+                        val world = ymlConfiguration.getString("start.world")?.let { Bukkit.getWorld(it) }
+                        val x = ymlConfiguration.getInt("start.x")
+                        val y = ymlConfiguration.getInt("start.y")
+                        val z = ymlConfiguration.getInt("start.z")
+                        val yaw = ymlConfiguration.getInt("start.yaw")
+                        val pitch = ymlConfiguration.getInt("start.pitch")
+                        location = Location(world, x.toDouble(), y.toDouble(), z.toDouble(), yaw.toFloat(), pitch.toFloat())
+                        arena.addStartLocation(location)
 
                     } else if (key == "end") {
                         //load the end location based on the config
-                        arena.addEndLocation(ymlConfiguration.getLocation(key)!!)
+                        val location: Location
+                        val world = ymlConfiguration.getString("end.world")?.let { Bukkit.getWorld(it) }
+                        val x = ymlConfiguration.getInt("end.x")
+                        val y = ymlConfiguration.getInt("end.y")
+                        val z = ymlConfiguration.getInt("end.z")
+                        val yaw = ymlConfiguration.getInt("end.yaw")
+                        val pitch = ymlConfiguration.getInt("end.pitch")
+                        location = Location(world, x.toDouble(), y.toDouble(), z.toDouble(), yaw.toFloat(), pitch.toFloat())
+                        arena.addEndLocation(location)
                     }
                     if (key == "single") {
                         arena.single = ymlConfiguration.getBoolean(key)
                     }
                 }
+                Bukkit.getConsoleSender().sendMessage(PixelsJump.utility.messageConverter("arena-loaded").replace("%arena%", arena.name.replace(".yml", "")))
                 arenas.add(arena)
             }
         }
@@ -67,7 +85,9 @@ object ArenaHelper {
                 return arena
             }
         }
-        return Arena(name)
+        val arena = Arena(name, arrayOfNulls(2))
+        arenas.add(arena)
+        return arena
     }
 }
 

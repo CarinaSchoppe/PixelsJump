@@ -23,8 +23,10 @@ class Utility {
 
     val playersInArena = mutableListOf<Player>()
 
-    fun preCommandStuff(sender: CommandSender, command: Command, args: Array<out String>, argsLength: Int, commandEnter: String, permission: String): Boolean {
-        if (!command.name.equals("pixelsjump", true)) return false
+    fun preCommandStuff(sender: CommandSender, command: Command, args: Array<out String>, argsLength: Int, commandEnter: String?, permission: String): Boolean {
+        if (!command.name.equals("pixelsjump", true)) {
+            return false
+        }
 
         if (args.isEmpty()) {
             sender.sendMessage(messageConverter("default-command"))
@@ -36,22 +38,23 @@ class Utility {
             return false
         }
 
-        if (args.size >= argsLength) {
+        if (args.size < argsLength) {
             sender.sendMessage(messageConverter("wrong-args"))
             return false
         }
 
 
-
-        if (!args[0].equals(commandEnter, true)) {
-            return false
+        if (commandEnter != null) {
+            if (!args[0].equals(commandEnter, true)) {
+                return false
+            }
         }
+
 
         if (!sender.hasPermission(permission)) {
             sender.sendMessage(messageConverter("no-permission"))
             return false
         }
-
         return true
     }
 

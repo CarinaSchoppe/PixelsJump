@@ -24,7 +24,7 @@ class LocationFinish(private val sender: CommandSender, private val command: Com
             return
 
         if (!ArenaHelper.arenaExists(args[1])) {
-            sender.sendMessage(PixelsJump.utility.messageConverter("no-arena"))
+            sender.sendMessage(PixelsJump.utility.messageConverter("no-arena").replace("%arena%", args[1]))
             return
         }
         val arena = ArenaHelper.getArena(args[1])

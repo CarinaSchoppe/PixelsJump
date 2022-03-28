@@ -12,6 +12,7 @@
 package de.carina.pixelsjump.util.stats
 
 import de.carina.pixelsjump.PixelsJump
+import org.bukkit.Bukkit
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import java.io.File
@@ -26,6 +27,9 @@ object Statistics {
     private fun loadPlayers() {
         for (player in ymlConfiguration.getKeys(false)) {
             statistics.add(PlayerStats(ymlConfiguration.get("$player") as UUID, ymlConfiguration.getInt("$player.maxBlocks"), ymlConfiguration.getInt("$player.games"), ymlConfiguration.getInt("$player.points"), ymlConfiguration.getInt("$player.fails"), ymlConfiguration.getInt("$player.wins")))
+            Bukkit.getConsoleSender().sendMessage(
+                PixelsJump.utility.messageConverter("stats-loaded").replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId.equals(player) }?.name ?: "unknown")
+            )
         }
 
     }

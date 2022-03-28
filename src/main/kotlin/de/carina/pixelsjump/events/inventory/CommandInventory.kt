@@ -12,8 +12,8 @@
 package de.carina.pixelsjump.events.inventory
 
 import de.carina.pixelsjump.PixelsJump
-import de.carina.pixelsjump.util.inventory.Inventories
 import de.carina.pixelsjump.util.inventory.Items
+import net.kyori.adventure.text.Component
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -22,7 +22,7 @@ class CommandInventory : Listener {
 
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
-        if (event.clickedInventory!! != Inventories.starterInventory())
+        if (event.view.title() != Component.text("Arena Builder"))
             return
         event.isCancelled = true
         val item = event.currentItem ?: return
@@ -38,9 +38,9 @@ class CommandInventory : Listener {
                     return
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} start")
-
             }
             Items.endLocationItem() -> {
+                println("test")
                 if (!player.hasPermission("pixelsjump.addLocation.end")) {
                     player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
                     return
@@ -54,6 +54,7 @@ class CommandInventory : Listener {
                     return
                 }
                 player.performCommand("pixelsjump finish ${PixelsJump.utility.arenaPlayerNames[player]}")
+                player.closeInventory()
             }
         }
 

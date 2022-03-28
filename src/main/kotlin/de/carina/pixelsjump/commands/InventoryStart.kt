@@ -19,8 +19,9 @@ import org.bukkit.command.CommandSender
 class InventoryStart(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
-        if (PixelsJump.utility.preCommandStuff(sender, command, args, 2, "gui", "pixelsjump.gui"))
+        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "gui", "pixelsjump.gui")) {
             return
+        }
         val player = sender as org.bukkit.entity.Player
         PixelsJump.utility.arenaPlayerNames[player] = args[1]
 

@@ -12,6 +12,7 @@
 package de.carina.pixelsjump
 
 import de.carina.pixelsjump.commands.CommandRegister
+import de.carina.pixelsjump.events.inventory.CommandInventory
 import de.carina.pixelsjump.util.ArenaHelper
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
@@ -54,5 +55,6 @@ class PixelsJump : JavaPlugin() {
 
     private fun init(pluginManager: PluginManager) {
         getCommand("pixelsjump")!!.setExecutor(CommandRegister())
+        pluginManager.registerEvents(CommandInventory(), this)
     }
 }
