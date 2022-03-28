@@ -11,6 +11,7 @@
 
 package de.carina.pixelsjump.util
 
+import de.carina.pixelsjump.PixelsJump
 import org.bukkit.Location
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
@@ -21,6 +22,7 @@ object ArenaHelper {
     val arenas = mutableListOf<Arena>()
 
     fun loadArenas() {
+        PixelsJump.utility.sendMessage("loading-arenas-start")
         val directory = File("plugins/PixelsJumpRemastered/arenas")
         if (!directory.exists())
             directory.mkdir()
@@ -46,6 +48,8 @@ object ArenaHelper {
                 arenas.add(arena)
             }
         }
+        PixelsJump.utility.sendMessage("loading-arenas-end")
+
     }
 
     fun arenaExists(arenaName: String): Boolean {

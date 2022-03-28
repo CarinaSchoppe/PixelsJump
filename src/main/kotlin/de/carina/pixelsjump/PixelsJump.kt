@@ -16,6 +16,7 @@ import de.carina.pixelsjump.util.ArenaHelper
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.stats.Statistics
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.PluginManager
 import org.bukkit.plugin.java.JavaPlugin
@@ -39,6 +40,7 @@ class PixelsJump : JavaPlugin() {
         Statistics.loadStats()
         ArenaHelper.loadArenas()
         // Plugin startup logic
+        init(Bukkit.getPluginManager())
         utility.sendMessage("load")
 
     }
