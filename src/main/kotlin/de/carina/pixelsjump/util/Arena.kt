@@ -32,7 +32,7 @@ object ArenaHelper {
         if (files != null) {
             for (file in files) {
                 val ymlConfiguration = YamlConfiguration.loadConfiguration(file)
-                val arena = Arena(file.name, arrayOfNulls(2))
+                val arena = Arena(file.name.replace(".yml", ""), arrayOfNulls(2))
                 for (key in ymlConfiguration.getKeys(false)) {
                     if (key == "start") {
                         //load the start location based on the config
