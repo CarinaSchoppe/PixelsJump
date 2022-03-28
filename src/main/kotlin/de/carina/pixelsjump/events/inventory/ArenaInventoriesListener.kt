@@ -11,7 +11,10 @@
 
 package de.carina.pixelsjump.events.inventory
 
+import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.ArenaHelper
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -22,7 +25,12 @@ class ArenaInventoriesListener : Listener {
         if (event.view.title() != Component.text("Arenas"))
             return
         event.isCancelled = true
+        val item = event.currentItem ?: return
+        val arena = ArenaHelper.getArena(PlainTextComponentSerializer.plainText().serialize(item.displayName()))
 
+        val player = event.whoClicked as org.bukkit.entity.Player
+        arena.locations[0]?.let { player.teleport(it) }
+        player.sendMessage(PixelsJump.utility.messageConverter("arena-teleport").replace("%arena%", arena.name))
 
     }
 }
