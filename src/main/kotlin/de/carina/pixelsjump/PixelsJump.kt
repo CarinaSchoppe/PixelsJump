@@ -11,11 +11,13 @@
 
 package de.carina.pixelsjump
 
+import de.carina.pixelsjump.commands.CommandRegister
+import de.carina.pixelsjump.util.ArenaHelper
 import de.carina.pixelsjump.util.files.Configuration
-import de.carina.pixelsjump.util.files.Location
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.stats.Statistics
 import org.bukkit.ChatColor
+import org.bukkit.plugin.PluginManager
 import org.bukkit.plugin.java.JavaPlugin
 
 class PixelsJump : JavaPlugin() {
@@ -35,7 +37,7 @@ class PixelsJump : JavaPlugin() {
         prefix = ChatColor.translateAlternateColorCodes('&', Configuration.ymlConfiguration.getString("prefix")!!)
         Messages.loadMessages()
         Statistics.loadStats()
-        Location.load()
+        ArenaHelper.loadArenas()
         // Plugin startup logic
         utility.sendMessage("load")
 
@@ -47,4 +49,8 @@ class PixelsJump : JavaPlugin() {
 
     }
 
+
+    private fun init(pluginManager: PluginManager) {
+        getCommand("pixelsjump")!!.setExecutor(CommandRegister())
+    }
 }

@@ -5,3 +5,9 @@ version: 1.0.0
 description: PixelsJump Remastered for Paper
 author: Carina-Sophie Schoppe
 commands:
+  pixelsjump:
+    description: PixelsJump Remastered for Paper
+    usage: /pixelsjump <command> <arguments>
+    aliases:
+      - pj
+      - pixeljump
