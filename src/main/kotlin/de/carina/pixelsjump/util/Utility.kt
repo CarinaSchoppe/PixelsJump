@@ -64,10 +64,10 @@ class Utility {
     }
 
     fun sendMessage(messagePath: String) {
-        Bukkit.getConsoleSender().sendMessage(PixelsJump.prefix + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!))
+        Bukkit.getConsoleSender().sendMessage(PixelsJump.prefix + " " + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!))
     }
 
     fun messageConverter(messagePath: String): String {
-        return PixelsJump.prefix + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!)
+        return PixelsJump.prefix + " " + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!)
     }
 }
