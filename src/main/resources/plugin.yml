@@ -1,0 +1,7 @@
+main: de.carina.pixelsjump.pixelsjump
+api-version: 1.18.2
+name: PixelsJump
+version: 1.0.0
+description: PixelsJump Remastered for Paper
+author: Carina-Sophie Schoppe
+commands:
