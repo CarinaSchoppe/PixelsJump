@@ -1,5 +1,5 @@
-main: de.carina.pixelsjump.pixelsjump
-api-version: 1.18.2
+main: de.carina.pixelsjump.PixelsJump
+api-version: 1.18
 name: PixelsJump
 version: 1.0.0
 description: PixelsJump Remastered for Paper

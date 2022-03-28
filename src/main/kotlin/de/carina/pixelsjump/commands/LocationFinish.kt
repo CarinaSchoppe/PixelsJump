@@ -29,9 +29,9 @@ class LocationFinish(val sender: CommandSender, val command: Command, val args: 
         val arena = ArenaHelper.getArena(args[1])
         if (arena.locations[1] == null) {
             arena.single = true
-            sender.sendMessage(PixelsJump.utility.messageConverter("arena-single"))
+            sender.sendMessage(PixelsJump.utility.messageConverter("arena-single").replace("%arena%", args[1]))
         }
-        sender.sendMessage(PixelsJump.utility.messageConverter("arena-saved"))
+        sender.sendMessage(PixelsJump.utility.messageConverter("arena-saved").replace("%arena%", args[1]))
 
         arena.saveArena()
 
