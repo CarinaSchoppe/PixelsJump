@@ -25,6 +25,7 @@ class InventoryBuilder(name: String, size: Int) {
         return this
     }
 
+
     fun fillInventory(item: org.bukkit.inventory.ItemStack): InventoryBuilder {
         for (i in 0 until inventory.size) {
             if (inventory.getItem(i) == null) {
