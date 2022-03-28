@@ -31,6 +31,11 @@ class ItemBuilder(material: Material, amount: Int) {
         return this
     }
 
+    fun addGlow(): ItemBuilder{
+        nmsItem = CraftItemStack.asNMSCopy(itemStack)
+
+    }
+
     fun addEnchantment(enchantment: org.bukkit.enchantments.Enchantment, level: Int): ItemBuilder {
         itemMeta.addEnchant(enchantment, level, true)
         itemStack.itemMeta = itemMeta

@@ -14,22 +14,22 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.6.10"
     id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.papermc.paperweight.userdev") version "1.3.5"
     id("xyz.jpenilla.run-paper") version "1.0.6"
+    `java-library`
 }
 
 group = "me.carina"
 version = "1.0.0"
 description ="PixelsJump Remastered Paper Plugin"
 
-repositories {
-    gradlePluginPortal()
-    mavenCentral()
-    maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
-}
+
 
 dependencies {
+    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
     testImplementation(kotlin("test"))
     compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+
 }
 java {
     // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
