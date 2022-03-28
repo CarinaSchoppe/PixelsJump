@@ -25,6 +25,7 @@ object Messages {
         ymlConfiguration.addDefault("no-arena", "&cNo arena found with the name &6%arena%&c!")
         ymlConfiguration.addDefault("arena-not-valid", "&cThe arena &6%arena% &cis not valid!")
         ymlConfiguration.addDefault("default-command", "&7Please use &6/pixelsjump <arguments> <arena> <optional> &7!")
+        ymlConfiguration.addDefault("no-arena-name", "&cYou must enter the arena name first before you can do this!")
         ymlConfiguration.addDefault("add-start", "&aYou successfully added a start point for arena &6%arena%&a!")
         ymlConfiguration.addDefault("no-jump", "&cYou are not in a jump ´n run!")
         ymlConfiguration.addDefault("arena-saved", "&aYou successfully saved the arena &6%arena%&a!")
