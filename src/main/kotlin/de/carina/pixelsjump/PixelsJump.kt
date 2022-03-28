@@ -13,6 +13,7 @@ package de.carina.pixelsjump
 
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.stats.Statistics
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.java.JavaPlugin
@@ -25,11 +26,11 @@ class PixelsJump : JavaPlugin() {
         var prefix = "§8[§6PixelsJump§8]§r"
 
         fun sendMessage(messagePath: String) {
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString("message")!!))
+            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!))
         }
 
         fun messageConverter(messagePath: String): String {
-            return prefix + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString("messagePath")!!)
+            return prefix + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!)
         }
     }
 
@@ -38,6 +39,7 @@ class PixelsJump : JavaPlugin() {
         Configuration.loadConfig()
         prefix = ChatColor.translateAlternateColorCodes('&', Configuration.ymlConfiguration.getString("prefix")!!)
         Messages.loadMessages()
+        Statistics.loadStats()
         // Plugin startup logic
         sendMessage("load")
 

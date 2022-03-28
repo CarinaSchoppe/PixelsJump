@@ -25,16 +25,14 @@ object Configuration {
         configFile = File(path)
         ymlConfiguration = YamlConfiguration.loadConfiguration(configFile)
 
-        ymlConfiguration.addDefault("prefix", "§8[§6PixelsJump§8]§r")
+        ymlConfiguration.addDefault("jump-length", 50)
+        ymlConfiguration.addDefault("prefix", "&8[&6PixelsJump&8]&r")
         saveConfigFile()
     }
 
     fun saveConfigFile() {
-        try {
             ymlConfiguration.options().copyDefaults(true)
             ymlConfiguration.save(configFile)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+
     }
 }

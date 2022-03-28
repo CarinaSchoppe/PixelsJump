@@ -11,4 +11,4 @@
 
 package de.carina.pixelsjump.util
 
-class BlockGenerator
+object BlockGenerator
