@@ -8,6 +8,4 @@ commands:
   pixelsjump:
     description: PixelsJump Remastered for Paper
     usage: /pixelsjump <command> <arguments>
-    aliases:
-      - pj
-      - pixeljump
+    aliases: [ pixelsjump, pj, pixeljump, pixels-jump, pixel-jump, p-j ]
