@@ -12,9 +12,21 @@
 package de.carina.pixelsjump.util.inventory
 
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.Inventory
 
+
 class InventoryBuilder(name: String, size: Int) {
+    companion object {
+        fun starterInventory(): Inventory {
+            val addLocation = ItemBuilder(Material.OAK_DOOR, 1).addItemName("§aAdd Location").addItemLore(listOf("§7Click to add a new Location to the Arena")).build()
+            val finishArena = ItemBuilder(Material.DIAMOND, 1).addItemName("§aFinish Arena").addItemLore(listOf("§7Click to finish the Arena")).build()
+            val pane = ItemBuilder(Material.BLUE_STAINED_GLASS_PANE, 1).addItemName("").addEnchantment(Enchantment.DURABILITY, 0).build()
+            return InventoryBuilder("§aArena Builder", 9).addItem(addLocation, 1).addItem(finishArena, 8).fillInventory(pane).buildInventory()
+        }
+    }
+
     val inventory: Inventory = org.bukkit.Bukkit.createInventory(null, size, Component.text(name))
     fun buildInventory(): Inventory {
         return inventory

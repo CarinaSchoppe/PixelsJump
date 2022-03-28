@@ -17,6 +17,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 
 class CommandRegister : CommandExecutor {
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 0, "", "pixelsjump.use"))
             return true
@@ -26,7 +27,9 @@ class CommandRegister : CommandExecutor {
             "remove" -> LocationRemover(sender, command, args).execute()
             "list" -> LocationList(sender, command, args).execute()
             "finish" -> LocationFinish(sender, command, args).execute()
+            "start" -> InventoryStart(sender, command, args).execute()
         }
+
 
         return true
     }

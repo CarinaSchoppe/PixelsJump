@@ -15,6 +15,7 @@ import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.ArenaHelper
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
 
 class LocationFinish(val sender: CommandSender, val command: Command, val args: Array<out String>) {
 
@@ -27,12 +28,16 @@ class LocationFinish(val sender: CommandSender, val command: Command, val args: 
             return
         }
         val arena = ArenaHelper.getArena(args[1])
+        if (arena.locations[0] == null) {
+            sender.sendMessage(PixelsJump.utility.messageConverter("arena-not-valid").replace("%arena%", args[1]))
+            return
+        }
         if (arena.locations[1] == null) {
             arena.single = true
             sender.sendMessage(PixelsJump.utility.messageConverter("arena-single").replace("%arena%", args[1]))
         }
         sender.sendMessage(PixelsJump.utility.messageConverter("arena-saved").replace("%arena%", args[1]))
-
+        PixelsJump.utility.arenaPlayerNames.remove(sender as Player)
         arena.saveArena()
 
     }
