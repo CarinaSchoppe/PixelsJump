@@ -22,6 +22,7 @@ object Inventories {
     fun arenaInventory(): Inventory {
         var builder = InventoryBuilder("Arenas", (ArenaHelper.arenas.size / 9 + 1) * 9)
         for ((index, arena) in ArenaHelper.arenas.withIndex()) {
+            println(arena.name + " name   dfsdfsdss ")
             builder.addItem(Items.arenaItem(arena.name), index).fillInventory(Items.paneFillerItem())
         }
 

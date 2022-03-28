@@ -26,11 +26,12 @@ class ArenaInventoriesListener : Listener {
             return
         event.isCancelled = true
         val item = event.currentItem ?: return
+        if (!ArenaHelper.arenaExists(PlainTextComponentSerializer.plainText().serialize(item.displayName()))) return
+        println("Arena ${PlainTextComponentSerializer.plainText().serialize(item.displayName())}")
         val arena = ArenaHelper.getArena(PlainTextComponentSerializer.plainText().serialize(item.displayName()))
-
         val player = event.whoClicked as org.bukkit.entity.Player
         arena.locations[0]?.let { player.teleport(it) }
         player.sendMessage(PixelsJump.utility.messageConverter("arena-teleport").replace("%arena%", arena.name))
-
+        player.closeInventory()
     }
 }
