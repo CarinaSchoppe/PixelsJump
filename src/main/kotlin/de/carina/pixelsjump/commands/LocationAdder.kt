@@ -6,7 +6,7 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class LocationAdder(val sender: CommandSender, val command: Command, val args: Array<out String>) {
+class LocationAdder(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
         if (PixelsJump.utility.preCommandStuff(sender, command, args, 3, "add", "pixelsjump.addLocation"))

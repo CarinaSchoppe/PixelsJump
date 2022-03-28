@@ -13,10 +13,11 @@ package de.carina.pixelsjump.util.inventory
 
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
+import org.bukkit.inventory.meta.ItemMeta
 
-class ItemBuilder(material: Material, amout: Int) {
-    val itemStack = org.bukkit.inventory.ItemStack(material, amout)
-    val itemMeta = itemStack.itemMeta
+class ItemBuilder(material: Material, amount: Int) {
+    private val itemStack = org.bukkit.inventory.ItemStack(material, amount)
+    private val itemMeta: ItemMeta = itemStack.itemMeta
 
     fun addItemName(name: String): ItemBuilder {
         itemMeta.displayName(Component.text(name))

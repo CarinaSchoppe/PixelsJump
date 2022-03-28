@@ -12,8 +12,8 @@
 package de.carina.pixelsjump.events.inventory
 
 import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.inventory.Inventories
 import de.carina.pixelsjump.util.inventory.Items
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -22,7 +22,7 @@ class CommandInventory : Listener {
 
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
-        if (!PlainTextComponentSerializer.plainText().serialize(event.view.title()).equals("§aArena Builder"))
+        if (event.clickedInventory!! != Inventories.starterInventory())
             return
         event.isCancelled = true
         val item = event.currentItem ?: return

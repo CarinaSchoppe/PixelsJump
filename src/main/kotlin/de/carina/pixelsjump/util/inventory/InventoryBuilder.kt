@@ -16,13 +16,9 @@ import org.bukkit.inventory.Inventory
 
 
 class InventoryBuilder(name: String, size: Int) {
-    companion object {
-        fun starterInventory(): Inventory {
-          return InventoryBuilder("§aArena Builder", 9).addItem(Items.startLocationItem(), 1).addItem(Items.endLocationItem(), 3).addItem(Items.finishArenaBuildItem(), 8).fillInventory(Items.paneFillerItem()).buildInventory()
-        }
-    }
 
-    val inventory: Inventory = org.bukkit.Bukkit.createInventory(null, size, Component.text(name))
+
+    private val inventory: Inventory = org.bukkit.Bukkit.createInventory(null, size, Component.text(name))
     fun buildInventory(): Inventory {
         return inventory
     }

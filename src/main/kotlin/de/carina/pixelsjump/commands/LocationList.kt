@@ -14,7 +14,7 @@ package de.carina.pixelsjump.commands
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
-class LocationList(sender: CommandSender, command: Command, args: Array<out String>) {
+class LocationList(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
     fun execute() {
 
     }

@@ -12,11 +12,11 @@
 package de.carina.pixelsjump.commands
 
 import de.carina.pixelsjump.PixelsJump
-import de.carina.pixelsjump.util.inventory.InventoryBuilder
+import de.carina.pixelsjump.util.inventory.Inventories
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
-class InventoryStart(val sender: CommandSender, val command: Command, val args: Array<out String>) {
+class InventoryStart(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
         if (PixelsJump.utility.preCommandStuff(sender, command, args, 2, "gui", "pixelsjump.gui"))
@@ -24,7 +24,7 @@ class InventoryStart(val sender: CommandSender, val command: Command, val args: 
         val player = sender as org.bukkit.entity.Player
         PixelsJump.utility.arenaPlayerNames[player] = args[1]
 
-        player.openInventory(InventoryBuilder.starterInventory())
+        player.openInventory(Inventories.starterInventory())
 
     }
 }

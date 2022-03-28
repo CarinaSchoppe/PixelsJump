@@ -17,7 +17,7 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class LocationFinish(val sender: CommandSender, val command: Command, val args: Array<out String>) {
+class LocationFinish(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "finish", "pixelsjump.finish-arena"))
