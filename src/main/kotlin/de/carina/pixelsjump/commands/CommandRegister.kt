@@ -41,7 +41,6 @@ class CommandRegister : CommandExecutor {
             "stats" -> StatsCommand(sender, command, args).execute()
         }
 
-
         return true
     }
 }
