@@ -12,6 +12,7 @@
 package de.carina.pixelsjump.events.inventory
 
 import de.carina.pixelsjump.util.inventory.InventoryNames
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -20,7 +21,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 class ArenaInventoriesListener : Listener {
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
-        if (PlainTextComponentSerializer.plainText().serialize(event.view.title()) != InventoryNames.ARENAS.text)
+        if (LegacyComponentSerializer.legacySection().serialize(event.view.title()) != InventoryNames.ARENAS.text)
             return
         event.isCancelled = true
         if (!event.whoClicked.hasPermission("pixelsjump.arenas"))

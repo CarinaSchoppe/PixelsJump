@@ -19,7 +19,8 @@ import org.bukkit.command.CommandSender
 class SingleJumpNRun(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
-        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "single", "pixelsjump.single")) return
+        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "single", "pixelsjump.single"))
+            return
 
         if (!ArenaHelper.arenaExists(args[1])) {
             sender.sendMessage(PixelsJump.utility.messageConverter("no-arena").replace("%arena%", args[1]))

@@ -22,7 +22,7 @@ object Items {
     }
 
     fun singleJumpNRunItem(): ItemStack {
-        return ItemBuilder(Material.GRASS_BLOCK, 1).addItemName(ItemNames.SINGLE_JUMP_N_RUN.text).addItemLore(listOf("§aClick to set the arena to a single jump n run")).build()
+        return ItemBuilder(Material.RABBIT_FOOT, 1).addItemName(ItemNames.SINGLE_JUMP_N_RUN.text).addItemLore(listOf("§aClick to set the arena to a single jump n run")).build()
 
     }
 
