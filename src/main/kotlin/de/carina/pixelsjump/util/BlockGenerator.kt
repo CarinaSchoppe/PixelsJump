@@ -56,7 +56,8 @@ object BlockGenerator {
         val block = player.world.getBlockAt(newLocation)
         block.type = type.material
         playerBlockJumps[player] = block
-        player.world.getBlockAt(playerBlockOld[player]!!.location).type = Material.AIR
+        if (playerBlockOld[player] != null)
+            player.world.getBlockAt(playerBlockOld[player]!!.location).type = Material.AIR
         playerBlockOld[player] = block
     }
 }
