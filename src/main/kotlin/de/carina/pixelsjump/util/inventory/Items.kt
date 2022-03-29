@@ -18,25 +18,32 @@ import org.bukkit.inventory.ItemStack
 object Items {
 
     fun startLocationItem(): ItemStack {
-        return ItemBuilder(Material.OAK_DOOR, 1).addItemName("Add Location Start").addItemLore(listOf("Click to add a new Location to the Arena")).build()
+        return ItemBuilder(Material.OAK_DOOR, 1).addItemName(ItemNames.ADD_LOCATION_START.text).addItemLore(listOf("§aClick to add a new Location to the Arena")).build()
     }
 
     fun endLocationItem(): ItemStack {
-        return ItemBuilder(Material.GRASS_BLOCK, 1).addItemName("Add Location End").addItemLore(listOf("Click to add a new Location to the Arena")).build()
+        return ItemBuilder(Material.GRASS_BLOCK, 1).addItemName(ItemNames.ADD_LOCATION_END.text).addItemLore(listOf("§aClick to add a new Location to the Arena")).build()
 
+    }
+
+    fun checkPointItem(): ItemStack {
+        return ItemBuilder(Material.IRON_HOE, 1).addItemName(ItemNames.ADD_CHECKPOINT.text).addItemLore(listOf("§aClick to add a new Checkpoint to the Arena")).build()
+    }
+
+    fun backLocationItem(): ItemStack {
+        return ItemBuilder(Material.END_CRYSTAL, 1).addItemName(ItemNames.ADD_BACK_ARENA.text).addItemLore(listOf("§aClick to add the back location")).build()
     }
 
     fun paneFillerItem(): ItemStack {
-        return ItemBuilder(Material.BLUE_STAINED_GLASS_PANE, 1).addItemName("").addEnchantment(Enchantment.DURABILITY, 0).build()
-
+        return ItemBuilder(Material.BLUE_STAINED_GLASS_PANE, 1).addItemName(ItemNames.GLASS_PANE_FILLER.text).addEnchantment(Enchantment.DURABILITY, 0).build()
     }
 
     fun arenaItem(name: String): ItemStack {
-        return ItemBuilder(Material.OAK_SIGN, 1).addItemName(name).addItemLore(listOf("Click to open the Arena")).build()
+        return ItemBuilder(Material.OAK_SIGN, 1).addItemName(name).addItemLore(listOf("§aClick to open the Arena")).build()
     }
 
     fun finishArenaBuildItem(): ItemStack {
-        return ItemBuilder(Material.DIAMOND, 1).addItemName("Finish Arena").addItemLore(listOf("Click to finish the Arena")).build()
+        return ItemBuilder(Material.DIAMOND, 1).addItemName(ItemNames.FINISH_ARENA.text).addItemLore(listOf("Click to finish the Arena")).build()
 
     }
 }

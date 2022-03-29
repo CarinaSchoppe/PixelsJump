@@ -32,6 +32,10 @@ class LocationFinish(private val sender: CommandSender, private val command: Com
             sender.sendMessage(PixelsJump.utility.messageConverter("arena-not-valid").replace("%arena%", args[1]))
             return
         }
+        if (arena.locations[3] == null) {
+            sender.sendMessage(PixelsJump.utility.messageConverter("arena-not-valid").replace("%arena%", args[1]))
+            return
+        }
         if (arena.locations[1] == null) {
             arena.single = true
             sender.sendMessage(PixelsJump.utility.messageConverter("arena-single").replace("%arena%", args[1]))

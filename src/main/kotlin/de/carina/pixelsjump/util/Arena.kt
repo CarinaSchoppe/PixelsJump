@@ -33,7 +33,7 @@ object ArenaHelper {
         if (files != null) {
             for (file in files) {
                 val ymlConfiguration = YamlConfiguration.loadConfiguration(file)
-                val arena = Arena(file.name.replace(".yml", ""), arrayOfNulls(2))
+                val arena = Arena(file.name.replace(".yml", ""), arrayOfNulls(4))
                 for (key in ymlConfiguration.getKeys(false)) {
                     if (key == "start") {
                         //load the start location based on the config
@@ -58,8 +58,23 @@ object ArenaHelper {
                         val pitch = ymlConfiguration.getInt("end.pitch")
                         location = Location(world, x.toDouble(), y.toDouble(), z.toDouble(), yaw.toFloat(), pitch.toFloat())
                         arena.addEndLocation(location)
-                    }
-                    if (key == "single") {
+                    } else if (key == "checkpoints") {
+                        //load the checkpoints based on the config
+                        ymlConfiguration.getList("checkpoints")!!.forEach {
+                            arena.checkPoints.add(it as Location); Bukkit.getConsoleSender().sendMessage(PixelsJump.utility.messageConverter("checkpoint-loaded").replace("%number%", arena.checkPoints.size.toString()).replace("%arena%", arena.name))
+                        }
+
+                    } else if (key == "back") {
+                        val location: Location
+                        val world = ymlConfiguration.getString("back.world")?.let { Bukkit.getWorld(it) }
+                        val x = ymlConfiguration.getInt("back.x")
+                        val y = ymlConfiguration.getInt("back.y")
+                        val z = ymlConfiguration.getInt("back.z")
+                        val yaw = ymlConfiguration.getInt("back.yaw")
+                        val pitch = ymlConfiguration.getInt("back.pitch")
+                        location = Location(world, x.toDouble(), y.toDouble(), z.toDouble(), yaw.toFloat(), pitch.toFloat())
+                        arena.addBackLocation(location)
+                    } else if (key == "single") {
                         arena.single = ymlConfiguration.getBoolean(key)
                     }
                 }
@@ -86,13 +101,20 @@ object ArenaHelper {
                 return arena
             }
         }
-        val arena = Arena(name, arrayOfNulls(2))
+        val arena = Arena(name, arrayOfNulls(4))
         arenas.add(arena)
         return arena
     }
 }
 
-class Arena(val name: String, var locations: Array<Location?> = arrayOfNulls(2)) {
+class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(4)) {
+    val checkPoints: MutableList<Location> = mutableListOf()
+
+    init {
+        if (locations[2] != null) {
+            checkPoints.addAll(locations[2] as MutableList<Location>)
+        }
+    }
 
     val players = mutableSetOf<Player>()
     private val file: File = File("plugins/PixelsJumpRemastered/arenas/$name.yml")
@@ -102,20 +124,33 @@ class Arena(val name: String, var locations: Array<Location?> = arrayOfNulls(2))
     fun saveArena() {
         ymlConfiguration.addDefault("single", single ?: false)
         if (locations[0] != null) {
-            ymlConfiguration.set("start.world", locations[0]!!.world.name)
-            ymlConfiguration.set("start.x", locations[0]!!.x)
-            ymlConfiguration.set("start.y", locations[0]!!.y)
-            ymlConfiguration.set("start.z", locations[0]!!.z)
-            ymlConfiguration.set("start.yaw", locations[0]!!.yaw)
-            ymlConfiguration.set("start.pitch", locations[0]!!.pitch)
+            ymlConfiguration.set("start.world", (locations[0]!! as Location).world.name)
+            ymlConfiguration.set("start.x", (locations[0]!! as Location).x)
+            ymlConfiguration.set("start.y", (locations[0]!! as Location).y)
+            ymlConfiguration.set("start.z", (locations[0]!! as Location).z)
+            ymlConfiguration.set("start.yaw", (locations[0]!! as Location).yaw)
+            ymlConfiguration.set("start.pitch", (locations[0]!! as Location).pitch)
         }
         if (locations[1] != null) {
-            ymlConfiguration.set("end.world", locations[1]!!.world.name)
-            ymlConfiguration.set("end.x", locations[1]!!.x)
-            ymlConfiguration.set("end.y", locations[1]!!.y)
-            ymlConfiguration.set("end.z", locations[1]!!.z)
-            ymlConfiguration.set("end.yaw", locations[1]!!.yaw)
-            ymlConfiguration.set("end.pitch", locations[1]!!.pitch)
+            ymlConfiguration.set("end.world", (locations[1]!! as Location).world.name)
+            ymlConfiguration.set("end.x", (locations[1]!! as Location).x)
+            ymlConfiguration.set("end.y", (locations[1]!! as Location).y)
+            ymlConfiguration.set("end.z", (locations[1]!! as Location).z)
+            ymlConfiguration.set("end.yaw", (locations[1]!! as Location).yaw)
+            ymlConfiguration.set("end.pitch", (locations[1]!! as Location).pitch)
+        }
+
+        if (checkPoints.isNotEmpty()) {
+            ymlConfiguration.set("checkpoints", checkPoints)
+        }
+
+        if (locations[3] != null) {
+            ymlConfiguration.set("back.world", (locations[3]!! as Location).world.name)
+            ymlConfiguration.set("back.x", (locations[3]!! as Location).x)
+            ymlConfiguration.set("back.y", (locations[3]!! as Location).y)
+            ymlConfiguration.set("back.z", (locations[3]!! as Location).z)
+            ymlConfiguration.set("back.yaw", (locations[3]!! as Location).yaw)
+            ymlConfiguration.set("back.pitch", (locations[3]!! as Location).pitch)
         }
 
         ymlConfiguration.options().copyDefaults(true)
@@ -128,6 +163,10 @@ class Arena(val name: String, var locations: Array<Location?> = arrayOfNulls(2))
 
     fun addEndLocation(location: Location) {
         locations[1] = location
+    }
+
+    fun addCheckpointLocation(location: Location) {
+        checkPoints.add(location)
     }
 
     fun setOnlyFirst() {
@@ -143,5 +182,10 @@ class Arena(val name: String, var locations: Array<Location?> = arrayOfNulls(2))
         } catch (e: Exception) {
             false
         }
+    }
+
+    fun addBackLocation(location: Location) {
+        locations[3] = location
+
     }
 }

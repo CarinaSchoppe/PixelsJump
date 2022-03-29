@@ -11,14 +11,13 @@
 
 package de.carina.pixelsjump.util.inventory
 
-import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.inventory.Inventory
 
 
 class InventoryBuilder(name: String, size: Int) {
 
-
-    private val inventory: Inventory = org.bukkit.Bukkit.createInventory(null, size, Component.text(name))
+    private val inventory: Inventory = org.bukkit.Bukkit.createInventory(null, size, LegacyComponentSerializer.legacySection().deserialize(name))
     fun buildInventory(): Inventory {
         return inventory
     }

@@ -11,7 +11,7 @@
 
 package de.carina.pixelsjump.util.inventory
 
-import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Material
 import org.bukkit.inventory.meta.ItemMeta
 
@@ -20,13 +20,15 @@ class ItemBuilder(material: Material, amount: Int) {
     private val itemMeta: ItemMeta = itemStack.itemMeta
 
     fun addItemName(name: String): ItemBuilder {
-        itemMeta.displayName(Component.text(name))
+        itemMeta.displayName(
+            LegacyComponentSerializer.legacySection().deserialize(name)
+        )
         itemStack.itemMeta = itemMeta
         return this
     }
 
     fun addItemLore(lore: List<String>): ItemBuilder {
-        itemMeta.lore(lore.map { Component.text(it) })
+        itemMeta.lore(lore.map { LegacyComponentSerializer.legacySection().deserialize(it) })
         itemStack.itemMeta = itemMeta
         return this
     }
@@ -40,7 +42,6 @@ class ItemBuilder(material: Material, amount: Int) {
     fun addItemFlags(flags: Array<org.bukkit.inventory.ItemFlag>): ItemBuilder {
         itemMeta.addItemFlags(*flags)
         itemStack.itemMeta = itemMeta
-
         return this
     }
 

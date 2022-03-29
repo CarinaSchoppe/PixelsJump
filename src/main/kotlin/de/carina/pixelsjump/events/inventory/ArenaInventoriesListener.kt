@@ -11,7 +11,7 @@
 
 package de.carina.pixelsjump.events.inventory
 
-import net.kyori.adventure.text.Component
+import de.carina.pixelsjump.util.inventory.InventoryNames
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -20,13 +20,15 @@ import org.bukkit.event.inventory.InventoryClickEvent
 class ArenaInventoriesListener : Listener {
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
-        if (event.view.title() != Component.text("Arenas"))
+        if (PlainTextComponentSerializer.plainText().serialize(event.view.title()) != InventoryNames.ARENAS.text)
             return
         event.isCancelled = true
+        if (!event.whoClicked.hasPermission("pixelsjump.arenas"))
+            return
         val item = event.currentItem ?: return
         val player = event.whoClicked as org.bukkit.entity.Player
         val arenaName = PlainTextComponentSerializer.plainText().serialize(item.itemMeta.displayName()!!)
         player.closeInventory()
-        player.performCommand("pixelsjump join ${arenaName}")
+        player.performCommand("pixelsjump join $arenaName")
     }
 }

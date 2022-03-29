@@ -12,8 +12,9 @@
 package de.carina.pixelsjump.events.inventory
 
 import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.inventory.InventoryNames
 import de.carina.pixelsjump.util.inventory.Items
-import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -22,9 +23,11 @@ class CommandInventoryListener : Listener {
 
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
-        if (event.view.title() != Component.text("Arena Builder"))
+        if (LegacyComponentSerializer.legacySection().serialize(event.view.title()) != InventoryNames.ARENA_BUILDER.text)
             return
         event.isCancelled = true
+        if (!event.whoClicked.hasPermission("pixelsjump.setup"))
+            return
         val item = event.currentItem ?: return
         val player = event.whoClicked as org.bukkit.entity.Player
         if (PixelsJump.utility.arenaPlayerNames[player] == null) {
@@ -46,7 +49,6 @@ class CommandInventoryListener : Listener {
                     return
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} end")
-
             }
             Items.finishArenaBuildItem() -> {
                 if (!player.hasPermission("pixelsjump.addLocation.finish")) {
@@ -55,6 +57,20 @@ class CommandInventoryListener : Listener {
                 }
                 player.performCommand("pixelsjump finish ${PixelsJump.utility.arenaPlayerNames[player]}")
                 player.closeInventory()
+            }
+            Items.checkPointItem() -> {
+                if (!player.hasPermission("pixelsjump.addLocation.checkpoint")) {
+                    player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
+                    return
+                }
+                player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} checkpoint")
+            }
+            Items.backLocationItem() -> {
+                if (!player.hasPermission("pixelsjump.addLocation.back")) {
+                    player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
+                    return
+                }
+                player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} back")
             }
         }
 

@@ -13,6 +13,7 @@ package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.ArenaHelper
+import org.bukkit.Location
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -24,12 +25,12 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         if (!PixelsJump.utility.checkForArena(args[1], sender as Player)) return
         val arena = ArenaHelper.getArena(args[1])
         if (ArenaHelper.playersInArenas.contains(sender)) {
-            sender.sendMessage(PixelsJump.utility.messageConverter("arena-allready").replace("%arena%", args[1]))
+            sender.sendMessage(PixelsJump.utility.messageConverter("arena-allready").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
             return
         }
         arena.players.add(sender)
         ArenaHelper.playersInArenas.add(sender)
         sender.sendMessage(PixelsJump.utility.messageConverter("arena-join").replace("%arena%", args[1]))
-        sender.teleport(arena.locations[0]!!)
+        sender.teleport(arena.locations[0]!! as Location)
     }
 }

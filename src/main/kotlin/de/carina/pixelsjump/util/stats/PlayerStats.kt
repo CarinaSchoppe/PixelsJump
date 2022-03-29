@@ -13,7 +13,7 @@ package de.carina.pixelsjump.util.stats
 
 import java.util.*
 
-data class PlayerStats(var uuid: UUID, var maxBlocks: Int, var games: Int, var points: Int, var fails: Int, var wins: Int) {
+data class PlayerStats(var uuid: UUID, var maxBlocks: Int = 0, var games: Int = 0, var points: Int = 0, var fails: Int = 0, var wins: Int = 0) {
     fun addStats(values: Array<Int>) {
         this.maxBlocks += values[0]
         this.games += values[1]
