@@ -20,7 +20,7 @@ import kotlin.math.abs
 
 object BlockGenerator {
 
-    val playerBlockJumps = mutableMapOf<Player, Block>()
+    val playerBlock = mutableMapOf<Player, Block>()
     val playerCheckpoints = mutableMapOf<Player, Location>()
     val checkPointMaterial = Material.DIAMOND_BLOCK
     val endPointFinish = Material.GOLD_BLOCK
@@ -46,24 +46,27 @@ object BlockGenerator {
     }
 
     fun generateBlock(player: Player) {
-        player.sendMessage("test1")
         playerJumps[player] = (playerJumps[player] ?: 0) + 1
         val type = blocks.values().random()
         var length = Random().nextInt(4) + 1
         val height = Random().nextInt(1)
-        val x = Random().nextInt(3) - 1
-        val z = Random().nextInt(3) - 1
+        var x = Random().nextInt(3) - 1
+        var z = Random().nextInt(3) - 1
         if (height == 1 && length == 4) {
             length = 3
         }
         if (abs(x) == 1 && abs(z) == 1) {
             length = 3
         }
+        if (x == 0 && z == 0) {
+            x = 1
+            z = 2
+        }
         val newLocation = player.location.add((length * x).toDouble(), height.toDouble(), (length * z).toDouble())
         val block = player.world.getBlockAt(newLocation)
         playerJumpBlocks[player]!!.add(block)
         block.type = type.material
-        playerBlockJumps[player] = block
+        playerBlock[player] = block
         if (playerJumps[player] ?: 0 >= 2) {
             player.world.getBlockAt(playerJumpBlocks[player]!![0].location).type = Material.AIR
             playerJumpBlocks[player]!!.removeAt(0)

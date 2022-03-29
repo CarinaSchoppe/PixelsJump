@@ -21,7 +21,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 
-class PlayerMovesInJumpNRun : Listener {
+class PlayerMovesInJumpnRun : Listener {
 
     @EventHandler
     fun playerMovesInJumpNRun(event: PlayerMoveEvent) {
@@ -29,7 +29,7 @@ class PlayerMovesInJumpNRun : Listener {
 
         if (!ArenaHelper.playersInArenas.contains(event.player)) return
 
-        if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerBlockJumps[event.player]!!.location.y - 2) {
+        if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerBlock[event.player]!!.location.y - 2) {
             if (ArenaHelper.arenas.find { it.players.contains(event.player) }!!.single == true) {
                 event.player.sendMessage(PixelsJump.utility.messageConverter("arena-player-failed").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
                 Statistics.addFail(event.player)
@@ -53,7 +53,7 @@ class PlayerMovesInJumpNRun : Listener {
             event.player.performCommand("pixelsjump leave")
             return
         }
-        if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlockJumps[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlockJumps[event.player]!!.location.toCenterLocation()) {
+        if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
             BlockGenerator.generateBlock(event.player)
             Statistics.addPoints(event.player, Configuration.pointsPerJump)
         }
