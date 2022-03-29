@@ -26,6 +26,9 @@ class PlayerJoin : Listener {
                 return
             }
         }
+
         Statistics.statistics.add(PlayerStats(event.player.uniqueId))
+        Statistics.addStats(event.player)
+
     }
 }

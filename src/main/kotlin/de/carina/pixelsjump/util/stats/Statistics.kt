@@ -26,7 +26,7 @@ object Statistics {
     val statistics = mutableListOf<PlayerStats>()
     private fun loadPlayers() {
         for (player in ymlConfiguration.getKeys(false)) {
-            statistics.add(PlayerStats(ymlConfiguration.get("$player") as UUID, ymlConfiguration.getInt("$player.maxBlocks"), ymlConfiguration.getInt("$player.games"), ymlConfiguration.getInt("$player.points"), ymlConfiguration.getInt("$player.fails"), ymlConfiguration.getInt("$player.wins")))
+            statistics.add(PlayerStats(UUID.fromString(player), ymlConfiguration.getInt("$player.maxBlocks"), ymlConfiguration.getInt("$player.games"), ymlConfiguration.getInt("$player.points"), ymlConfiguration.getInt("$player.fails"), ymlConfiguration.getInt("$player.wins")))
             Bukkit.getConsoleSender().sendMessage(
                 PixelsJump.utility.messageConverter("stats-loaded").replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId.equals(player) }?.name ?: "unknown")
             )
@@ -43,9 +43,8 @@ object Statistics {
         PixelsJump.utility.sendMessage("loading-statistics-end")
     }
 
-    fun addStats(player: Player, values: Array<Int>) {
+    fun addStats(player: Player) {
         val statsPlayer = getStatsPlayer(player.uniqueId)!!
-        statsPlayer.addStats(values)
         ymlConfiguration.set("${player.uniqueId}.maxBlocks", statsPlayer.maxBlocks)
         ymlConfiguration.set("${player.uniqueId}.games", statsPlayer.games)
         ymlConfiguration.set("${player.uniqueId}.points", statsPlayer.points)
