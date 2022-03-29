@@ -12,6 +12,7 @@
 package de.carina.pixelsjump.util.arena
 
 import org.bukkit.Location
+import org.bukkit.block.BlockFace
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import java.io.File
@@ -63,11 +64,11 @@ class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(3)) {
     }
 
     fun addStartLocation(location: Location) {
-        locations[0] = location
+        locations[0] = location.toBlockLocation()
     }
 
     fun addCheckpointLocation(location: Location) {
-        checkPoints.add(location)
+        checkPoints.add(location.block.getRelative(BlockFace.DOWN).location.toCenterLocation())
     }
 
     fun setOnlyFirst() {
@@ -86,7 +87,7 @@ class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(3)) {
     }
 
     fun addBackLocation(location: Location) {
-        locations[2] = location
+        locations[2] = location.toBlockLocation()
 
     }
 }

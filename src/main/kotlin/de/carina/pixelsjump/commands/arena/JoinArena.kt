@@ -53,7 +53,8 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         BlockGenerator.playerCheckpoints[player] = player.location
         player.inventory.clear()
         player.inventory.setItem(8, Items.toCheckPointItem())
-        BlockGenerator.generateBlock(player)
+        if (arena.isSingleArena())
+            BlockGenerator.generateBlock(player)
         BlockGenerator.playerJumps[player] = 0
         Bukkit.getOnlinePlayers().forEach {
             if (it != sender) {

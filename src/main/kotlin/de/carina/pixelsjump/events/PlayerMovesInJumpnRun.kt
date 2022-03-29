@@ -29,25 +29,28 @@ class PlayerMovesInJumpnRun : Listener {
 
         if (!ArenaHelper.playersInArenas.contains(event.player)) return
         val arena = ArenaHelper.arenas.find { it.players.contains(event.player) }!!
-        if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerBlock[event.player]!!.location.y - 2) {
-            if (ArenaHelper.arenas.find { it.players.contains(event.player) }!!.single == true) {
+        if (arena.isSingleArena()) {
+            if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerBlock[event.player]!!.location.y - 2) {
                 event.player.sendMessage(PixelsJump.utility.messageConverter("arena-player-failed").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
                 Statistics.addFail(event.player)
                 event.player.performCommand("pixelsjump leave")
                 return
-            } else {
+            }
+        } else {
+            if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerCheckpoints[event.player]!!.y - 2) {
                 event.player.sendMessage(PixelsJump.utility.messageConverter("arena-player-fell").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
                 Statistics.addFail(event.player)
                 event.player.teleport(BlockGenerator.playerCheckpoints[event.player]!!)
                 return
             }
         }
-        if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.checkPointMaterial) {
-            BlockGenerator.playerCheckpoints[event.player] = event.player.location.block.getRelative(BlockFace.DOWN).location
+
+        if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.checkPointMaterial && BlockGenerator.playerCheckpoints[event.player]!!.toCenterLocation() != event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()) {
+            BlockGenerator.playerCheckpoints[event.player] = event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()
             event.player.sendMessage(PixelsJump.utility.messageConverter("arena-checkpoint-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
 
             return
-        } else if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.endPointFinish) {
+        } else if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.endPointFinish && BlockGenerator.playerCheckpoints[event.player]!!.toCenterLocation() != event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()) {
             Statistics.addWin(event.player)
             event.player.sendMessage(PixelsJump.utility.messageConverter("arena-goal-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
             event.player.performCommand("pixelsjump leave")
@@ -55,18 +58,21 @@ class PlayerMovesInJumpnRun : Listener {
         }
 
 
-
-        if (event.player.location == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1] && arena.checkPoints.size == arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1) {
+        if (event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1].toCenterLocation())
+            println("sikfjsüijf")
+        else
+            println(event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation().toString() + " text: " + arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1].toCenterLocation())
+        if (event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1].toCenterLocation() && arena.checkPoints.size == arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1) {
             Statistics.addWin(event.player)
             event.player.sendMessage(PixelsJump.utility.messageConverter("arena-goal-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
             event.player.performCommand("pixelsjump leave")
             return
-        } else if (event.player.location == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1]) {
+        } else if (event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1].toCenterLocation()) {
             BlockGenerator.playerCheckpoints[event.player] = arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1]
             event.player.sendMessage(PixelsJump.utility.messageConverter("arena-checkpoint-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
             return
         }
-        
+
         if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
             BlockGenerator.generateBlock(event.player)
             Statistics.addPoints(event.player, Configuration.pointsPerJump)
