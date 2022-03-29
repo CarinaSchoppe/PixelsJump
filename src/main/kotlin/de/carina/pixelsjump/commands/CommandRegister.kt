@@ -39,7 +39,6 @@ class CommandRegister : CommandExecutor {
             "join" -> JoinArena(sender, command, args).execute()
             "leave" -> LeaveArena(sender, command, args).execute()
             "stats" -> StatsCommand(sender, command, args).execute()
-            "list" -> LocationList(sender, command, args).execute()
         }
 
 
