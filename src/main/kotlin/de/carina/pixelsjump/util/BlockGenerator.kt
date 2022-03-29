@@ -60,7 +60,7 @@ object BlockGenerator {
         }
         if (x == 0 && z == 0) {
             x = 1
-            z = 2
+            z = -1
         }
         val newLocation = player.location.add((length * x).toDouble(), height.toDouble(), (length * z).toDouble())
         val block = player.world.getBlockAt(newLocation)
