@@ -13,7 +13,9 @@ package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
+import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.inventory.Items
 import de.carina.pixelsjump.util.stats.Statistics
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
@@ -33,22 +35,30 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
             sender.sendMessage(PixelsJump.utility.messageConverter("arena-allready").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
             return
         }
-        arena.players.add(sender)
-        ArenaHelper.playersInArenas.add(sender)
-        sender.sendMessage(PixelsJump.utility.messageConverter("arena-join").replace("%arena%", args[1]))
+
+        addPlayerToArena(sender, arena)
+    }
+
+    private fun addPlayerToArena(player: Player, arena: Arena) {
+        arena.players.add(player)
+        ArenaHelper.playersInArenas.add(player)
+        player.sendMessage(PixelsJump.utility.messageConverter("arena-join").replace("%arena%", args[1]))
+
+        player.playerListName(LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix + "§7" + sender.name))
+        Statistics.joinArena(player)
+        player.teleport(arena.locations[0]!! as Location)
+        BlockGenerator.playerJumpBlocks[player] = mutableListOf()
+        PixelsJump.utility.playerInventory[player] = player.inventory
+        player.gameMode = GameMode.SURVIVAL
+        BlockGenerator.playerCheckpoints[player] = player.location
+        player.inventory.clear()
+        player.inventory.setItem(8, Items.toCheckPointItem())
+        BlockGenerator.generateBlock(player)
+        BlockGenerator.playerJumps[player] = 0
         Bukkit.getOnlinePlayers().forEach {
             if (it != sender) {
-                it.hidePlayer(PixelsJump.instance, sender)
+                it.hidePlayer(PixelsJump.instance, player)
             }
         }
-        sender.playerListName(LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix + "§7" + sender.name))
-        Statistics.joinArena(sender)
-        sender.teleport(arena.locations[0]!! as Location)
-        BlockGenerator.playerJumpBlocks[sender] = mutableListOf()
-        PixelsJump.utility.playerInventory[sender] = sender.inventory
-        sender.gameMode = GameMode.SURVIVAL
-        sender.inventory.clear()
-        BlockGenerator.generateBlock(sender)
-        BlockGenerator.playerJumps[sender] = 0
     }
 }

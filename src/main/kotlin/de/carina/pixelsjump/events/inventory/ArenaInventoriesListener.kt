@@ -21,6 +21,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 class ArenaInventoriesListener : Listener {
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
+
         if (LegacyComponentSerializer.legacySection().serialize(event.view.title()) != InventoryNames.ARENAS.text)
             return
         event.isCancelled = true
