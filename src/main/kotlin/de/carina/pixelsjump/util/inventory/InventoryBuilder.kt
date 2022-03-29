@@ -13,22 +13,23 @@ package de.carina.pixelsjump.util.inventory
 
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.ItemStack
 
 
-class InventoryBuilder(name: String, size: Int) {
+class InventoryBuilder(val name: String, size: Int) {
 
-    private val inventory: Inventory = org.bukkit.Bukkit.createInventory(null, size, LegacyComponentSerializer.legacySection().deserialize(name))
+    private var inventory: Inventory = org.bukkit.Bukkit.createInventory(null, size, LegacyComponentSerializer.legacySection().deserialize(name))
     fun buildInventory(): Inventory {
         return inventory
     }
 
-    fun addItem(item: org.bukkit.inventory.ItemStack, slot: Int): InventoryBuilder {
+    fun addItem(item: ItemStack, slot: Int): InventoryBuilder {
         inventory.setItem(slot, item)
         return this
     }
 
 
-    fun fillInventory(item: org.bukkit.inventory.ItemStack): InventoryBuilder {
+    fun fillInventory(item: ItemStack): InventoryBuilder {
         for (i in 0 until inventory.size) {
             if (inventory.getItem(i) == null) {
                 inventory.setItem(i, item)

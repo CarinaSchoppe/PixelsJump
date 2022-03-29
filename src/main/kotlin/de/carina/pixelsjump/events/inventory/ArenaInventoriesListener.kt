@@ -29,6 +29,7 @@ class ArenaInventoriesListener : Listener {
             return
         val item = event.currentItem ?: return
         val player = event.whoClicked as org.bukkit.entity.Player
+
         val arenaName = PlainTextComponentSerializer.plainText().serialize(item.itemMeta.displayName()!!)
         player.closeInventory()
         player.performCommand("pixelsjump join $arenaName")

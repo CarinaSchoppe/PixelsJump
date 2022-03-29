@@ -20,6 +20,6 @@ enum class ItemNames(val text: String) {
     ADD_BACK_ARENA("§dAdd Back Arena"),
     CHECKPOINT("§dCheckpoint"),
     ARENA_DAMAGE("§dArena Damage"),
-    FINISH_ARENA("§dFinish Arena");
+    FINISH_ARENA("§dFinish Arena"),
 
 }

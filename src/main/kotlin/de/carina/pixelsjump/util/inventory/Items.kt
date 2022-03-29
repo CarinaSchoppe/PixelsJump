@@ -27,9 +27,9 @@ object Items {
     }
 
     fun toCheckPointItem(): ItemStack {
-        return ItemBuilder(Material.BARRIER, 1).addItemName(ItemNames.SINGLE_JUMP_N_RUN.text).addItemLore(listOf("§aClick to go back to your latest checkpoint")).build()
-
+        return ItemBuilder(Material.BARRIER, 1).addItemName(ItemNames.CHECKPOINT.text).addItemLore(listOf("§aClick to go back to your latest checkpoint")).build()
     }
+
 
     fun arenaDamageItem(): ItemStack {
         return ItemBuilder(Material.DIAMOND_SWORD, 1).addItemName(ItemNames.ARENA_DAMAGE.text).addItemLore(listOf("§aClick to add activate the damage for the arena")).build()
