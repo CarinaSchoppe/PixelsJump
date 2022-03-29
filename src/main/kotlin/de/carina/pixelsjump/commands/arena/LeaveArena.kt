@@ -12,7 +12,7 @@
 package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
-import de.carina.pixelsjump.util.ArenaHelper
+import de.carina.pixelsjump.util.arena.ArenaHelper
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 

@@ -11,7 +11,7 @@
 
 package de.carina.pixelsjump.util.inventory
 
-import de.carina.pixelsjump.util.ArenaHelper
+import de.carina.pixelsjump.util.arena.ArenaHelper
 import org.bukkit.inventory.Inventory
 
 object Inventories {

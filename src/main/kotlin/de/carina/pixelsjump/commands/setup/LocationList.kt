@@ -11,12 +11,16 @@
 
 package de.carina.pixelsjump.commands.setup
 
+import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.arena.ArenaHelper
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
 class LocationList(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
     fun execute() {
-
+        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "list", "pixelsjump.list"))
+            return
+        sender.sendMessage(PixelsJump.prefix + ": " + ArenaHelper.toArenaString())
     }
 
 }

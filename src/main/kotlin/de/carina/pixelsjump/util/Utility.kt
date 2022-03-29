@@ -12,6 +12,7 @@
 package de.carina.pixelsjump.util
 
 import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor

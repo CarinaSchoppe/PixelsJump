@@ -15,7 +15,7 @@ import de.carina.pixelsjump.commands.CommandRegister
 import de.carina.pixelsjump.events.extra.PlayerJoin
 import de.carina.pixelsjump.events.inventory.ArenaInventoriesListener
 import de.carina.pixelsjump.events.inventory.CommandInventoryListener
-import de.carina.pixelsjump.util.ArenaHelper
+import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.stats.Statistics
