@@ -64,5 +64,12 @@ class PixelsJump : JavaPlugin() {
         pluginManager.registerEvents(PlayerJoin(), this)
         pluginManager.registerEvents(PlayerDamage(), this)
         pluginManager.registerEvents(PlayerMovesInJumpNRun(), this)
+
+        extra()
+    }
+
+    fun extra() {
+        Configuration.pointsPerJump = Configuration.ymlConfiguration.getInt("jump-points")
+
     }
 }

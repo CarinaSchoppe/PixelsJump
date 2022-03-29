@@ -85,6 +85,15 @@ object Statistics {
         }
     }
 
+    fun addPoints(player: Player, amount: Int) {
+        val playerStats = getStatsPlayer(player.uniqueId)!!
+        if (playerStats != null) {
+            playerStats.points += amount
+            ymlConfiguration.set("${player.uniqueId}.points", playerStats.points)
+            saveStatsFile()
+        }
+    }
+
     fun addWin(player: Player) {
         val playerStats = getStatsPlayer(player.uniqueId)!!
         if (playerStats != null) {

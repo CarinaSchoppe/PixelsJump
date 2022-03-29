@@ -17,7 +17,7 @@ import java.io.File
 
 object Configuration {
 
-
+    var pointsPerJump = 1
     private const val path = "plugins/PixelsJumpRemastered/config.yml"
     private lateinit var configFile: File
     lateinit var ymlConfiguration: YamlConfiguration
@@ -25,7 +25,9 @@ object Configuration {
         configFile = File(path)
         ymlConfiguration = YamlConfiguration.loadConfiguration(configFile)
 
+
         ymlConfiguration.addDefault("jump-length", 50)
+        ymlConfiguration.addDefault("jump-points", 1)
         ymlConfiguration.addDefault("prefix", "&8[&6PixelsJump&8]&r")
         saveConfigFile()
     }

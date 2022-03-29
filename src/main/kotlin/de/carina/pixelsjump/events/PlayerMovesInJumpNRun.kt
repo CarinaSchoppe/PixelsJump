@@ -14,6 +14,7 @@ package de.carina.pixelsjump.events
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.stats.Statistics
 import org.bukkit.Location
 import org.bukkit.block.BlockFace
@@ -54,6 +55,10 @@ class PlayerMovesInJumpNRun : Listener {
             event.player.performCommand("pixelsjump leave")
             return
         }
-        if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlockJumps[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlockJumps[event.player]!!.location.toCenterLocation()) BlockGenerator.generateBlock(event.player)
+        if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlockJumps[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlockJumps[event.player]!!.location.toCenterLocation()) {
+            BlockGenerator.generateBlock(event.player)
+            Statistics.addPoints(event.player, Configuration.pointsPerJump)
+        }
+
     }
 }
