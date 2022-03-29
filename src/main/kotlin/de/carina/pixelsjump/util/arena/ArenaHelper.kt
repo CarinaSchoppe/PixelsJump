@@ -99,7 +99,7 @@ object ArenaHelper {
         for (arena in arenas) {
             string += "§6" + arena.name + "§7, "
         }
-        return string.substring(0, string.length - 5)
+        return string.substring(0, string.length - 2)
     }
 
     fun getArena(name: String): Arena {
