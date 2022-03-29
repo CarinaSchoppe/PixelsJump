@@ -28,7 +28,7 @@ class PlayerMovesInJumpnRun : Listener {
         if (!event.player.hasPermission("pixelsjump.jumpnrun")) return
 
         if (!ArenaHelper.playersInArenas.contains(event.player)) return
-
+        val arena = ArenaHelper.arenas.find { it.players.contains(event.player) }!!
         if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerBlock[event.player]!!.location.y - 2) {
             if (ArenaHelper.arenas.find { it.players.contains(event.player) }!!.single == true) {
                 event.player.sendMessage(PixelsJump.utility.messageConverter("arena-player-failed").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
@@ -53,6 +53,20 @@ class PlayerMovesInJumpnRun : Listener {
             event.player.performCommand("pixelsjump leave")
             return
         }
+
+
+
+        if (event.player.location == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1] && arena.checkPoints.size == arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1) {
+            Statistics.addWin(event.player)
+            event.player.sendMessage(PixelsJump.utility.messageConverter("arena-goal-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
+            event.player.performCommand("pixelsjump leave")
+            return
+        } else if (event.player.location == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1]) {
+            BlockGenerator.playerCheckpoints[event.player] = arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1]
+            event.player.sendMessage(PixelsJump.utility.messageConverter("arena-checkpoint-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
+            return
+        }
+        
         if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
             BlockGenerator.generateBlock(event.player)
             Statistics.addPoints(event.player, Configuration.pointsPerJump)

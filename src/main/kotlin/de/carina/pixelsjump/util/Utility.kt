@@ -70,6 +70,7 @@ class Utility {
 
 
     val arenaPlayerNames = mutableMapOf<Player, String?>()
+
     fun sendMessage(messagePath: String) {
         Bukkit.getConsoleSender().sendMessage(PixelsJump.prefix + " " + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!))
     }
