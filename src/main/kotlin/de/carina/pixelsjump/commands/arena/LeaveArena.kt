@@ -23,7 +23,7 @@ import org.bukkit.entity.Player
 class LeaveArena(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
-        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "leave", "pixelsjump.leave")) return
+        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "leave", "pixelsjump.leave")) return
         if (!ArenaHelper.playersInArenas.contains(sender)) {
             sender.sendMessage(PixelsJump.utility.messageConverter("not-in-arena"))
             return
@@ -39,6 +39,6 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         BlockGenerator.playerCheckpoints.remove(sender)
         BlockGenerator.playerBlockJumps.remove(sender)
         BlockGenerator.playerJumpBlocks.remove(sender)
-        sender.sendMessage(PixelsJump.utility.messageConverter("leave-arena").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
+        sender.sendMessage(PixelsJump.utility.messageConverter("arena-leave").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
     }
 }

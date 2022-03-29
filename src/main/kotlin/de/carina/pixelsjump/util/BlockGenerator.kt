@@ -16,6 +16,7 @@ import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
 import java.util.*
+import kotlin.math.abs
 
 object BlockGenerator {
 
@@ -45,6 +46,7 @@ object BlockGenerator {
     }
 
     fun generateBlock(player: Player) {
+        player.sendMessage("test1")
         playerJumps[player] = (playerJumps[player] ?: 0) + 1
         val type = blocks.values().random()
         var length = Random().nextInt(4) + 1
@@ -54,15 +56,17 @@ object BlockGenerator {
         if (height == 1 && length == 4) {
             length = 3
         }
+        if (abs(x) == 1 && abs(z) == 1) {
+            length = 3
+        }
         val newLocation = player.location.add((length * x).toDouble(), height.toDouble(), (length * z).toDouble())
         val block = player.world.getBlockAt(newLocation)
         playerJumpBlocks[player]!!.add(block)
         block.type = type.material
         playerBlockJumps[player] = block
         if (playerJumps[player] ?: 0 >= 2) {
-            playerJumpBlocks[player]!!.reverse()
             player.world.getBlockAt(playerJumpBlocks[player]!![0].location).type = Material.AIR
-            playerJumpBlocks[player]!!.reverse()
+            playerJumpBlocks[player]!!.removeAt(0)
         }
     }
 }

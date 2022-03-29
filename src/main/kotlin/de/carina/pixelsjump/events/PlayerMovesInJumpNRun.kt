@@ -32,7 +32,6 @@ class PlayerMovesInJumpNRun : Listener {
 
         if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerBlockJumps[event.player]!!.location.y - 2) {
             if (ArenaHelper.arenas.find { it.players.contains(event.player) }!!.single == true) {
-
                 event.player.sendMessage(PixelsJump.utility.messageConverter("arena-player-failed").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
                 Statistics.addFail(event.player)
                 event.player.teleport(ArenaHelper.arenas.find { it.players.contains(event.player) }!!.locations[3] as Location)
