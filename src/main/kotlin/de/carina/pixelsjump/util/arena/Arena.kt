@@ -33,8 +33,8 @@ class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(4)) {
     private val ymlConfiguration: YamlConfiguration = YamlConfiguration.loadConfiguration(file)
 
     fun saveArena() {
-        ymlConfiguration.addDefault("single", single ?: false)
-        ymlConfiguration.addDefault("damage", single ?: false)
+        ymlConfiguration.set("single", single ?: false)
+        ymlConfiguration.set("damage", single ?: false)
         if (locations[0] != null) {
             ymlConfiguration.set("start.world", (locations[0]!! as Location).world.name)
             ymlConfiguration.set("start.x", (locations[0]!! as Location).x)
