@@ -34,7 +34,7 @@ class PlayerMovesInJumpNRun : Listener {
             if (ArenaHelper.arenas.find { it.players.contains(event.player) }!!.single == true) {
                 event.player.sendMessage(PixelsJump.utility.messageConverter("arena-player-failed").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
                 Statistics.addFail(event.player)
-                event.player.teleport(ArenaHelper.arenas.find { it.players.contains(event.player) }!!.locations[3] as Location)
+                event.player.teleport(ArenaHelper.arenas.find { it.players.contains(event.player) }!!.locations[2] as Location)
                 return
             } else {
                 event.player.sendMessage(PixelsJump.utility.messageConverter("arena-player-fell").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))

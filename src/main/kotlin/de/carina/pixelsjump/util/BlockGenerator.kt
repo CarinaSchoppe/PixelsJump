@@ -50,7 +50,7 @@ object BlockGenerator {
         playerJumps[player] = (playerJumps[player] ?: 0) + 1
         val type = blocks.values().random()
         var length = Random().nextInt(4) + 1
-        val height = Random().nextInt(2)
+        val height = Random().nextInt(1)
         val x = Random().nextInt(3) - 1
         val z = Random().nextInt(3) - 1
         if (height == 1 && length == 4) {
