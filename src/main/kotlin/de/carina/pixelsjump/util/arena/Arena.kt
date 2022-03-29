@@ -75,16 +75,6 @@ class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(3)) {
         ymlConfiguration.set("single", true)
     }
 
-    fun isSingleArena(): Boolean {
-        return try {
-            if (single == null) {
-                single = ymlConfiguration.getBoolean("single")
-            }
-            single!!
-        } catch (e: Exception) {
-            false
-        }
-    }
 
     fun addBackLocation(location: Location) {
         locations[2] = location.toBlockLocation()
