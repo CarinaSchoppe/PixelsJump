@@ -47,6 +47,8 @@ object Messages {
         ymlConfiguration.addDefault("loading-statistics-end", "&7Loading player statistics finished!")
         ymlConfiguration.addDefault("arena-single", "&aYou successfully made the arena a single jump Arena with the name &6%arena%&a!")
         ymlConfiguration.addDefault("jump-stop", "&7You stopped the jump ´n run with the name &6%name%&7!")
+        ymlConfiguration.addDefault("arena-damage-yes", "&aYou successfully enabled the damage for arena &6%arena%&a!")
+        ymlConfiguration.addDefault("arena-damage-no", "&cYou successfully disabled the damage for arena &6%arena%&c!")
         ymlConfiguration.addDefault("jump-start", "&aYou started the jump ´n run with the name &6%name%&7!")
 
 

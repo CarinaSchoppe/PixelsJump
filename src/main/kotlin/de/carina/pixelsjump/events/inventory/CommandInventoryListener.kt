@@ -72,6 +72,13 @@ class CommandInventoryListener : Listener {
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} back")
             }
+            Items.arenaDamageItem() -> {
+                if (!player.hasPermission("pixelsjump.arena.damage")) {
+                    player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
+                    return
+                }
+                player.performCommand("pixelsjump damage ${PixelsJump.utility.arenaPlayerNames[player]}")
+            }
         }
 
 

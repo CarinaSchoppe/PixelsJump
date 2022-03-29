@@ -18,6 +18,7 @@ enum class ItemNames(val text: String) {
     ARENA_FRAME_COLOR("§b"),
     ADD_CHECKPOINT("§dAdd Checkpoint"),
     ADD_BACK_ARENA("§dAdd Back Arena"),
+    ARENA_DAMAGE("§dArena Damage"),
     FINISH_ARENA("§dFinish Arena");
 
 }

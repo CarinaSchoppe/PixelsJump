@@ -26,6 +26,11 @@ object Items {
 
     }
 
+    fun arenaDamageItem(): ItemStack {
+        return ItemBuilder(Material.DIAMOND_SWORD, 1).addItemName(ItemNames.ARENA_DAMAGE.text).addItemLore(listOf("§aClick to add activate the damage for the arena")).build()
+
+    }
+
     fun checkPointItem(): ItemStack {
         return ItemBuilder(Material.IRON_HOE, 1).addItemName(ItemNames.ADD_CHECKPOINT.text).addItemLore(listOf("§aClick to add a new Checkpoint to the Arena")).build()
     }
