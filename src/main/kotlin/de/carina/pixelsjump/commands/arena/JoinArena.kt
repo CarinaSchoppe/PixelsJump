@@ -13,6 +13,7 @@ package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.stats.Statistics
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -39,7 +40,7 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
             }
         }
         sender.playerListName(LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix + "§7" + sender.name))
-
+        Statistics.joinArena(sender)
         sender.teleport(arena.locations[0]!! as Location)
     }
 }

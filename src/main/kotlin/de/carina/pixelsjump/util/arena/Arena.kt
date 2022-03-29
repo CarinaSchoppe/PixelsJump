@@ -17,12 +17,12 @@ import org.bukkit.entity.Player
 import java.io.File
 
 
-class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(4)) {
+class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(3)) {
     val checkPoints: MutableList<Location> = mutableListOf()
 
     init {
-        if (locations[2] != null) {
-            checkPoints.addAll(locations[2] as MutableList<Location>)
+        if (locations[1] != null) {
+            checkPoints.addAll(locations[1] as MutableList<Location>)
         }
     }
 
@@ -43,26 +43,19 @@ class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(4)) {
             ymlConfiguration.set("start.yaw", (locations[0]!! as Location).yaw)
             ymlConfiguration.set("start.pitch", (locations[0]!! as Location).pitch)
         }
-        if (locations[1] != null) {
-            ymlConfiguration.set("end.world", (locations[1]!! as Location).world.name)
-            ymlConfiguration.set("end.x", (locations[1]!! as Location).x)
-            ymlConfiguration.set("end.y", (locations[1]!! as Location).y)
-            ymlConfiguration.set("end.z", (locations[1]!! as Location).z)
-            ymlConfiguration.set("end.yaw", (locations[1]!! as Location).yaw)
-            ymlConfiguration.set("end.pitch", (locations[1]!! as Location).pitch)
-        }
+
 
         if (checkPoints.isNotEmpty()) {
             ymlConfiguration.set("checkpoints", checkPoints)
         }
 
-        if (locations[3] != null) {
-            ymlConfiguration.set("back.world", (locations[3]!! as Location).world.name)
-            ymlConfiguration.set("back.x", (locations[3]!! as Location).x)
-            ymlConfiguration.set("back.y", (locations[3]!! as Location).y)
-            ymlConfiguration.set("back.z", (locations[3]!! as Location).z)
-            ymlConfiguration.set("back.yaw", (locations[3]!! as Location).yaw)
-            ymlConfiguration.set("back.pitch", (locations[3]!! as Location).pitch)
+        if (locations[2] != null) {
+            ymlConfiguration.set("back.world", (locations[2]!! as Location).world.name)
+            ymlConfiguration.set("back.x", (locations[2]!! as Location).x)
+            ymlConfiguration.set("back.y", (locations[2]!! as Location).y)
+            ymlConfiguration.set("back.z", (locations[2]!! as Location).z)
+            ymlConfiguration.set("back.yaw", (locations[2]!! as Location).yaw)
+            ymlConfiguration.set("back.pitch", (locations[2]!! as Location).pitch)
         }
 
         ymlConfiguration.options().copyDefaults(true)
@@ -71,10 +64,6 @@ class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(4)) {
 
     fun addStartLocation(location: Location) {
         locations[0] = location
-    }
-
-    fun addEndLocation(location: Location) {
-        locations[1] = location
     }
 
     fun addCheckpointLocation(location: Location) {
@@ -97,7 +86,7 @@ class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(4)) {
     }
 
     fun addBackLocation(location: Location) {
-        locations[3] = location
+        locations[2] = location
 
     }
 }

@@ -32,13 +32,12 @@ object Messages {
         ymlConfiguration.addDefault("arena-join", "&7You were teleported to the arena &6%arena%&7!")
         ymlConfiguration.addDefault("arena-allready", "&cYou are allready in the arena &6%arena%&c!")
         ymlConfiguration.addDefault("add-checkpoint", "&aYou added a checkpoint to the arena &6%arena%&a, Checkpoints: &6%number%&a!")
-        ymlConfiguration.addDefault("player-stats", "&7Your Stats: &6%wins%&7 Wins, &6%games%&7 Games, &6%blocks%&7 Max-Blocks, &6%fails%&7 Fails, &6%points%&7 Points")
+        ymlConfiguration.addDefault("player-stats", "&7Your Stats: &6%wins%&7 Wins, &6%games%&7 Games, &6%fails%&7 Fails, &6%points%&7 Points")
         ymlConfiguration.addDefault("player-stats-other", "&6%player% &7Stats: &6%wins%&7 Wins, &6%games%&7 Games, &6%blocks%&7 Max-Blocks, &6%fails%&7 Fails, &6%points%&7 Points")
         ymlConfiguration.addDefault("player-no-stats", "&cThe Player &6%player% &cdoesnt have any stats cuz he never joined!")
         ymlConfiguration.addDefault("arena-loaded", "&7Loaded the arena &6%arena%&7!")
         ymlConfiguration.addDefault("stats-loaded", "&7Loaded the stats for player &6%player%&7!")
         ymlConfiguration.addDefault("add-start", "&aYou successfully added a start point for arena &6%arena%&a!")
-        ymlConfiguration.addDefault("add-end", "&aYou successfully added a end point for arena &6%arena%&a!")
         ymlConfiguration.addDefault("no-jump", "&cYou are not in a jump ´n run!")
         ymlConfiguration.addDefault("arena-saved", "&aYou successfully saved the arena &6%arena%&a!")
         ymlConfiguration.addDefault("loading-arenas-start", "&7Loading arenas...")
@@ -49,6 +48,8 @@ object Messages {
         ymlConfiguration.addDefault("jump-stop", "&7You stopped the jump ´n run with the name &6%name%&7!")
         ymlConfiguration.addDefault("arena-damage-yes", "&aYou successfully enabled the damage for arena &6%arena%&a!")
         ymlConfiguration.addDefault("arena-damage-no", "&cYou successfully disabled the damage for arena &6%arena%&c!")
+        ymlConfiguration.addDefault("arena-player-failed", "&cYou failed the arena &6%arena%&c!")
+        ymlConfiguration.addDefault("arena-player-fell", "&cYou fell in the arena &6%arena%&c you went back to your last checkpoint!")
         ymlConfiguration.addDefault("jump-start", "&aYou started the jump ´n run with the name &6%name%&7!")
 
 

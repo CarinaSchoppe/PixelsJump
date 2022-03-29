@@ -19,9 +19,6 @@ class LocationAdder(private val sender: CommandSender, private val command: Comm
         if (args[2].equals("start", true)) {
             arena.addStartLocation(player.location)
             sender.sendMessage(PixelsJump.utility.messageConverter("add-start").replace("%arena%", args[1]))
-        } else if (args[2].equals("end", true)) {
-            arena.addEndLocation(player.location)
-            sender.sendMessage(PixelsJump.utility.messageConverter("add-end").replace("%arena%", args[1]))
         } else if (args[2].equals("checkpoint", true)) {
             arena.addCheckpointLocation(player.location)
             sender.sendMessage(PixelsJump.utility.messageConverter("add-checkpoint").replace("%arena%", args[1]).replace("%number%", arena.checkPoints.size.toString()))

@@ -34,9 +34,9 @@ class StatsCommand(private val sender: CommandSender, private val command: Comma
 
         val stats = Statistics.statistics.find { it.uuid == Bukkit.getOfflinePlayerIfCached(args[1])!!.uniqueId }!!
         if ((sender as Player).uniqueId == stats.uuid)
-            sender.sendMessage(PixelsJump.utility.messageConverter("player-stats").replace("%wins%", stats.wins.toString()).replace("%fails%", stats.fails.toString()).replace("%blocks%", stats.maxBlocks.toString()).replace("%games%", stats.games.toString()).replace("%points%", stats.points.toString()))
+            sender.sendMessage(PixelsJump.utility.messageConverter("player-stats").replace("%wins%", stats.wins.toString()).replace("%fails%", stats.fails.toString()).replace("%games%", stats.games.toString()).replace("%points%", stats.points.toString()))
         else
-            sender.sendMessage(PixelsJump.utility.messageConverter("player-stats-other").replace("%wins%", stats.wins.toString()).replace("%fails%", stats.fails.toString()).replace("%blocks%", stats.maxBlocks.toString()).replace("%games%", stats.games.toString()).replace("%points%", stats.points.toString()).replace("%player%", args[1]))
+            sender.sendMessage(PixelsJump.utility.messageConverter("player-stats-other").replace("%wins%", stats.wins.toString()).replace("%fails%", stats.fails.toString()).replace("%games%", stats.games.toString()).replace("%points%", stats.points.toString()).replace("%player%", args[1]))
 
     }
 }

@@ -32,7 +32,7 @@ object ArenaHelper {
         if (files != null) {
             for (file in files) {
                 val ymlConfiguration = YamlConfiguration.loadConfiguration(file)
-                val arena = Arena(file.name.replace(".yml", ""), arrayOfNulls(4))
+                val arena = Arena(file.name.replace(".yml", ""), arrayOfNulls(3))
                 for (key in ymlConfiguration.getKeys(false)) {
                     if (key == "start") {
                         //load the start location based on the config
@@ -47,17 +47,6 @@ object ArenaHelper {
                         arena.addStartLocation(location)
                     } else if (key == "damage") {
                         arena.damage = ymlConfiguration.getBoolean("damage")
-                    } else if (key == "end") {
-                        //load the end location based on the config
-                        val location: Location
-                        val world = ymlConfiguration.getString("end.world")?.let { Bukkit.getWorld(it) }
-                        val x = ymlConfiguration.getInt("end.x")
-                        val y = ymlConfiguration.getInt("end.y")
-                        val z = ymlConfiguration.getInt("end.z")
-                        val yaw = ymlConfiguration.getInt("end.yaw")
-                        val pitch = ymlConfiguration.getInt("end.pitch")
-                        location = Location(world, x.toDouble(), y.toDouble(), z.toDouble(), yaw.toFloat(), pitch.toFloat())
-                        arena.addEndLocation(location)
                     } else if (key == "checkpoints") {
                         //load the checkpoints based on the config
                         ymlConfiguration.getList("checkpoints")!!.forEach {
@@ -109,7 +98,7 @@ object ArenaHelper {
                 return arena
             }
         }
-        val arena = Arena(name, arrayOfNulls(4))
+        val arena = Arena(name, arrayOfNulls(3))
         arenas.add(arena)
         return arena
     }
