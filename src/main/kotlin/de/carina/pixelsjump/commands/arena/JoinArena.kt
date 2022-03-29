@@ -17,6 +17,7 @@ import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.stats.Statistics
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
+import org.bukkit.GameMode
 import org.bukkit.Location
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
@@ -45,6 +46,7 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         sender.teleport(arena.locations[0]!! as Location)
         BlockGenerator.playerJumpBlocks[sender] = mutableListOf()
         PixelsJump.utility.playerInventory[sender] = sender.inventory
+        sender.gameMode = GameMode.SURVIVAL
         sender.inventory.clear()
         BlockGenerator.generateBlock(sender)
         BlockGenerator.playerJumps[sender] = 0

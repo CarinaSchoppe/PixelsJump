@@ -13,6 +13,8 @@ package de.carina.pixelsjump
 
 import de.carina.pixelsjump.commands.CommandRegister
 import de.carina.pixelsjump.events.PlayerMovesInJumpNRun
+import de.carina.pixelsjump.events.extra.Blocks
+import de.carina.pixelsjump.events.extra.Chatter
 import de.carina.pixelsjump.events.extra.PlayerDamage
 import de.carina.pixelsjump.events.extra.PlayerJoin
 import de.carina.pixelsjump.events.inventory.ArenaInventoriesListener
@@ -64,6 +66,8 @@ class PixelsJump : JavaPlugin() {
         pluginManager.registerEvents(PlayerJoin(), this)
         pluginManager.registerEvents(PlayerDamage(), this)
         pluginManager.registerEvents(PlayerMovesInJumpNRun(), this)
+        pluginManager.registerEvents(Blocks(), this)
+        pluginManager.registerEvents(Chatter(), this)
 
         extra()
     }

@@ -13,6 +13,7 @@ package de.carina.pixelsjump.events.extra
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.files.Configuration
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
@@ -22,6 +23,8 @@ class Blocks : Listener {
     fun onBlockBreak(event: org.bukkit.event.block.BlockBreakEvent) {
         if (!ArenaHelper.playersInArenas.contains(event.player))
             return
+        if (!Configuration.arenaBreak)
+            return
         event.isCancelled = true
         event.player.sendMessage(PixelsJump.utility.messageConverter("block-break-cancelled").replace("%block%", event.block.type.name).replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
 
@@ -30,6 +33,8 @@ class Blocks : Listener {
     @EventHandler
     fun onBlockPlace(event: org.bukkit.event.block.BlockPlaceEvent) {
         if (!ArenaHelper.playersInArenas.contains(event.player))
+            return
+        if (!Configuration.arenaPlace)
             return
         event.isCancelled = true
         event.player.sendMessage(PixelsJump.utility.messageConverter("block-place-cancelled").replace("%block%", event.block.type.name).replace("%block%", event.block.type.name).replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
