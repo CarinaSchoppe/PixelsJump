@@ -57,7 +57,7 @@ class PlayerMovesInJumpnRun : Listener {
             return
         }
 
-        if (event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1].toCenterLocation() && arena.checkPoints.size == arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1) {
+        if (arena.checkPoints.size == arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1) {
             Statistics.addWin(event.player)
             event.player.sendMessage(PixelsJump.utility.messageConverter("arena-goal-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
             event.player.performCommand("pixelsjump leave")

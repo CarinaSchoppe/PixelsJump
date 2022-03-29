@@ -27,7 +27,7 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "leave", "pixelsjump.leave")) return
         if (!ArenaHelper.playersInArenas.contains(sender)) {
-            sender.sendMessage(PixelsJump.utility.messageConverter("not-in-arena"))
+            sender.sendMessage(PixelsJump.utility.messageConverter("no-jump"))
             return
         }
 
@@ -45,7 +45,7 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         }
         BlockGenerator.playerJumpBlocks.remove(sender)
         sender.teleport(ArenaHelper.arenas.find { it.players.contains(sender) }!!.locations[2] as Location)
-        sender.inventory.contents = PixelsJump.utility.playerInventory[sender]!!.contents
+        sender.inventory.clear()
         sender.sendMessage(PixelsJump.utility.messageConverter("arena-leave").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
     }
 }

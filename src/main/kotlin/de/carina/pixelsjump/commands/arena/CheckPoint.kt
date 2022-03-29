@@ -24,12 +24,12 @@ class CheckPoint(private val sender: CommandSender, private val command: Command
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "checkpoint", "pixelsjump.checkpoint")) return
         if (!ArenaHelper.playersInArenas.contains(sender)) {
-            sender.sendMessage(PixelsJump.utility.messageConverter("not-in-arena"))
+            sender.sendMessage(PixelsJump.utility.messageConverter("no-jump"))
             return
         }
 
         Statistics.addFail(sender as Player)
-        sender.teleport(BlockGenerator.playerCheckpoints[sender]!!)
+        sender.teleport(BlockGenerator.playerCheckpoints[sender]!!.add(0.0, 2.0, 0.0))
         sender.sendMessage(PixelsJump.utility.messageConverter("arena-player-fell").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
 
     }
