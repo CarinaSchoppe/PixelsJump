@@ -11,7 +11,6 @@
 
 package de.carina.pixelsjump.events.extra
 
-import de.carina.pixelsjump.util.stats.PlayerStats
 import de.carina.pixelsjump.util.stats.Statistics
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -27,7 +26,7 @@ class PlayerJoin : Listener {
             }
         }
 
-        Statistics.statistics.add(PlayerStats(event.player.uniqueId))
+        Statistics.statistics.add(Statistics.PlayerStats(event.player.uniqueId))
         Statistics.addStats(event.player)
 
     }

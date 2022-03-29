@@ -28,8 +28,8 @@ object Configuration {
         ymlConfiguration = YamlConfiguration.loadConfiguration(configFile)
 
 
-        ymlConfiguration.addDefault("arena-break", 50)
-        ymlConfiguration.addDefault("arena-place", 50)
+        ymlConfiguration.addDefault("arena-break", true)
+        ymlConfiguration.addDefault("arena-place", true)
         ymlConfiguration.addDefault("jump-points", 1)
         ymlConfiguration.addDefault("prefix", "&8[&6PixelsJump&8]&r")
         saveConfigFile()

@@ -56,9 +56,8 @@ object BlockGenerator {
             length = 2
         }
         if (abs(x) == 1 && abs(z) == 1) {
-            length = 3
-        }
-        if (x == 0 && z == 0) {
+            length = 2
+        } else if (x == 0 && z == 0) {
             x = 1
             z = -1
         }

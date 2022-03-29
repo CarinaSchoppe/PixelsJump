@@ -19,6 +19,7 @@ import java.io.File
 import java.util.*
 
 object Statistics {
+    data class PlayerStats(var uuid: UUID, var games: Int = 0, var points: Int = 0, var fails: Int = 0, var wins: Int = 0)
 
     private const val path = "plugins/PixelsJumpRemastered/statistics.yml"
     private lateinit var file: File
