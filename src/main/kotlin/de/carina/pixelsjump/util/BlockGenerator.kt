@@ -20,10 +20,11 @@ import java.util.*
 object BlockGenerator {
 
     val playerBlockJumps = mutableMapOf<Player, Block>()
-    val playerBlockOld = mutableMapOf<Player, Block>()
     val playerCheckpoints = mutableMapOf<Player, Location>()
     val checkPointMaterial = Material.DIAMOND_BLOCK
     val endPointFinish = Material.GOLD_BLOCK
+    val playerJumps = mutableMapOf<Player, Int>()
+    val playerJumpBlocks = mutableMapOf<Player, MutableList<Block>>()
 
     enum class blocks(val material: Material) {
         RED(Material.RED_CONCRETE),
@@ -44,8 +45,9 @@ object BlockGenerator {
     }
 
     fun generateBlock(player: Player) {
+        playerJumps[player] = (playerJumps[player] ?: 0) + 1
         val type = blocks.values().random()
-        var length = Random().nextInt(5)
+        var length = Random().nextInt(4) + 1
         val height = Random().nextInt(2)
         val x = Random().nextInt(3) - 1
         val z = Random().nextInt(3) - 1
@@ -54,10 +56,13 @@ object BlockGenerator {
         }
         val newLocation = player.location.add((length * x).toDouble(), height.toDouble(), (length * z).toDouble())
         val block = player.world.getBlockAt(newLocation)
+        playerJumpBlocks[player]!!.add(block)
         block.type = type.material
         playerBlockJumps[player] = block
-        if (playerBlockOld[player] != null)
-            player.world.getBlockAt(playerBlockOld[player]!!.location).type = Material.AIR
-        playerBlockOld[player] = block
+        if (playerJumps[player] ?: 0 >= 2) {
+            playerJumpBlocks[player]!!.reverse()
+            player.world.getBlockAt(playerJumpBlocks[player]!![0].location).type = Material.AIR
+            playerJumpBlocks[player]!!.reverse()
+        }
     }
 }

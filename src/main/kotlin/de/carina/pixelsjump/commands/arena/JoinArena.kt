@@ -43,6 +43,8 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         sender.playerListName(LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix + "§7" + sender.name))
         Statistics.joinArena(sender)
         sender.teleport(arena.locations[0]!! as Location)
+        BlockGenerator.playerJumpBlocks[sender] = mutableListOf()
         BlockGenerator.generateBlock(sender)
+        BlockGenerator.playerJumps[sender] = 0
     }
 }
