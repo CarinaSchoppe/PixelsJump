@@ -32,6 +32,7 @@ class CommandRegister : CommandExecutor {
             "remove" -> ArenaRemover(sender, command, args).execute()
             "list" -> LocationList(sender, command, args).execute()
             "single" -> SingleJumpNRun(sender, command, args).execute()
+            "setup" -> ArenaSetup(sender, command, args).execute()
             "finish" -> LocationFinish(sender, command, args).execute()
             "gui" -> InventoryStart(sender, command, args).execute()
             "arenas" -> ArenaInventory(sender, command, args).execute()
