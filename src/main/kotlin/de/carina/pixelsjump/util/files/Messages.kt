@@ -56,6 +56,8 @@ object Messages {
         ymlConfiguration.addDefault("arena-player-failed", "&cYou failed the arena &6%arena%&c!")
         ymlConfiguration.addDefault("arena-player-fell", "&cYou fell in the arena &6%arena%&c you went back to your last checkpoint!")
         ymlConfiguration.addDefault("jump-start", "&aYou started the jump ´n run with the name &6%name%&7!")
+        ymlConfiguration.addDefault("block-place-cancelled", "&cYou can't place &6%block%&c in the arena &6%arena%&c!")
+        ymlConfiguration.addDefault("block-break-cancelled", "&cYou can't place &6%block%&c in the arena &6%arena%&c!")
 
 
         saveMessageFile()

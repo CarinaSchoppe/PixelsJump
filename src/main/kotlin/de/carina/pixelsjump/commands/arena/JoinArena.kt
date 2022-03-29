@@ -44,6 +44,8 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         Statistics.joinArena(sender)
         sender.teleport(arena.locations[0]!! as Location)
         BlockGenerator.playerJumpBlocks[sender] = mutableListOf()
+        PixelsJump.utility.playerInventory[sender] = sender.inventory
+        sender.inventory.clear()
         BlockGenerator.generateBlock(sender)
         BlockGenerator.playerJumps[sender] = 0
     }

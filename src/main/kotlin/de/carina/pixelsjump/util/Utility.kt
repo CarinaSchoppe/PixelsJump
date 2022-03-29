@@ -19,10 +19,11 @@ import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.inventory.Inventory
 
 class Utility {
 
-    val playersInArena = mutableListOf<Player>()
+    val playerInventory = mutableMapOf<Player, Inventory>()
 
     fun preCommandStuff(sender: CommandSender, command: Command, args: Array<out String>, argsLength: Int, commandEnter: String?, permission: String): Boolean {
         if (!command.name.equals("pixelsjump", true)) {

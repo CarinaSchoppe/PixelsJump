@@ -68,8 +68,10 @@ class PixelsJump : JavaPlugin() {
         extra()
     }
 
-    fun extra() {
+    private fun extra() {
         Configuration.pointsPerJump = Configuration.ymlConfiguration.getInt("jump-points")
+        Configuration.arenaBreak = Configuration.ymlConfiguration.getBoolean("arena-break")
+        Configuration.arenaPlace = Configuration.ymlConfiguration.getBoolean("arena-place")
 
     }
 }

@@ -16,7 +16,6 @@ import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.stats.Statistics
-import org.bukkit.Location
 import org.bukkit.block.BlockFace
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -34,7 +33,7 @@ class PlayerMovesInJumpNRun : Listener {
             if (ArenaHelper.arenas.find { it.players.contains(event.player) }!!.single == true) {
                 event.player.sendMessage(PixelsJump.utility.messageConverter("arena-player-failed").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
                 Statistics.addFail(event.player)
-                event.player.teleport(ArenaHelper.arenas.find { it.players.contains(event.player) }!!.locations[2] as Location)
+                event.player.performCommand("pixelsjump leave")
                 return
             } else {
                 event.player.sendMessage(PixelsJump.utility.messageConverter("arena-player-fell").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
