@@ -29,10 +29,12 @@ class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(4)) {
     val players = mutableSetOf<Player>()
     private val file: File = File("plugins/PixelsJumpRemastered/arenas/$name.yml")
     var single: Boolean? = null
+    var damage: Boolean? = null
     private val ymlConfiguration: YamlConfiguration = YamlConfiguration.loadConfiguration(file)
 
     fun saveArena() {
         ymlConfiguration.addDefault("single", single ?: false)
+        ymlConfiguration.addDefault("damage", single ?: false)
         if (locations[0] != null) {
             ymlConfiguration.set("start.world", (locations[0]!! as Location).world.name)
             ymlConfiguration.set("start.x", (locations[0]!! as Location).x)

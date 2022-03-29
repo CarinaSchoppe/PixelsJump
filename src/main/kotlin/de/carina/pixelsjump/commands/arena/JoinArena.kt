@@ -13,6 +13,8 @@ package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
@@ -31,6 +33,13 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         arena.players.add(sender)
         ArenaHelper.playersInArenas.add(sender)
         sender.sendMessage(PixelsJump.utility.messageConverter("arena-join").replace("%arena%", args[1]))
+        Bukkit.getOnlinePlayers().forEach {
+            if (it != sender) {
+                it.hidePlayer(PixelsJump.instance, sender)
+            }
+        }
+        sender.playerListName(LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix + "§7" + sender.name))
+
         sender.teleport(arena.locations[0]!! as Location)
     }
 }

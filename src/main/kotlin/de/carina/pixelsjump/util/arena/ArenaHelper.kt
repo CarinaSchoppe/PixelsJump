@@ -45,7 +45,8 @@ object ArenaHelper {
                         val pitch = ymlConfiguration.getInt("start.pitch")
                         location = Location(world, x.toDouble(), y.toDouble(), z.toDouble(), yaw.toFloat(), pitch.toFloat())
                         arena.addStartLocation(location)
-
+                    } else if (key == "damage") {
+                        arena.damage = ymlConfiguration.getBoolean("damage")
                     } else if (key == "end") {
                         //load the end location based on the config
                         val location: Location

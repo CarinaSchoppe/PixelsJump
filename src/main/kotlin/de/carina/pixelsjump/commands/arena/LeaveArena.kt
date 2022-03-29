@@ -13,18 +13,27 @@ package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
 
 class LeaveArena(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
-        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "leave", "pixelsjump.leave"))
-            return
+        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "leave", "pixelsjump.leave")) return
         if (!ArenaHelper.playersInArenas.contains(sender)) {
             sender.sendMessage(PixelsJump.utility.messageConverter("not-in-arena"))
             return
         }
+
+        Bukkit.getOnlinePlayers().forEach {
+            if (it != sender) {
+                it.showPlayer(PixelsJump.instance, sender as Player)
+            }
+        }
+        (sender as Player).playerListName(Component.text(sender.name))
         ArenaHelper.playersInArenas.remove(sender)
 
     }
