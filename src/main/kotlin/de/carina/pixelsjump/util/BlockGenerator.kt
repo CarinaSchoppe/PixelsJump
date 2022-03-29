@@ -27,7 +27,7 @@ object BlockGenerator {
     val playerJumps = mutableMapOf<Player, Int>()
     val playerJumpBlocks = mutableMapOf<Player, MutableList<Block>>()
 
-    enum class blocks(val material: Material) {
+    enum class Blocks(val material: Material) {
         RED(Material.RED_CONCRETE),
         GREEN(Material.GREEN_CONCRETE),
         BLUE(Material.BLUE_CONCRETE),
@@ -47,13 +47,13 @@ object BlockGenerator {
 
     fun generateBlock(player: Player) {
         playerJumps[player] = (playerJumps[player] ?: 0) + 1
-        val type = blocks.values().random()
+        val type = Blocks.values().random()
         var length = Random().nextInt(4) + 1
         val height = Random().nextInt(1)
         var x = Random().nextInt(3) - 1
         var z = Random().nextInt(3) - 1
         if (height == 1 && length == 4) {
-            length = 3
+            length = 2
         }
         if (abs(x) == 1 && abs(z) == 1) {
             length = 3
