@@ -13,7 +13,7 @@ package de.carina.pixelsjump.util.inventory
 
 enum class ItemNames(val text: String) {
     ADD_LOCATION_START("§dAdd Location Start"),
-    ADD_LOCATION_END("§dAdd Location End"),
+    SINGLE_JUMP_N_RUN("§dSingle Jump n Run"),
     GLASS_PANE_FILLER(""),
     ARENA_FRAME_COLOR("§b"),
     ADD_CHECKPOINT("§dAdd Checkpoint"),

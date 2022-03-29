@@ -42,13 +42,12 @@ class CommandInventoryListener : Listener {
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} start")
             }
-            Items.endLocationItem() -> {
-                println("test")
-                if (!player.hasPermission("pixelsjump.addLocation.end")) {
+            Items.singleJumpNRunItem() -> {
+                if (!player.hasPermission("pixelsjump.addLocation.single")) {
                     player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
                     return
                 }
-                player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} end")
+                player.performCommand("pixelsjump single ${PixelsJump.utility.arenaPlayerNames[player]}")
             }
             Items.finishArenaBuildItem() -> {
                 if (!player.hasPermission("pixelsjump.addLocation.finish")) {

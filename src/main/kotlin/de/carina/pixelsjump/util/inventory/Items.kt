@@ -18,11 +18,11 @@ import org.bukkit.inventory.ItemStack
 object Items {
 
     fun startLocationItem(): ItemStack {
-        return ItemBuilder(Material.OAK_DOOR, 1).addItemName(ItemNames.ADD_LOCATION_START.text).addItemLore(listOf("§aClick to add a new Location to the Arena")).build()
+        return ItemBuilder(Material.OAK_DOOR, 1).addItemName(ItemNames.ADD_LOCATION_START.text).addItemLore(listOf("§aClick to add the start location to the arena")).build()
     }
 
-    fun endLocationItem(): ItemStack {
-        return ItemBuilder(Material.GRASS_BLOCK, 1).addItemName(ItemNames.ADD_LOCATION_END.text).addItemLore(listOf("§aClick to add a new Location to the Arena")).build()
+    fun singleJumpNRunItem(): ItemStack {
+        return ItemBuilder(Material.GRASS_BLOCK, 1).addItemName(ItemNames.SINGLE_JUMP_N_RUN.text).addItemLore(listOf("§aClick to set the arena to a single jump n run")).build()
 
     }
 
