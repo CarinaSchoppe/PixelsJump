@@ -12,6 +12,13 @@
 package de.carina.pixelsjump.commands
 
 import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.commands.arena.ArenaInventory
+import de.carina.pixelsjump.commands.arena.JoinArena
+import de.carina.pixelsjump.commands.arena.LeaveArena
+import de.carina.pixelsjump.commands.setup.LocationAdder
+import de.carina.pixelsjump.commands.setup.LocationFinish
+import de.carina.pixelsjump.commands.setup.LocationList
+import de.carina.pixelsjump.commands.setup.LocationRemover
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -29,6 +36,9 @@ class CommandRegister : CommandExecutor {
             "finish" -> LocationFinish(sender, command, args).execute()
             "gui" -> InventoryStart(sender, command, args).execute()
             "arenas" -> ArenaInventory(sender, command, args).execute()
+            "join" -> JoinArena(sender, command, args).execute()
+            "leave" -> LeaveArena(sender, command, args).execute()
+            "stats" -> StatsCommand(sender, command, args).execute()
         }
 
 

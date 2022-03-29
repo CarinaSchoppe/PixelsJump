@@ -23,7 +23,7 @@ object Statistics {
     private const val path = "plugins/PixelsJumpRemastered/statistics.yml"
     private lateinit var file: File
     lateinit var ymlConfiguration: YamlConfiguration
-    private val statistics = mutableListOf<PlayerStats>()
+    val statistics = mutableListOf<PlayerStats>()
     private fun loadPlayers() {
         for (player in ymlConfiguration.getKeys(false)) {
             statistics.add(PlayerStats(ymlConfiguration.get("$player") as UUID, ymlConfiguration.getInt("$player.maxBlocks"), ymlConfiguration.getInt("$player.games"), ymlConfiguration.getInt("$player.points"), ymlConfiguration.getInt("$player.fails"), ymlConfiguration.getInt("$player.wins")))

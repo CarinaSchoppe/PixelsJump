@@ -9,7 +9,7 @@
  * requires the express written consent of Carina Sophie Schoppe.
  */
 
-package de.carina.pixelsjump.commands
+package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.inventory.Inventories

@@ -1,4 +1,4 @@
-package de.carina.pixelsjump.commands
+package de.carina.pixelsjump.commands.setup
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.ArenaHelper

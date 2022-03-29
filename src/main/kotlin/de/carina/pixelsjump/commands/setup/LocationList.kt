@@ -9,7 +9,7 @@
  * requires the express written consent of Carina Sophie Schoppe.
  */
 
-package de.carina.pixelsjump.commands
+package de.carina.pixelsjump.commands.setup
 
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender

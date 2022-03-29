@@ -26,7 +26,11 @@ object Messages {
         ymlConfiguration.addDefault("arena-not-valid", "&cThe arena &6%arena% &cis not valid!")
         ymlConfiguration.addDefault("default-command", "&7Please use &6/pixelsjump <arguments> <arena> <optional> &7!")
         ymlConfiguration.addDefault("no-arena-name", "&cYou must enter the arena name first before you can do this!")
-        ymlConfiguration.addDefault("arena-teleport", "&7You were teleported to the arena &6%arena%&7!")
+        ymlConfiguration.addDefault("arena-join", "&7You were teleported to the arena &6%arena%&7!")
+        ymlConfiguration.addDefault("arena-allready", "&cYou are allready in an arena &6%arena%&c!")
+        ymlConfiguration.addDefault("player-stats", "&7Your Stats: &6%wins%&7 Wins, &6%games%&7 Games, &6%blocks%&7 Max-Blocks, &6%fails%&7 Fails, &6%points%&7 Points")
+        ymlConfiguration.addDefault("player-stats-other", "&6%player% &7Stats: &6%wins%&7 Wins, &6%games%&7 Games, &6%blocks%&7 Max-Blocks, &6%fails%&7 Fails, &6%points%&7 Points")
+        ymlConfiguration.addDefault("player-no-stats", "&cThe Player &6%player% &cdoesnt have any stats cuz he never joined!")
         ymlConfiguration.addDefault("arena-loaded", "&7Loaded the arena &6%arena%&7!")
         ymlConfiguration.addDefault("stats-loaded", "&7Loaded the stats for player &6%player%&7!")
         ymlConfiguration.addDefault("add-start", "&aYou successfully added a start point for arena &6%arena%&a!")
@@ -46,8 +50,8 @@ object Messages {
     }
 
     fun saveMessageFile() {
-            ymlConfiguration.options().copyDefaults(true)
-            ymlConfiguration.save(messagesFile)
+        ymlConfiguration.options().copyDefaults(true)
+        ymlConfiguration.save(messagesFile)
 
     }
 

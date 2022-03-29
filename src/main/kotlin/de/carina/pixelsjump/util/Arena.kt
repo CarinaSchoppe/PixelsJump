@@ -15,13 +15,14 @@ import de.carina.pixelsjump.PixelsJump
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.configuration.file.YamlConfiguration
+import org.bukkit.entity.Player
 import java.io.File
 
 
 object ArenaHelper {
 
-    val arenas = mutableListOf<Arena>()
-
+    val arenas = mutableSetOf<Arena>()
+    val playersInArenas = mutableSetOf<Player>()
     fun loadArenas() {
         PixelsJump.utility.sendMessage("loading-arenas-start")
         val directory = File("plugins/PixelsJumpRemastered/arenas")
@@ -93,6 +94,7 @@ object ArenaHelper {
 
 class Arena(val name: String, var locations: Array<Location?> = arrayOfNulls(2)) {
 
+    val players = mutableSetOf<Player>()
     private val file: File = File("plugins/PixelsJumpRemastered/arenas/$name.yml")
     var single: Boolean? = null
     private val ymlConfiguration: YamlConfiguration = YamlConfiguration.loadConfiguration(file)

@@ -30,9 +30,9 @@ object Configuration {
         saveConfigFile()
     }
 
-    fun saveConfigFile() {
-            ymlConfiguration.options().copyDefaults(true)
-            ymlConfiguration.save(configFile)
+    private fun saveConfigFile() {
+        ymlConfiguration.options().copyDefaults(true)
+        ymlConfiguration.save(configFile)
 
     }
 }
