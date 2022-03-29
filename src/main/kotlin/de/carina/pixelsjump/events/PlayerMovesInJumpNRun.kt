@@ -45,9 +45,13 @@ class PlayerMovesInJumpNRun : Listener {
         }
         if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.checkPointMaterial) {
             BlockGenerator.playerCheckpoints[event.player] = event.player.location.block.getRelative(BlockFace.DOWN).location
+            event.player.sendMessage(PixelsJump.utility.messageConverter("arena-checkpoint-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
+
             return
         } else if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.endPointFinish) {
             Statistics.addWin(event.player)
+            event.player.sendMessage(PixelsJump.utility.messageConverter("arena-goal-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
+            event.player.performCommand("pixelsjump leave")
             return
         }
         if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlockJumps[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlockJumps[event.player]!!.location.toCenterLocation()) BlockGenerator.generateBlock(event.player)

@@ -12,6 +12,7 @@
 package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
@@ -35,6 +36,9 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         }
         (sender as Player).playerListName(Component.text(sender.name))
         ArenaHelper.playersInArenas.remove(sender)
-
+        BlockGenerator.playerCheckpoints.remove(sender)
+        BlockGenerator.playerBlockJumps.remove(sender)
+        BlockGenerator.playerBlockOld.remove(sender)
+        sender.sendMessage(PixelsJump.utility.messageConverter("leave-arena").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
     }
 }
