@@ -46,9 +46,8 @@ class PlayerMovesInJumpnRun : Listener {
         }
 
         if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.checkPointMaterial && BlockGenerator.playerCheckpoints[event.player]!!.toCenterLocation() != event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()) {
-            BlockGenerator.playerCheckpoints[event.player] = event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()
+            BlockGenerator.playerCheckpoints[event.player] = event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation().add(0.0, 1.0, 0.0)
             event.player.sendMessage(PixelsJump.utility.messageConverter("arena-checkpoint-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
-
             return
         } else if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.endPointFinish && BlockGenerator.playerCheckpoints[event.player]!!.toCenterLocation() != event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()) {
             Statistics.addWin(event.player)
