@@ -19,6 +19,7 @@ import de.carina.pixelsjump.events.inventory.CommandInventoryListener
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.sign.SignCreator
 import de.carina.pixelsjump.util.stats.Statistics
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -66,6 +67,7 @@ class PixelsJump : JavaPlugin() {
         pluginManager.registerEvents(Blocks(), this)
         pluginManager.registerEvents(Chatter(), this)
         pluginManager.registerEvents(Checkpoint(), this)
+        pluginManager.registerEvents(SignCreator(), this)
 
         extra()
     }

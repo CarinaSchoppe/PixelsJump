@@ -29,7 +29,7 @@ class CheckPoint(private val sender: CommandSender, private val command: Command
         }
 
         Statistics.addFail(sender as Player)
-        sender.teleport(BlockGenerator.playerCheckpoints[sender]!!.add(0.0, 2.0, 0.0))
+        sender.teleport(BlockGenerator.playerCheckpoints[sender]!!.add(0.0, .5, 0.0))
         sender.sendMessage(PixelsJump.utility.messageConverter("arena-player-fell").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
 
     }
