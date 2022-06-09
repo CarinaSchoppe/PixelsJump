@@ -12,10 +12,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.+"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("io.papermc.paperweight.userdev") version "1.3.5"
-    id("xyz.jpenilla.run-paper") version "1.0.6"
+    kotlin("jvm") version "+"
+    id("com.github.johnrengelman.shadow") version "+"
+    id("io.papermc.paperweight.userdev") version "+"
+    id("xyz.jpenilla.run-paper") version "+"
+    id("idea")
 }
 
 group = "me.carina"
@@ -25,7 +26,7 @@ description ="PixelsJump Remastered Paper Plugin"
 
 
 dependencies {
-    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
+    paperDevBundle("+")
     testImplementation(kotlin("test"))
 }
 java {
@@ -46,13 +47,19 @@ tasks {
     processResources {
         filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
     }
+    withType<KotlinCompile>{
+        kotlinOptions {
+            freeCompilerArgs = listOf(
+                "-Xuse-k2",
+                "-Xjdk-release=17"
+            )
+            jvmTarget = "17"
+            languageVersion = "1.7"
+        }
+    }
+    test {
+        useJUnitPlatform()
+    }
+}
 
 
-}
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
-}
