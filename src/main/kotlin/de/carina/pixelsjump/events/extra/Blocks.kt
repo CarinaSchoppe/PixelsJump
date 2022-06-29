@@ -30,6 +30,8 @@ class Blocks : Listener {
 
     }
 
+
+
     @EventHandler
     fun onBlockPlace(event: org.bukkit.event.block.BlockPlaceEvent) {
         if (!ArenaHelper.playersInArenas.contains(event.player))
