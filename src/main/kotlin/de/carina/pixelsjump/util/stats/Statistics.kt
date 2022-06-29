@@ -78,7 +78,7 @@ object Statistics {
     }
 
     fun addFail(player: Player) {
-        val playerStats = getStatsPlayer(player.uniqueId)!!
+        val playerStats = getStatsPlayer(player.uniqueId)
         if (playerStats != null) {
             playerStats.fails++
             ymlConfiguration.set("${player.uniqueId}.fails", playerStats.fails)
@@ -87,7 +87,7 @@ object Statistics {
     }
 
     fun addPoints(player: Player, amount: Int) {
-        val playerStats = getStatsPlayer(player.uniqueId)!!
+        val playerStats = getStatsPlayer(player.uniqueId)
         if (playerStats != null) {
             playerStats.points += amount
             ymlConfiguration.set("${player.uniqueId}.points", playerStats.points)

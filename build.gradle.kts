@@ -12,11 +12,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.20"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-    `java-library`
-    id("io.papermc.paperweight.userdev") version "1.3.5"
-    id("xyz.jpenilla.run-paper") version "1.0.6"
+    kotlin("jvm") version "+"
+    id("com.github.johnrengelman.shadow") version "+"
+    id("io.papermc.paperweight.userdev") version "+"
+    id("xyz.jpenilla.run-paper") version "+"
+    id("idea")
 }
 
 group = "me.carina"
@@ -26,10 +26,8 @@ description ="PixelsJump Remastered Paper Plugin"
 
 
 dependencies {
-    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
+    paperDevBundle("+")
     testImplementation(kotlin("test"))
-    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
-
 }
 java {
     // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
@@ -37,12 +35,10 @@ java {
 }
 tasks {
     runServer {
-
-        minecraftVersion("1.18.2")
+        minecraftVersion("1.19")
     }
     compileJava {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
-
         options.release.set(17)
     }
     javadoc {
@@ -51,13 +47,19 @@ tasks {
     processResources {
         filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
     }
+    withType<KotlinCompile>{
+        kotlinOptions {
+            freeCompilerArgs = listOf(
+                "-Xuse-k2",
+                "-Xjdk-release=17"
+            )
+            jvmTarget = "17"
+            languageVersion = "1.7"
+        }
+    }
+    test {
+        useJUnitPlatform()
+    }
+}
 
 
-}
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "16"
-}
