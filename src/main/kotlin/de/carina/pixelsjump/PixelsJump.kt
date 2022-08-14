@@ -31,7 +31,7 @@ class PixelsJump : JavaPlugin() {
     /*
     * TODOS:
     * TODO: Single Jump modus in bezug auf end
-    * TODO: Single jumo arena no goal possible
+    * TODO: Single jump arena no goal possible
     * TODO: Endlocation?
     * TODO: Hiding?
     * TODO: Multi player
@@ -40,6 +40,7 @@ class PixelsJump : JavaPlugin() {
     * TODO: Edit commands on premise in GUI?
     * TODO: leave item?
     * TODO: Hide all other players item?
+    *  TODO: Code kommentieren
     *
     *
     * */

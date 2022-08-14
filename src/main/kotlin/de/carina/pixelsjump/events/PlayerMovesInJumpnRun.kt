@@ -32,9 +32,8 @@ class PlayerMovesInJumpnRun : Listener {
         val arena = ArenaHelper.arenas.find { it.players.contains(event.player) }!!
 
         if (!failChecker(arena, event)) return
-        if (!blockRelated(event)) return
+        if (!blockRelated(event, arena)) return
         if (!locationRelated(arena, event)) return
-
 
         if (arena.single == true) {
             if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
@@ -45,28 +44,29 @@ class PlayerMovesInJumpnRun : Listener {
 
     }
 
-    private fun blockRelated(event: PlayerMoveEvent): Boolean {
+    private fun blockRelated(event: PlayerMoveEvent, arena: Arena): Boolean {
         if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.checkPointMaterial && BlockGenerator.playerCheckpoints[event.player]!!.toCenterLocation() != event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()) {
             BlockGenerator.playerCheckpoints[event.player] = event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation().add(0.0, 1.0, 0.0)
             event.player.sendMessage(PixelsJump.utility.messageConverter("arena-checkpoint-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
             return false
         } else if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.endPointFinish && BlockGenerator.playerCheckpoints[event.player]!!.toCenterLocation() != event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()) {
-            jumpWon(event)
+            jumpWon(event, arena)
             return false
         }
         return true
     }
 
-    private fun jumpWon(event: PlayerMoveEvent): Boolean {
+    private fun jumpWon(event: PlayerMoveEvent, arena: Arena) {
+        if (arena.single == true) return
         Statistics.addWin(event.player)
         event.player.sendMessage(PixelsJump.utility.messageConverter("arena-goal-reached").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
         event.player.performCommand("pixelsjump leave")
-        return false
+        return
     }
 
     private fun locationRelated(arena: Arena, event: PlayerMoveEvent): Boolean {
         if (arena.checkPoints.size == arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1) {
-            jumpWon(event)
+            jumpWon(event, arena)
             return false
         } else if (event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1].toCenterLocation()) {
             BlockGenerator.playerCheckpoints[event.player] = arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1]
