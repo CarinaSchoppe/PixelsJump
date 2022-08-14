@@ -28,6 +28,22 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class PixelsJump : JavaPlugin() {
 
+    /*
+    * TODOS:
+    * TODO: Single Jump modus in bezug auf end
+    * TODO: Single jumo arena no goal possible
+    * TODO: Endlocation?
+    * TODO: Hiding?
+    * TODO: Multi player
+    * TODO: checkPoints
+    * TODO: jump bloks
+    * TODO: Edit commands on premise in GUI?
+    * TODO: leave item?
+    * TODO: Hide all other players item?
+    *
+    *
+    * */
+
 
     companion object {
         lateinit var instance: PixelsJump
