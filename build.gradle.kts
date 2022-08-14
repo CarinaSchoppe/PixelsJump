@@ -14,19 +14,22 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "+"
     id("com.github.johnrengelman.shadow") version "+"
-    id("io.papermc.paperweight.userdev") version "+"
     id("xyz.jpenilla.run-paper") version "+"
     id("idea")
 }
 
 group = "me.carina"
 version = "1.0.0"
-description ="PixelsJump Remastered Paper Plugin"
+description = "PixelsJump Remastered Paper Plugin"
 
-
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+}
 
 dependencies {
-    paperDevBundle("+")
+    compileOnly("io.papermc.paper:paper-api:+")
     testImplementation(kotlin("test"))
 }
 java {
@@ -47,7 +50,7 @@ tasks {
     processResources {
         filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
     }
-    withType<KotlinCompile>{
+    withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf(
                 "-Xuse-k2",
@@ -61,5 +64,6 @@ tasks {
         useJUnitPlatform()
     }
 }
+
 
 

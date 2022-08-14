@@ -9,12 +9,4 @@
  * requires the express written consent of Carina Sophie Schoppe.
  */
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-
-        maven("https://papermc.io/repo/repository/maven-public/")
-    }
-}
 rootProject.name = "PixelsJumpRemastered"
