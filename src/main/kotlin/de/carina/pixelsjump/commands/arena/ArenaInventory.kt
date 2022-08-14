@@ -18,6 +18,7 @@ import org.bukkit.command.CommandSender
 
 class ArenaInventory(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
+
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "arenas", "pixelsjump.arenas")) return
 
