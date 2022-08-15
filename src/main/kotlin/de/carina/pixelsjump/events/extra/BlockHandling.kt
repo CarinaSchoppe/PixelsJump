@@ -17,7 +17,7 @@ import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
-class Blocks : Listener {
+class BlockHandling : Listener {
 
     @EventHandler
     fun onBlockBreak(event: org.bukkit.event.block.BlockBreakEvent) {
@@ -29,7 +29,6 @@ class Blocks : Listener {
         event.player.sendMessage(Messages.messages["block-break-cancelled"]!!.replace("%block%", event.block.type.name).replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
 
     }
-
 
 
     @EventHandler

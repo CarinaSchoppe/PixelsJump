@@ -12,6 +12,7 @@
 package de.carina.pixelsjump.util.arena
 
 import com.google.gson.GsonBuilder
+import de.carina.pixelsjump.util.json.CustomLocation
 import org.bukkit.Location
 import org.bukkit.block.BlockFace
 import org.bukkit.entity.Player
@@ -19,26 +20,31 @@ import java.io.File
 
 
 class Arena(val name: String) {
-    val checkPoints: MutableList<Location> = mutableListOf()
-    lateinit var startLocation: Location
-    lateinit var finishLocation: Location
-    lateinit var backLocation: Location
-    val players = mutableSetOf<Player>()
+
 
     @Transient
-    private val file: File = File("plugins/PixelsJumpRemastered/arenas/$name.json")
+    var players = mutableSetOf<Player>()
+
+
+    val checkPoints: MutableList<CustomLocation> = mutableListOf()
+    var startLocation: CustomLocation? = null
+    var finishLocation: CustomLocation? = null
+    var backLocation: CustomLocation? = null
+
+    @Transient
+    private lateinit var file: File
     var single: Boolean = false
     var damage: Boolean = false
 
     fun saveArena() {
+        file = File("plugins/PixelsJumpRemastered/arenas/$name.json")
         val gson = GsonBuilder().setPrettyPrinting().create()
-        file.writeText(gson.toJson(this))
+        var json = gson.toJson(this)
+        file.writeText(json)
     }
 
 
     fun addCheckpointLocation(location: Location) {
-        checkPoints.add(location.block.getRelative(BlockFace.DOWN).location.toCenterLocation())
+        checkPoints.add(CustomLocation(location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()))
     }
-
-
 }

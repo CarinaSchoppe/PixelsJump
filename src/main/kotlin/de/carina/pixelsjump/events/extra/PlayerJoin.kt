@@ -26,7 +26,7 @@ class PlayerJoin : Listener {
             }
         }
 
-        PlayerStats.statistics.add(PlayerStats.PlayerStats(event.player.uniqueId))
+        PlayerStats.statistics.add(PlayerStats.PlayerStats(event.player.name, event.player.uniqueId))
         PlayerStats.addStats(event.player)
 
     }

@@ -16,7 +16,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 
-class Checkpoint : Listener {
+class CheckpointItem : Listener {
 
     @EventHandler
     fun onCheckpoint(event: PlayerInteractEvent) {
@@ -25,6 +25,9 @@ class Checkpoint : Listener {
         if (event.player.inventory.itemInMainHand == Items.toCheckPointItem) {
             event.isCancelled = true
             event.player.performCommand("pixelsjump checkpoint")
+        } else if (event.player.inventory.itemInMainHand == Items.leaveItem) {
+            event.isCancelled = true
+            event.player.performCommand("pixelsjump leave")
         }
     }
 

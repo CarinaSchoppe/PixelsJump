@@ -30,6 +30,7 @@ object Items {
     val arenaDamageItem =
         ItemBuilder(Material.DIAMOND_SWORD, 1).addItemName(ItemNames.ARENA_DAMAGE.text).addItemLore(listOf("§aClick to add activate the damage for the arena")).build()
 
+    val leaveItem = ItemBuilder(Material.IRON_DOOR, 1).addItemName(ItemNames.LEAVE_GAME.text).addItemLore(listOf("§aClick to leave the arena")).build()
 
     val checkPointItem = ItemBuilder(Material.IRON_HOE, 1).addItemName(ItemNames.ADD_CHECKPOINT_LOCATION.text).addItemLore(listOf("§aClick to add a new Checkpoint to the Arena")).build()
 

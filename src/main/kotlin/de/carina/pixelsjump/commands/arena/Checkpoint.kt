@@ -30,7 +30,7 @@ class Checkpoint(private val sender: CommandSender, private val command: Command
         }
 
         PlayerStats.addFail(sender as Player)
-        sender.teleport(BlockGenerator.playerCheckpoints[sender]!!)
+        sender.teleport(BlockGenerator.playerCheckpoints[sender]!!.toLocation())
         sender.sendMessage(Messages.messages["arena-player-fell"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
 
     }

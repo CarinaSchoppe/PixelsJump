@@ -17,6 +17,7 @@ import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.inventory.Items
+import de.carina.pixelsjump.util.json.CustomLocation
 import de.carina.pixelsjump.util.stats.PlayerStats
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
@@ -40,22 +41,28 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
     }
 
     private fun addPlayerToArena(player: Player, arena: Arena) {
-        arena.players.add(player)
-        ArenaHelper.playersInArenas.add(player)
+
         player.sendMessage(Messages.messages["arena-join"]!!.replace("%arena%", args[1]))
 
         player.playerListName(LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix + "§7" + sender.name))
         PlayerStats.joinArena(player)
-        player.teleport(arena.startLocation)
+        player.teleport(arena.startLocation!!.toLocation())
         BlockGenerator.playerJumpBlocks[player] = mutableListOf()
         PixelsJump.utility.playerInventory[player] = player.inventory
         player.gameMode = GameMode.SURVIVAL
-        BlockGenerator.playerCheckpoints[player] = player.location
+        BlockGenerator.playerCheckpoints[player] = CustomLocation(player.location)
         player.inventory.clear()
-        player.inventory.setItem(8, Items.toCheckPointItem)
+        if (arena.single)
+            player.inventory.setItem(8, Items.leaveItem)
+        else {
+            player.inventory.setItem(8, Items.toCheckPointItem)
+            player.inventory.setItem(5, Items.leaveItem)
+        }
         if (arena.single)
             BlockGenerator.generateBlock(player)
         BlockGenerator.playerJumps[player] = 0
+        arena.players.add(player)
+        ArenaHelper.playersInArenas.add(player)
         Bukkit.getOnlinePlayers().forEach {
             if (it != sender) {
                 it.hidePlayer(PixelsJump.instance, player)

@@ -13,6 +13,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "+"
+    id("java")
     id("com.github.johnrengelman.shadow") version "+"
     id("xyz.jpenilla.run-paper") version "+"
     id("idea")

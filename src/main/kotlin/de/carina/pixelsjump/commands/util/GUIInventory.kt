@@ -25,6 +25,7 @@ class GUIInventory(private val sender: CommandSender, private val command: Comma
         val player = sender as org.bukkit.entity.Player
         PixelsJump.utility.arenaPlayerNames[player] = args[1]
 
+        player.performCommand("pixelsjump setup ${args[1]}")
         player.openInventory(Inventories.starterInventory)
 
     }

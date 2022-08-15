@@ -44,7 +44,7 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
             it.type = Material.AIR
         }
         BlockGenerator.playerJumpBlocks.remove(sender)
-        sender.teleport(ArenaHelper.arenas.find { it.players.contains(sender) }!!.backLocation)
+        sender.teleport(ArenaHelper.arenas.find { it.players.contains(sender) }!!.backLocation!!.toLocation())
         sender.inventory.clear()
         sender.sendMessage(Messages.messages["arena-leave"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
     }

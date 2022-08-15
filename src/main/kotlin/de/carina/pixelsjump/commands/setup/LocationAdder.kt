@@ -3,6 +3,7 @@ package de.carina.pixelsjump.commands.setup
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.json.CustomLocation
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -16,18 +17,22 @@ class LocationAdder(private val sender: CommandSender, private val command: Comm
 
         //format: <type> <name> <position>
         val player = sender as Player
+        if (ArenaHelper.arenaNotExists(args[1])) {
+            sender.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", args[1]))
+            return
+        }
         val arena = ArenaHelper.getOrCreateArena(args[1])
         if (args[2].equals("start", true)) {
-            arena.startLocation = player.location.toCenterLocation()
+            arena.startLocation = CustomLocation(player.location.toCenterLocation())
             sender.sendMessage(Messages.messages["add-start"]!!.replace("%arena%", args[1]))
         } else if (args[2].equals("checkpoint", true)) {
             arena.addCheckpointLocation(player.location)
             sender.sendMessage(Messages.messages["add-checkpoint"]!!.replace("%arena%", args[1]).replace("%number%", arena.checkPoints.size.toString()))
         } else if (args[2].equals("back", true)) {
-            arena.backLocation = player.location.toCenterLocation()
+            arena.backLocation = CustomLocation(player.location.toCenterLocation())
             sender.sendMessage(Messages.messages["add-back"]!!.replace("%arena%", args[1]))
         } else if (args[2].equals("finish", true)) {
-            arena.finishLocation = player.location.toCenterLocation()
+            arena.finishLocation = CustomLocation(player.location.toCenterLocation())
             sender.sendMessage(Messages.messages["add-end"]!!.replace("%arena%", args[1]))
         }
     }

@@ -82,9 +82,9 @@ class PixelsJump : JavaPlugin() {
         pluginManager.registerEvents(PlayerJoin(), this)
         pluginManager.registerEvents(PlayerDamage(), this)
         pluginManager.registerEvents(PlayerMoves(), this)
-        pluginManager.registerEvents(Blocks(), this)
+        pluginManager.registerEvents(BlockHandling(), this)
         pluginManager.registerEvents(PlayerChat(), this)
-        pluginManager.registerEvents(Checkpoint(), this)
+        pluginManager.registerEvents(CheckpointItem(), this)
         pluginManager.registerEvents(SignCreator(), this)
 
         extra()

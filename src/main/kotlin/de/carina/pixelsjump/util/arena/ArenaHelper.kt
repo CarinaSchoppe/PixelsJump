@@ -30,7 +30,12 @@ object ArenaHelper {
         val files = directory.listFiles()
         if (files != null) {
             for (file in files) {
+                if (!file.extension.endsWith("json")) {
+                    file.delete()
+                    continue
+                }
                 val arena = Gson().fromJson(file.bufferedReader(), Arena::class.java)
+                arena.players = mutableSetOf()
                 Bukkit.getConsoleSender().sendMessage(Messages.messages["arena-loaded"]!!.replace("%arena%", arena.name.replace(".yml", "")))
                 arenas.add(arena)
             }

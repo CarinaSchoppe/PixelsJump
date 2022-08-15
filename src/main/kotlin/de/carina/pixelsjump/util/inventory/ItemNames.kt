@@ -22,5 +22,6 @@ enum class ItemNames(val text: String) {
     ARENA_DAMAGE("§dArena Damage"),
     FINISH_ARENA("§dFinish Arena"),
     ADD_END_LOCATION("§dAdd Location End"),
+    LEAVE_GAME("§dLeave"),
 
 }

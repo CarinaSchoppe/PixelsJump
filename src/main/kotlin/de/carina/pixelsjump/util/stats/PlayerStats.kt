@@ -21,18 +21,18 @@ import java.io.File
 import java.util.*
 
 object PlayerStats {
-    data class PlayerStats(var uuid: UUID, var games: Int = 0, var points: Int = 0, var fails: Int = 0, var wins: Int = 0)
+    data class PlayerStats(var playerName: String, var uuid: UUID, var games: Int = 0, var points: Int = 0, var fails: Int = 0, var wins: Int = 0)
 
     private const val path = "plugins/PixelsJumpRemastered/statistics.json"
     private var file: File = File(path)
     val statistics = mutableListOf<PlayerStats>()
     private fun loadPlayers() {
-
+        if (!file.exists()) return
         val itemType = object : TypeToken<List<PlayerStats>>() {}.type
         val playerStats = Gson().fromJson<MutableList<PlayerStats>>(file.bufferedReader(), itemType)
         playerStats.forEach { player ->
             Bukkit.getConsoleSender().sendMessage(
-                Messages.messages["stats-loaded"]!!.replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId.equals(player) }?.name ?: "unknown")
+                Messages.messages["stats-loaded"]!!.replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId == player.uuid }?.name ?: "offline")
             )
             statistics.add(player)
         }
@@ -50,15 +50,15 @@ object PlayerStats {
 
 
     fun addStats(player: Player) {
-        val statsPlayer = getStatsPlayer(player.uniqueId)!!
+        val statsPlayer = getStatsPlayer(player.name)
         if (statsPlayer == null)
-            statistics.add(PlayerStats(player.uniqueId, 0, 0, 0, 0))
+            statistics.add(PlayerStats(player.name, player.uniqueId, 0, 0, 0, 0))
         saveStatsFile()
     }
 
-    private fun getStatsPlayer(uuid: UUID): PlayerStats? {
+    private fun getStatsPlayer(name: String): PlayerStats? {
         statistics.forEach {
-            if (it.uuid == uuid) {
+            if (it.playerName == name) {
                 return it
             }
         }
@@ -72,25 +72,25 @@ object PlayerStats {
     }
 
     fun joinArena(player: Player) {
-        val statsPlayer = getStatsPlayer(player.uniqueId) ?: return
+        val statsPlayer = getStatsPlayer(player.name) ?: return
         statsPlayer.games++
         saveStatsFile()
     }
 
     fun addFail(player: Player) {
-        val playerStats = getStatsPlayer(player.uniqueId) ?: return
+        val playerStats = getStatsPlayer(player.name) ?: return
         playerStats.fails++
         saveStatsFile()
     }
 
     fun addPoints(player: Player, amount: Int) {
-        val playerStats = getStatsPlayer(player.uniqueId) ?: return
+        val playerStats = getStatsPlayer(player.name) ?: return
         playerStats.points += amount
         saveStatsFile()
     }
 
     fun addWin(player: Player) {
-        val playerStats = getStatsPlayer(player.uniqueId) ?: return
+        val playerStats = getStatsPlayer(player.name) ?: return
         playerStats.wins++
         playerStats.points += 5
         saveStatsFile()

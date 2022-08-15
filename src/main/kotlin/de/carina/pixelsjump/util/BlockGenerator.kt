@@ -11,6 +11,9 @@
 
 package de.carina.pixelsjump.util
 
+import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.json.CustomLocation
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
@@ -21,11 +24,12 @@ import kotlin.math.abs
 object BlockGenerator {
 
     val playerBlock = mutableMapOf<Player, Block>()
-    val playerCheckpoints = mutableMapOf<Player, Location>()
+    val playerCheckpoints = mutableMapOf<Player, CustomLocation>()
     val checkPointMaterial = Material.DIAMOND_BLOCK
     val endPointFinish = Material.GOLD_BLOCK
     val playerJumps = mutableMapOf<Player, Int>()
     val playerJumpBlocks = mutableMapOf<Player, MutableList<Block>>()
+    val blockRunnables = mutableMapOf<Location, Int>()
 
     enum class Blocks(val material: Material) {
         RED(Material.RED_CONCRETE),
@@ -50,7 +54,7 @@ object BlockGenerator {
         playerJumps[player] = (playerJumps[player] ?: 0) + 1
         val type = Blocks.values().random()
         var length = Random().nextInt(4) + 1
-        val height = Random().nextInt(2)
+        val height = if (Random().nextBoolean()) 1 else 0
         var x = Random().nextInt(3) - 1
         var z = Random().nextInt(3) - 1
         if (height == 1 && length == 4) {
@@ -62,14 +66,18 @@ object BlockGenerator {
             x = 1
             z = -1
         }
-        val newLocation = player.location.add((length * x).toDouble(), height.toDouble(), (length * z).toDouble())
+
+        val newLocation = player.location.add((length * x).toDouble(), height.toDouble() - 1, (length * z).toDouble())
         val block = player.world.getBlockAt(newLocation)
         playerJumpBlocks[player]!!.add(block)
+        blockRunnables[newLocation] = Bukkit.getScheduler().scheduleSyncDelayedTask(PixelsJump.instance, { block.type = Material.AIR }, 20 * 10)
         block.type = type.material
         playerBlock[player] = block
         if ((playerJumps[player] ?: 0) >= 2) {
-            player.world.getBlockAt(playerJumpBlocks[player]!![0].location).type = Material.AIR
+            player.world.getBlockAt(playerJumpBlocks[player]!!.first().location).type = Material.AIR
+            Bukkit.getScheduler().cancelTask(blockRunnables[playerJumpBlocks[player]!!.first().location]!!)
             playerJumpBlocks[player]!!.removeAt(0)
+            blockRunnables.remove(playerJumpBlocks[player]!!.first().location)
         }
     }
 }
