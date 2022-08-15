@@ -12,6 +12,7 @@
 package de.carina.pixelsjump.events.inventory
 
 import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.inventory.InventoryNames
 import de.carina.pixelsjump.util.inventory.Items
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
@@ -31,27 +32,27 @@ class CommandInventoryListener : Listener {
         val item = event.currentItem ?: return
         val player = event.whoClicked as org.bukkit.entity.Player
         if (PixelsJump.utility.arenaPlayerNames[player] == null) {
-            player.sendMessage(PixelsJump.utility.messageConverter("no-arena-name"))
+            player.sendMessage(Messages.messages["no-arena-name"]!!)
             return
         }
         when (item) {
             Items.startLocationItem() -> {
                 if (!player.hasPermission("pixelsjump.addLocation.start")) {
-                    player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
+                    player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} start")
             }
             Items.singleJumpNRunItem() -> {
                 if (!player.hasPermission("pixelsjump.addLocation.single")) {
-                    player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
+                    player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump single ${PixelsJump.utility.arenaPlayerNames[player]}")
             }
             Items.finishArenaBuildItem() -> {
                 if (!player.hasPermission("pixelsjump.addLocation.finish")) {
-                    player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
+                    player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump finish ${PixelsJump.utility.arenaPlayerNames[player]}")
@@ -59,21 +60,21 @@ class CommandInventoryListener : Listener {
             }
             Items.checkPointItem() -> {
                 if (!player.hasPermission("pixelsjump.addLocation.checkpoint")) {
-                    player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
+                    player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} checkpoint")
             }
             Items.backLocationItem() -> {
                 if (!player.hasPermission("pixelsjump.addLocation.back")) {
-                    player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
+                    player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} back")
             }
             Items.arenaDamageItem() -> {
                 if (!player.hasPermission("pixelsjump.arena.damage")) {
-                    player.sendMessage(PixelsJump.utility.messageConverter("no-permission"))
+                    player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump damage ${PixelsJump.utility.arenaPlayerNames[player]}")

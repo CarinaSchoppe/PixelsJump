@@ -1,18 +1,27 @@
 package de.carina.pixelsjump.util.files
 
+import de.carina.pixelsjump.PixelsJump
+import org.bukkit.ChatColor
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 
+
 object Messages {
 
+
     private const val path = "plugins/PixelsJumpRemastered/messages.yml"
-    private lateinit var messagesFile: File
-    lateinit var ymlConfiguration: YamlConfiguration
+    private var messagesFile = File(path)
+    private var ymlConfiguration = YamlConfiguration.loadConfiguration(messagesFile)
+    val messages = mutableMapOf<String, String>()
 
-    fun loadMessages() {
-        messagesFile = File(path)
-        ymlConfiguration = YamlConfiguration.loadConfiguration(messagesFile)
 
+    private fun loadMessages() {
+        for (key in ymlConfiguration.getKeys(false)) {
+            messages[key] = PixelsJump.prefix + " " + ChatColor.translateAlternateColorCodes('&', ymlConfiguration.getString(key)!!)
+        }
+    }
+
+    fun createMessagesFile() {
         ymlConfiguration.addDefault("load", "&7The Plugin was successfully loaded!")
         ymlConfiguration.addDefault("unload", "&7The Plugin was successfully unloaded!")
         ymlConfiguration.addDefault("error", "&cAn Error occurred!")
@@ -62,6 +71,8 @@ object Messages {
 
 
         saveMessageFile()
+
+        loadMessages()
     }
 
     private fun saveMessageFile() {

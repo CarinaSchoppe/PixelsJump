@@ -21,18 +21,29 @@ object Configuration {
     var arenaBreak = false
     var arenaPlace = false
     private const val path = "plugins/PixelsJumpRemastered/config.yml"
-    private lateinit var configFile: File
-    lateinit var ymlConfiguration: YamlConfiguration
-    fun loadConfig() {
+    private var configFile: File = File(path)
+    private var ymlConfiguration: YamlConfiguration = YamlConfiguration.loadConfiguration(configFile)
+    val config = mutableMapOf<String, Any>()
+
+
+    private fun loadConfig() {
+        ymlConfiguration.getKeys(false).forEach { key ->
+            config[key] = ymlConfiguration.get(key) as Any
+        }
+    }
+
+    fun initiateConfig() {
         configFile = File(path)
         ymlConfiguration = YamlConfiguration.loadConfiguration(configFile)
-
 
         ymlConfiguration.addDefault("arena-break", true)
         ymlConfiguration.addDefault("arena-place", true)
         ymlConfiguration.addDefault("jump-points", 1)
         ymlConfiguration.addDefault("prefix", "&8[&6PixelsJump&8]&r")
+
+
         saveConfigFile()
+        loadConfig()
     }
 
     private fun saveConfigFile() {

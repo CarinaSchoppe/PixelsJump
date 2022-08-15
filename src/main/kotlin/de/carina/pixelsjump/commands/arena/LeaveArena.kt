@@ -14,9 +14,9 @@ package de.carina.pixelsjump.commands.arena
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.files.Messages
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
@@ -27,7 +27,7 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "leave", "pixelsjump.leave")) return
         if (!ArenaHelper.playersInArenas.contains(sender)) {
-            sender.sendMessage(PixelsJump.utility.messageConverter("no-jump"))
+            sender.sendMessage(Messages.messages["no-jump"]!!)
             return
         }
 
@@ -44,8 +44,8 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
             it.type = Material.AIR
         }
         BlockGenerator.playerJumpBlocks.remove(sender)
-        sender.teleport(ArenaHelper.arenas.find { it.players.contains(sender) }!!.locations[2] as Location)
+        sender.teleport(ArenaHelper.arenas.find { it.players.contains(sender) }!!.backLocation)
         sender.inventory.clear()
-        sender.sendMessage(PixelsJump.utility.messageConverter("arena-leave").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
+        sender.sendMessage(Messages.messages["arena-leave"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
     }
 }

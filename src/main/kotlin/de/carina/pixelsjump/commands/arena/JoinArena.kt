@@ -15,12 +15,12 @@ import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.inventory.Items
-import de.carina.pixelsjump.util.stats.Statistics
+import de.carina.pixelsjump.util.stats.PlayerStats
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
-import org.bukkit.Location
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -30,9 +30,9 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "join", "pixelsjump.join")) return
         if (!PixelsJump.utility.checkForArena(args[1], sender as Player)) return
-        val arena = ArenaHelper.getArena(args[1])
+        val arena = ArenaHelper.getOrCreateArena(args[1])
         if (ArenaHelper.playersInArenas.contains(sender)) {
-            sender.sendMessage(PixelsJump.utility.messageConverter("arena-allready").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
+            sender.sendMessage(Messages.messages["arena-allready"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
             return
         }
 
@@ -42,18 +42,18 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
     private fun addPlayerToArena(player: Player, arena: Arena) {
         arena.players.add(player)
         ArenaHelper.playersInArenas.add(player)
-        player.sendMessage(PixelsJump.utility.messageConverter("arena-join").replace("%arena%", args[1]))
+        player.sendMessage(Messages.messages["arena-join"]!!.replace("%arena%", args[1]))
 
         player.playerListName(LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix + "§7" + sender.name))
-        Statistics.joinArena(player)
-        player.teleport(arena.locations[0]!! as Location)
+        PlayerStats.joinArena(player)
+        player.teleport(arena.startLocation)
         BlockGenerator.playerJumpBlocks[player] = mutableListOf()
         PixelsJump.utility.playerInventory[player] = player.inventory
         player.gameMode = GameMode.SURVIVAL
         BlockGenerator.playerCheckpoints[player] = player.location
         player.inventory.clear()
         player.inventory.setItem(8, Items.toCheckPointItem())
-        if (arena.single == true)
+        if (arena.single)
             BlockGenerator.generateBlock(player)
         BlockGenerator.playerJumps[player] = 0
         Bukkit.getOnlinePlayers().forEach {

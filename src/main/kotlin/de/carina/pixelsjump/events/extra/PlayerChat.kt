@@ -18,7 +18,7 @@ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
-class Chatter : Listener {
+class PlayerChat : Listener {
 
     @EventHandler
     fun onChat(event: AsyncChatEvent) {

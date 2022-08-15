@@ -16,7 +16,7 @@ import de.carina.pixelsjump.util.arena.ArenaHelper
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
-class LocationList(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
+class LocationListPrinter(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "list", "pixelsjump.list"))
             return

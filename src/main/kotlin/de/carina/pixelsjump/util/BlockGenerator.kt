@@ -45,6 +45,7 @@ object BlockGenerator {
         LIGHT_GRAY(Material.LIGHT_GRAY_CONCRETE),
     }
 
+    //TODO: ist die generierung so richtig? Mathe?
     fun generateBlock(player: Player) {
         playerJumps[player] = (playerJumps[player] ?: 0) + 1
         val type = Blocks.values().random()

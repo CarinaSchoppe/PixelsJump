@@ -11,7 +11,7 @@
 
 package de.carina.pixelsjump.events.extra
 
-import de.carina.pixelsjump.util.stats.Statistics
+import de.carina.pixelsjump.util.stats.PlayerStats
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -20,14 +20,14 @@ class PlayerJoin : Listener {
 
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
-        Statistics.statistics.forEach {
+        PlayerStats.statistics.forEach {
             if (it.uuid == event.player.uniqueId) {
                 return
             }
         }
 
-        Statistics.statistics.add(Statistics.PlayerStats(event.player.uniqueId))
-        Statistics.addStats(event.player)
+        PlayerStats.statistics.add(PlayerStats.PlayerStats(event.player.uniqueId))
+        PlayerStats.addStats(event.player)
 
     }
 }

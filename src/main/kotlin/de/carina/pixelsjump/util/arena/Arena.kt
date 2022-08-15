@@ -11,73 +11,34 @@
 
 package de.carina.pixelsjump.util.arena
 
+import com.google.gson.GsonBuilder
 import org.bukkit.Location
 import org.bukkit.block.BlockFace
-import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import java.io.File
 
 
-class Arena(val name: String, var locations: Array<Any?> = arrayOfNulls(3)) {
+class Arena(val name: String) {
     val checkPoints: MutableList<Location> = mutableListOf()
-
-    init {
-        if (locations[1] != null) {
-            checkPoints.addAll(locations[1] as MutableList<Location>)
-        }
-    }
-
+    lateinit var startLocation: Location
+    lateinit var endLocation: Location
+    lateinit var backLocation: Location
     val players = mutableSetOf<Player>()
-    private val file: File = File("plugins/PixelsJumpRemastered/arenas/$name.yml")
-    var single: Boolean? = null
-    var damage: Boolean? = null
-    private val ymlConfiguration: YamlConfiguration = YamlConfiguration.loadConfiguration(file)
+
+    @Transient
+    private val file: File = File("plugins/PixelsJumpRemastered/arenas/$name.json")
+    var single: Boolean = false
+    var damage: Boolean = false
 
     fun saveArena() {
-        ymlConfiguration.set("single", single ?: false)
-        ymlConfiguration.set("damage", single ?: false)
-        if (locations[0] != null) {
-            ymlConfiguration.set("start.world", (locations[0]!! as Location).world.name)
-            ymlConfiguration.set("start.x", (locations[0]!! as Location).x)
-            ymlConfiguration.set("start.y", (locations[0]!! as Location).y)
-            ymlConfiguration.set("start.z", (locations[0]!! as Location).z)
-            ymlConfiguration.set("start.yaw", (locations[0]!! as Location).yaw)
-            ymlConfiguration.set("start.pitch", (locations[0]!! as Location).pitch)
-        }
-
-
-        if (checkPoints.isNotEmpty()) {
-            ymlConfiguration.set("checkpoints", checkPoints)
-        }
-
-        if (locations[2] != null) {
-            ymlConfiguration.set("back.world", (locations[2]!! as Location).world.name)
-            ymlConfiguration.set("back.x", (locations[2]!! as Location).x)
-            ymlConfiguration.set("back.y", (locations[2]!! as Location).y)
-            ymlConfiguration.set("back.z", (locations[2]!! as Location).z)
-            ymlConfiguration.set("back.yaw", (locations[2]!! as Location).yaw)
-            ymlConfiguration.set("back.pitch", (locations[2]!! as Location).pitch)
-        }
-
-        ymlConfiguration.options().copyDefaults(true)
-        ymlConfiguration.save(file)
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        file.writeText(gson.toJson(this))
     }
 
-    fun addStartLocation(location: Location) {
-        locations[0] = location.toBlockLocation()
-    }
 
     fun addCheckpointLocation(location: Location) {
         checkPoints.add(location.block.getRelative(BlockFace.DOWN).location.toCenterLocation())
     }
 
-    fun setOnlyFirst() {
-        ymlConfiguration.set("single", true)
-    }
 
-
-    fun addBackLocation(location: Location) {
-        locations[2] = location.toBlockLocation()
-
-    }
 }

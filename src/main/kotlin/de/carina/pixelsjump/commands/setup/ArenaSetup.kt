@@ -13,6 +13,7 @@ package de.carina.pixelsjump.commands.setup
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
@@ -20,8 +21,8 @@ class ArenaSetup(private val sender: CommandSender, private val command: Command
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "setup", "pixelsjump.setup"))
             return
-        val arena = ArenaHelper.getArena(args[1])
-        sender.sendMessage(PixelsJump.utility.messageConverter("arena-setup").replace("%arena%", arena.name))
+        val arena = ArenaHelper.getOrCreateArena(args[1])
+        sender.sendMessage(Messages.messages["arena-setup"]!!.replace("%arena%", arena.name))
 
     }
 }

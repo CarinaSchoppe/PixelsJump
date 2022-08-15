@@ -14,23 +14,24 @@ package de.carina.pixelsjump.commands.arena
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.ArenaHelper
-import de.carina.pixelsjump.util.stats.Statistics
+import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.stats.PlayerStats
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class CheckPoint(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
+class Checkpoint(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "checkpoint", "pixelsjump.checkpoint")) return
         if (!ArenaHelper.playersInArenas.contains(sender)) {
-            sender.sendMessage(PixelsJump.utility.messageConverter("no-jump"))
+            sender.sendMessage(Messages.messages["no-jump"]!!)
             return
         }
 
-        Statistics.addFail(sender as Player)
+        PlayerStats.addFail(sender as Player)
         sender.teleport(BlockGenerator.playerCheckpoints[sender]!!)
-        sender.sendMessage(PixelsJump.utility.messageConverter("arena-player-fell").replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
+        sender.sendMessage(Messages.messages["arena-player-fell"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
 
     }
 }

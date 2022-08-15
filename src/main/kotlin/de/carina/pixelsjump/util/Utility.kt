@@ -11,11 +11,8 @@
 
 package de.carina.pixelsjump.util
 
-import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
-import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -31,17 +28,17 @@ class Utility {
         }
 
         if (args.isEmpty()) {
-            sender.sendMessage(messageConverter("default-command"))
+            sender.sendMessage(Messages.messages["default-command"]!!)
             return false
         }
 
         if (sender !is Player) {
-            sender.sendMessage(messageConverter("no-player"))
+            sender.sendMessage(Messages.messages["no-player"]!!)
             return false
         }
 
         if (args.size < argsLength) {
-            sender.sendMessage(messageConverter("wrong-args"))
+            sender.sendMessage(Messages.messages["wrong-args"]!!)
             return false
         }
 
@@ -52,7 +49,7 @@ class Utility {
 
 
         if (!sender.hasPermission(permission)) {
-            sender.sendMessage(messageConverter("no-permission"))
+            sender.sendMessage(Messages.messages["no-permission"]!!)
             return false
         }
         return true
@@ -60,7 +57,7 @@ class Utility {
 
     fun checkForArena(name: String, sender: Player? = null): Boolean {
         if (ArenaHelper.arenas.find { it.name == name } == null) {
-            sender?.sendMessage(messageConverter("no-arena").replace("%arena%", name))
+            sender?.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", name))
             return false
         }
         return true
@@ -69,11 +66,4 @@ class Utility {
 
     val arenaPlayerNames = mutableMapOf<Player, String?>()
 
-    fun sendMessage(messagePath: String) {
-        Bukkit.getConsoleSender().sendMessage(PixelsJump.prefix + " " + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!))
-    }
-
-    fun messageConverter(messagePath: String): String {
-        return PixelsJump.prefix + " " + ChatColor.translateAlternateColorCodes('&', Messages.ymlConfiguration.getString(messagePath)!!)
-    }
 }

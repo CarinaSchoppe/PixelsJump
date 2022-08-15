@@ -13,28 +13,29 @@ package de.carina.pixelsjump.commands.setup
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
-class SingleJumpNRun(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
+class ArenaTypeConverter(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
         print("test2")
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "single", "pixelsjump.single"))
             return
         print("test")
-        if (!ArenaHelper.arenaNotExists(args[1])) {
-            sender.sendMessage(PixelsJump.utility.messageConverter("no-arena").replace("%arena%", args[1]))
+        if (ArenaHelper.arenaNotExists(args[1])) {
+            sender.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", args[1]))
             return
         }
 
         val arena = ArenaHelper.arenas.find { it.name == args[1] }!!
         if (arena.single != false) {
             arena.single = false
-            sender.sendMessage(PixelsJump.utility.messageConverter("arena-single-no").replace("%arena%", args[1]))
+            sender.sendMessage(Messages.messages["arena-single-no"]!!.replace("%arena%", args[1]))
         } else {
             arena.single = true
-            sender.sendMessage(PixelsJump.utility.messageConverter("arena-single-yes").replace("%arena%", args[1]))
+            sender.sendMessage(Messages.messages["arena-single-yes"]!!.replace("%arena%", args[1]))
         }
 
     }

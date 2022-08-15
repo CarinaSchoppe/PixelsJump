@@ -9,14 +9,14 @@
  * requires the express written consent of Carina Sophie Schoppe.
  */
 
-package de.carina.pixelsjump.commands
+package de.carina.pixelsjump.commands.util
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.inventory.Inventories
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
-class InventoryStart(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
+class GUIInventory(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "gui", "pixelsjump.gui")) {

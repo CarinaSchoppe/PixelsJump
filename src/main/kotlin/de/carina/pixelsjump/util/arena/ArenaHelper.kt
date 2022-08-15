@@ -11,10 +11,9 @@
 
 package de.carina.pixelsjump.util.arena
 
-import de.carina.pixelsjump.PixelsJump
+import com.google.gson.Gson
+import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.Bukkit
-import org.bukkit.Location
-import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import java.io.File
 
@@ -23,7 +22,7 @@ object ArenaHelper {
     val arenas = mutableSetOf<Arena>()
     val playersInArenas = mutableSetOf<Player>()
     fun loadArenas() {
-        PixelsJump.utility.sendMessage("loading-arenas-start")
+        Bukkit.getConsoleSender().sendMessage(Messages.messages["loading-arenas-start"]!!)
         val directory = File("plugins/PixelsJumpRemastered/arenas")
         if (!directory.exists())
             directory.mkdir()
@@ -31,57 +30,23 @@ object ArenaHelper {
         val files = directory.listFiles()
         if (files != null) {
             for (file in files) {
-                val ymlConfiguration = YamlConfiguration.loadConfiguration(file)
-                val arena = Arena(file.name.replace(".yml", ""), arrayOfNulls(3))
-                for (key in ymlConfiguration.getKeys(false)) {
-                    if (key == "start") {
-                        //load the start location based on the config
-                        var location: Location
-                        val world = ymlConfiguration.getString("start.world")?.let { Bukkit.getWorld(it) }
-                        val x = ymlConfiguration.getInt("start.x")
-                        val y = ymlConfiguration.getInt("start.y")
-                        val z = ymlConfiguration.getInt("start.z")
-                        val yaw = ymlConfiguration.getInt("start.yaw")
-                        val pitch = ymlConfiguration.getInt("start.pitch")
-                        location = Location(world, x.toDouble(), y.toDouble(), z.toDouble(), yaw.toFloat(), pitch.toFloat())
-                        arena.addStartLocation(location)
-                    } else if (key == "damage") {
-                        arena.damage = ymlConfiguration.getBoolean("damage")
-                    } else if (key == "checkpoints") {
-                        //load the checkpoints based on the config
-                        ymlConfiguration.getList("checkpoints")!!.forEach {
-                            arena.checkPoints.add(it as Location); Bukkit.getConsoleSender().sendMessage(PixelsJump.utility.messageConverter("checkpoint-loaded").replace("%number%", arena.checkPoints.size.toString()).replace("%arena%", arena.name))
-                        }
-
-                    } else if (key == "back") {
-                        val location: Location
-                        val world = ymlConfiguration.getString("back.world")?.let { Bukkit.getWorld(it) }
-                        val x = ymlConfiguration.getInt("back.x")
-                        val y = ymlConfiguration.getInt("back.y")
-                        val z = ymlConfiguration.getInt("back.z")
-                        val yaw = ymlConfiguration.getInt("back.yaw")
-                        val pitch = ymlConfiguration.getInt("back.pitch")
-                        location = Location(world, x.toDouble(), y.toDouble(), z.toDouble(), yaw.toFloat(), pitch.toFloat())
-                        arena.addBackLocation(location)
-                    } else if (key == "single") {
-                        arena.single = ymlConfiguration.getBoolean(key)
-                    }
-                }
-                Bukkit.getConsoleSender().sendMessage(PixelsJump.utility.messageConverter("arena-loaded").replace("%arena%", arena.name.replace(".yml", "")))
+                val arena = Gson().fromJson(file.bufferedReader(), Arena::class.java)
+                Bukkit.getConsoleSender().sendMessage(Messages.messages["arena-loaded"]!!.replace("%arena%", arena.name.replace(".yml", "")))
                 arenas.add(arena)
             }
         }
-        PixelsJump.utility.sendMessage("loading-arenas-end")
+        Bukkit.getConsoleSender().sendMessage(Messages.messages["loading-arenas-end"]!!)
+
 
     }
 
     fun arenaNotExists(arenaName: String): Boolean {
         for (arena in arenas) {
             if (arena.name == arenaName) {
-                return true
+                return false
             }
         }
-        return false
+        return true
     }
 
     fun toArenaString(): String {
@@ -92,13 +57,13 @@ object ArenaHelper {
         return string.substring(0, string.length - 2)
     }
 
-    fun getArena(name: String): Arena {
+    fun getOrCreateArena(name: String): Arena {
         for (arena in arenas) {
             if (arena.name == name) {
                 return arena
             }
         }
-        val arena = Arena(name, arrayOfNulls(3))
+        val arena = Arena(name)
         arenas.add(arena)
         return arena
     }

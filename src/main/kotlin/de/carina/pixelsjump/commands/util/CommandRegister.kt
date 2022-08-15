@@ -1,7 +1,7 @@
 /*
  * Copyright Notice for PixelsJumpRemastered
  * Copyright (c) at Carina Sophie Schoppe 2022
- * File created on 28.03.22, 14:48 by Carina The Latest changes made by Carina on 28.03.22, 14:48.
+ * File created on 8/15/22, 12:53 PM by Carina The Latest changes made by Carina on 8/15/22, 12:51 PM.
  *  All contents of "CommandRegister.kt" are protected by copyright. The copyright law, unless expressly indicated otherwise, is
  * at Carina Sophie Schoppe. All rights reserved
  * Any type of duplication, distribution, rental, sale, award,
@@ -9,11 +9,11 @@
  * requires the express written consent of Carina Sophie Schoppe.
  */
 
-package de.carina.pixelsjump.commands
+package de.carina.pixelsjump.commands.util
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.commands.arena.ArenaInventory
-import de.carina.pixelsjump.commands.arena.CheckPoint
+import de.carina.pixelsjump.commands.arena.Checkpoint
 import de.carina.pixelsjump.commands.arena.JoinArena
 import de.carina.pixelsjump.commands.arena.LeaveArena
 import de.carina.pixelsjump.commands.setup.*
@@ -30,17 +30,17 @@ class CommandRegister : CommandExecutor {
         when (args[0]) {
             "add" -> LocationAdder(sender, command, args).execute()
             "remove" -> ArenaRemover(sender, command, args).execute()
-            "list" -> LocationList(sender, command, args).execute()
-            "single" -> SingleJumpNRun(sender, command, args).execute()
+            "list" -> LocationListPrinter(sender, command, args).execute()
+            "single" -> ArenaTypeConverter(sender, command, args).execute()
             "setup" -> ArenaSetup(sender, command, args).execute()
             "finish" -> ArenaFinish(sender, command, args).execute()
-            "gui" -> InventoryStart(sender, command, args).execute()
+            "gui" -> GUIInventory(sender, command, args).execute()
             "arenas" -> ArenaInventory(sender, command, args).execute()
             "join" -> JoinArena(sender, command, args).execute()
             "leave" -> LeaveArena(sender, command, args).execute()
             "stats" -> StatsCommand(sender, command, args).execute()
             "damage" -> ArenaDamage(sender, command, args).execute()
-            "checkpoint" -> CheckPoint(sender, command, args).execute()
+            "checkpoint" -> Checkpoint(sender, command, args).execute()
         }
 
         return true

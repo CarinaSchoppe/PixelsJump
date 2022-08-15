@@ -13,6 +13,7 @@ package de.carina.pixelsjump.commands.setup
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import java.io.File
@@ -22,14 +23,14 @@ class ArenaRemover(private val sender: CommandSender, private val command: Comma
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "remove", "pixelsjump.remove"))
             return
 
-        if (!ArenaHelper.arenaNotExists(args[1])) {
-            sender.sendMessage(PixelsJump.utility.messageConverter("no-arena").replace("%arena%", args[1]))
+        if (ArenaHelper.arenaNotExists(args[1])) {
+            sender.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", args[1]))
             return
         }
         ArenaHelper.arenas.forEach {
             if (it.name == args[1]) {
                 ArenaHelper.arenas.remove(it)
-                sender.sendMessage(PixelsJump.utility.messageConverter("arena-removed").replace("%arena%", args[1]))
+                sender.sendMessage(Messages.messages["arena-removed"]!!.replace("%arena%", args[1]))
                 File("plugins/PixelsJumpRemastered/arenas/${args[1]}.yml").delete()
                 return
             }
