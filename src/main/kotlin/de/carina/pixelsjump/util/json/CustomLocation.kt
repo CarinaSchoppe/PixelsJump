@@ -17,16 +17,22 @@ import org.bukkit.Location
 data class CustomLocation(var world: String, var x: Double, var y: Double, var z: Double, var yaw: Float, var pitch: Float) {
     constructor(location: Location) : this(location.world.name, location.x, location.y, location.z, location.yaw, location.pitch)
 
-    override fun equals(other: Any?): Boolean {
-        if (other is CustomLocation) {
-            return world == other.world && x == other.x && y == other.y && z == other.z && yaw == other.yaw && pitch == other.pitch
-        }
-        return false
-    }
 
     fun toLocation(): Location {
         val location = Location(Bukkit.getWorld(world), x, y, z, yaw, pitch)
         return location
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CustomLocation) return false
+
+        if (world != other.world) return false
+        if (x != other.x) return false
+        if (y != other.y) return false
+        if (z != other.z) return false
+
+        return true
     }
 
 

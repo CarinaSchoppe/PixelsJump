@@ -35,7 +35,6 @@ class PixelsJump : JavaPlugin() {
     * TODO: Hiding?
     * TODO: Multi player
     * TODO: checkPoints
-    * TODO: jump bloks
     * TODO: Edit commands on premise in GUI?
     * TODO: leave item?
     * TODO: Hide all other players item?

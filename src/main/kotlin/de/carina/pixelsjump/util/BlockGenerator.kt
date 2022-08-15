@@ -11,13 +11,12 @@
 
 package de.carina.pixelsjump.util
 
-import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.json.CustomLocation
-import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
+import org.bukkit.scheduler.BukkitTask
 import java.util.*
 import kotlin.math.abs
 
@@ -29,7 +28,8 @@ object BlockGenerator {
     val endPointFinish = Material.GOLD_BLOCK
     val playerJumps = mutableMapOf<Player, Int>()
     val playerJumpBlocks = mutableMapOf<Player, MutableList<Block>>()
-    val blockRunnables = mutableMapOf<Location, Int>()
+    val playerAFK = mutableMapOf<Player, Pair<BukkitTask, Boolean>>()
+
 
     enum class Blocks(val material: Material) {
         RED(Material.RED_CONCRETE),
@@ -66,18 +66,18 @@ object BlockGenerator {
             x = 1
             z = -1
         }
-
         val newLocation = player.location.add((length * x).toDouble(), height.toDouble() - 1, (length * z).toDouble())
+        player.level += 1
+        player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1.toFloat(), 1.toFloat())
         val block = player.world.getBlockAt(newLocation)
         playerJumpBlocks[player]!!.add(block)
-        blockRunnables[newLocation] = Bukkit.getScheduler().scheduleSyncDelayedTask(PixelsJump.instance, { block.type = Material.AIR }, 20 * 10)
         block.type = type.material
         playerBlock[player] = block
+
         if ((playerJumps[player] ?: 0) >= 2) {
             player.world.getBlockAt(playerJumpBlocks[player]!!.first().location).type = Material.AIR
-            Bukkit.getScheduler().cancelTask(blockRunnables[playerJumpBlocks[player]!!.first().location]!!)
             playerJumpBlocks[player]!!.removeAt(0)
-            blockRunnables.remove(playerJumpBlocks[player]!!.first().location)
         }
     }
+
 }

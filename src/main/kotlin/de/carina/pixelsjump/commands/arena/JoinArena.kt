@@ -17,11 +17,11 @@ import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.inventory.Items
-import de.carina.pixelsjump.util.json.CustomLocation
 import de.carina.pixelsjump.util.stats.PlayerStats
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
+import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -50,7 +50,7 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         BlockGenerator.playerJumpBlocks[player] = mutableListOf()
         PixelsJump.utility.playerInventory[player] = player.inventory
         player.gameMode = GameMode.SURVIVAL
-        BlockGenerator.playerCheckpoints[player] = CustomLocation(player.location)
+        BlockGenerator.playerCheckpoints[player] = arena.startLocation!!
         player.inventory.clear()
         if (arena.single)
             player.inventory.setItem(8, Items.leaveItem)
@@ -63,6 +63,14 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         BlockGenerator.playerJumps[player] = 0
         arena.players.add(player)
         ArenaHelper.playersInArenas.add(player)
+        BlockGenerator.playerAFK[player] = Pair(Bukkit.getScheduler().runTaskTimer(PixelsJump.instance, Runnable {
+            if (BlockGenerator.playerAFK[player]?.second == true)
+                player.performCommand("pixelsjump leave")
+            else
+                BlockGenerator.playerAFK[player] = Pair(BlockGenerator.playerAFK[player]!!.first, true)
+        }, 250, 250), true)
+        player.level = 0
+        player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1.toFloat(), 1.toFloat())
         Bukkit.getOnlinePlayers().forEach {
             if (it != sender) {
                 it.hidePlayer(PixelsJump.instance, player)

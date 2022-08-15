@@ -43,6 +43,9 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         BlockGenerator.playerJumpBlocks[sender]!!.forEach {
             it.type = Material.AIR
         }
+        BlockGenerator.playerAFK[sender]!!.first.cancel()
+        BlockGenerator.playerAFK.remove(sender)
+        sender.level = 0
         BlockGenerator.playerJumpBlocks.remove(sender)
         sender.teleport(ArenaHelper.arenas.find { it.players.contains(sender) }!!.backLocation!!.toLocation())
         sender.inventory.clear()

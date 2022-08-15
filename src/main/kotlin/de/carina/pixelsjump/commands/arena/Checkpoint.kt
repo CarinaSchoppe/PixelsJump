@@ -16,6 +16,7 @@ import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.stats.PlayerStats
+import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -30,7 +31,9 @@ class Checkpoint(private val sender: CommandSender, private val command: Command
         }
 
         PlayerStats.addFail(sender as Player)
-        sender.teleport(BlockGenerator.playerCheckpoints[sender]!!.toLocation())
+        sender.level += 1
+        sender.playSound(sender.location, Sound.BLOCK_ANVIL_USE, 1f, 1f)
+        sender.teleport(BlockGenerator.playerCheckpoints[sender]!!.toLocation().add(0.toDouble(), 1.toDouble(), 0.toDouble()))
         sender.sendMessage(Messages.messages["arena-player-fell"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
 
     }
