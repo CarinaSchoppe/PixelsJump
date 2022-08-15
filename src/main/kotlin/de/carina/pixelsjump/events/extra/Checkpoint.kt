@@ -22,7 +22,7 @@ class Checkpoint : Listener {
     fun onCheckpoint(event: PlayerInteractEvent) {
         if (!event.player.hasPermission("pixelsjump.checkpoint"))
             return
-        if (event.player.inventory.itemInMainHand == Items.toCheckPointItem()) {
+        if (event.player.inventory.itemInMainHand == Items.toCheckPointItem) {
             event.isCancelled = true
             event.player.performCommand("pixelsjump checkpoint")
         }

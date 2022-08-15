@@ -1,8 +1,8 @@
 /*
  * Copyright Notice for PixelsJumpRemastered
  * Copyright (c) at Carina Sophie Schoppe 2022
- * File created on 28.03.22, 16:22 by Carina The Latest changes made by Carina on 28.03.22, 16:22.
- *  All contents of "InventoryStart.kt" are protected by copyright. The copyright law, unless expressly indicated otherwise, is
+ * File created on 8/15/22, 2:58 PM by Carina The Latest changes made by Carina on 8/15/22, 12:54 PM.
+ *  All contents of "GUIInventory.kt" are protected by copyright. The copyright law, unless expressly indicated otherwise, is
  * at Carina Sophie Schoppe. All rights reserved
  * Any type of duplication, distribution, rental, sale, award,
  * Public accessibility or other use
@@ -25,7 +25,7 @@ class GUIInventory(private val sender: CommandSender, private val command: Comma
         val player = sender as org.bukkit.entity.Player
         PixelsJump.utility.arenaPlayerNames[player] = args[1]
 
-        player.openInventory(Inventories.starterInventory())
+        player.openInventory(Inventories.starterInventory)
 
     }
 }

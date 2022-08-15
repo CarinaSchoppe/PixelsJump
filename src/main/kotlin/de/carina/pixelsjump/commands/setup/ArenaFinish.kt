@@ -38,7 +38,7 @@ class ArenaFinish(private val sender: CommandSender, private val command: Comman
             return
         }
 
-        if (!arena.single && arena.endLocation == null) {
+        if (!arena.single && arena.finishLocation == null) {
             sender.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args[1]))
             return
         }

@@ -21,7 +21,7 @@ import java.io.File
 class Arena(val name: String) {
     val checkPoints: MutableList<Location> = mutableListOf()
     lateinit var startLocation: Location
-    lateinit var endLocation: Location
+    lateinit var finishLocation: Location
     lateinit var backLocation: Location
     val players = mutableSetOf<Player>()
 

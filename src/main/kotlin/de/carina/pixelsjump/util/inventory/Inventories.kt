@@ -15,16 +15,15 @@ import de.carina.pixelsjump.util.arena.ArenaHelper
 import org.bukkit.inventory.Inventory
 
 object Inventories {
-    fun starterInventory(): Inventory {
-        return InventoryBuilder(InventoryNames.ARENA_BUILDER.text, 9).addItem(Items.backLocationItem(), 6).addItem(Items.startLocationItem(), 0).addItem(Items.checkPointItem(), 4).addItem(Items.singleJumpNRunItem(), 2).addItem(Items.finishArenaBuildItem(), 8).addItem(Items.arenaDamageItem(), 7).fillInventory(Items.paneFillerItem()).buildInventory()
-    }
+    val starterInventory = InventoryBuilder(InventoryNames.ARENA_BUILDER.text, 9).addItem(Items.backLocationItem, 6).addItem(Items.finishLocationItem, 1).addItem(Items.startLocationItem, 0).addItem(Items.checkPointItem, 4).addItem(Items.singleJumpNRunItem, 2).addItem(Items.finishArenaBuildItem, 8).addItem(Items.arenaDamageItem, 7).fillInventory(Items.paneFillerItem).buildInventory()
+
 
     fun arenaInventory(): Inventory {
         val builder = InventoryBuilder(InventoryNames.ARENAS.text, (ArenaHelper.arenas.size / 9 + 1) * 9)
         for ((index, arena) in ArenaHelper.arenas.withIndex()) {
             builder.addItem(Items.arenaItem("${ItemNames.ARENA_FRAME_COLOR.text}${arena.name}"), index)
         }
-        builder.fillInventory(Items.paneFillerItem())
+        builder.fillInventory(Items.paneFillerItem)
         return builder.buildInventory()
     }
 }

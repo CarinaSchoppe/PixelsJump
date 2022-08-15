@@ -17,43 +17,34 @@ import org.bukkit.inventory.ItemStack
 
 object Items {
 
-    fun startLocationItem(): ItemStack {
-        return ItemBuilder(Material.OAK_DOOR, 1).addItemName(ItemNames.ADD_LOCATION_START.text).addItemLore(listOf("§aClick to add the start location to the arena")).build()
-    }
-
-    fun singleJumpNRunItem(): ItemStack {
-        return ItemBuilder(Material.RABBIT_FOOT, 1).addItemName(ItemNames.SINGLE_JUMP_N_RUN.text).addItemLore(listOf("§aClick to set the arena to a single jump n run")).build()
-
-    }
-
-    fun toCheckPointItem(): ItemStack {
-        return ItemBuilder(Material.BARRIER, 1).addItemName(ItemNames.CHECKPOINT.text).addItemLore(listOf("§aClick to go back to your latest checkpoint")).build()
-    }
+    val startLocationItem: ItemStack = ItemBuilder(Material.OAK_DOOR, 1).addItemName(ItemNames.ADD_START_LOCATION.text).addItemLore(listOf("§aClick to add the start location to the arena")).build()
 
 
-    fun arenaDamageItem(): ItemStack {
-        return ItemBuilder(Material.DIAMOND_SWORD, 1).addItemName(ItemNames.ARENA_DAMAGE.text).addItemLore(listOf("§aClick to add activate the damage for the arena")).build()
+    val singleJumpNRunItem = ItemBuilder(Material.RABBIT_FOOT, 1).addItemName(ItemNames.SINGLE_JUMP_N_RUN.text).addItemLore(listOf("§aClick to set the arena to a single jump n run")).build()
 
-    }
 
-    fun checkPointItem(): ItemStack {
-        return ItemBuilder(Material.IRON_HOE, 1).addItemName(ItemNames.ADD_CHECKPOINT.text).addItemLore(listOf("§aClick to add a new Checkpoint to the Arena")).build()
-    }
+    val toCheckPointItem: ItemStack =
+        ItemBuilder(Material.BARRIER, 1).addItemName(ItemNames.CHECKPOINT.text).addItemLore(listOf("§aClick to go back to your latest checkpoint")).build()
 
-    fun backLocationItem(): ItemStack {
-        return ItemBuilder(Material.END_CRYSTAL, 1).addItemName(ItemNames.ADD_BACK_ARENA.text).addItemLore(listOf("§aClick to add the back location")).build()
-    }
 
-    fun paneFillerItem(): ItemStack {
-        return ItemBuilder(Material.BLUE_STAINED_GLASS_PANE, 1).addItemName(ItemNames.GLASS_PANE_FILLER.text).addEnchantment(Enchantment.DURABILITY, 0).build()
-    }
+    val arenaDamageItem =
+        ItemBuilder(Material.DIAMOND_SWORD, 1).addItemName(ItemNames.ARENA_DAMAGE.text).addItemLore(listOf("§aClick to add activate the damage for the arena")).build()
+
+
+    val checkPointItem = ItemBuilder(Material.IRON_HOE, 1).addItemName(ItemNames.ADD_CHECKPOINT_LOCATION.text).addItemLore(listOf("§aClick to add a new Checkpoint to the Arena")).build()
+
+
+    val backLocationItem = ItemBuilder(Material.END_CRYSTAL, 1).addItemName(ItemNames.ADD_BACK_LOCATION.text).addItemLore(listOf("§aClick to add the back location")).build()
+
+
+    val paneFillerItem = ItemBuilder(Material.BLUE_STAINED_GLASS_PANE, 1).addItemName(ItemNames.GLASS_PANE_FILLER.text).addEnchantment(Enchantment.DURABILITY, 0).build()
+
 
     fun arenaItem(name: String): ItemStack {
         return ItemBuilder(Material.OAK_SIGN, 1).addItemName(name).addItemLore(listOf("§aClick to open the Arena")).build()
     }
 
-    fun finishArenaBuildItem(): ItemStack {
-        return ItemBuilder(Material.DIAMOND, 1).addItemName(ItemNames.FINISH_ARENA.text).addItemLore(listOf("Click to finish the Arena")).build()
+    val finishArenaBuildItem = ItemBuilder(Material.DIAMOND, 1).addItemName(ItemNames.FINISH_ARENA.text).addItemLore(listOf("Click to finish the Arena")).build()
 
-    }
+    val finishLocationItem = ItemBuilder(Material.ACACIA_BOAT, 1).addItemName(ItemNames.ADD_END_LOCATION.text).addItemLore(listOf("§aClick to add the finish location")).build()
 }

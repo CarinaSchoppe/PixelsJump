@@ -36,6 +36,7 @@ object Messages {
         ymlConfiguration.addDefault("arena-removed", "&aThe arena &6%arena% &ahas been removed!")
         ymlConfiguration.addDefault("default-command", "&7Please use &6/pixelsjump <arguments> <arena> <optional> &7!")
         ymlConfiguration.addDefault("add-back", "&aYouve successfully added the back to the arena &6%arena%&a!")
+        ymlConfiguration.addDefault("add-end", "&aYouve successfully added the end to the arena &6%arena%&a!")
         ymlConfiguration.addDefault("checkpoint-loaded", "&7Checkpoint &6%number% for arena &6%arena%&7, &7loaded!")
         ymlConfiguration.addDefault("no-arena-name", "&cYou must enter the arena name first before you can do this!")
         ymlConfiguration.addDefault("arena-join", "&7You were teleported to the arena &6%arena%&7!")

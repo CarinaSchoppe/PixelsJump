@@ -52,7 +52,7 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         player.gameMode = GameMode.SURVIVAL
         BlockGenerator.playerCheckpoints[player] = player.location
         player.inventory.clear()
-        player.inventory.setItem(8, Items.toCheckPointItem())
+        player.inventory.setItem(8, Items.toCheckPointItem)
         if (arena.single)
             BlockGenerator.generateBlock(player)
         BlockGenerator.playerJumps[player] = 0

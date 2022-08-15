@@ -10,7 +10,7 @@ import org.bukkit.entity.Player
 class LocationAdder(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
     fun execute() {
-        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 3, "add", "pixelsjump.addLocation"))
+        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 3, "add", "pixelsjump.addLocation.*"))
             return
 
 
@@ -26,6 +26,9 @@ class LocationAdder(private val sender: CommandSender, private val command: Comm
         } else if (args[2].equals("back", true)) {
             arena.backLocation = player.location.toCenterLocation()
             sender.sendMessage(Messages.messages["add-back"]!!.replace("%arena%", args[1]))
+        } else if (args[2].equals("finish", true)) {
+            arena.finishLocation = player.location.toCenterLocation()
+            sender.sendMessage(Messages.messages["add-end"]!!.replace("%arena%", args[1]))
         }
     }
 

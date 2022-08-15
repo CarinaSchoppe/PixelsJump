@@ -36,21 +36,23 @@ class CommandInventoryListener : Listener {
             return
         }
         when (item) {
-            Items.startLocationItem() -> {
+            Items.startLocationItem -> {
                 if (!player.hasPermission("pixelsjump.addLocation.start")) {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} start")
             }
-            Items.singleJumpNRunItem() -> {
+
+            Items.singleJumpNRunItem -> {
                 if (!player.hasPermission("pixelsjump.addLocation.single")) {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump single ${PixelsJump.utility.arenaPlayerNames[player]}")
             }
-            Items.finishArenaBuildItem() -> {
+
+            Items.finishArenaBuildItem -> {
                 if (!player.hasPermission("pixelsjump.addLocation.finish")) {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
@@ -58,26 +60,38 @@ class CommandInventoryListener : Listener {
                 player.performCommand("pixelsjump finish ${PixelsJump.utility.arenaPlayerNames[player]}")
                 player.closeInventory()
             }
-            Items.checkPointItem() -> {
+
+            Items.checkPointItem -> {
                 if (!player.hasPermission("pixelsjump.addLocation.checkpoint")) {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} checkpoint")
             }
-            Items.backLocationItem() -> {
+
+            Items.backLocationItem -> {
                 if (!player.hasPermission("pixelsjump.addLocation.back")) {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} back")
             }
-            Items.arenaDamageItem() -> {
+
+            Items.arenaDamageItem -> {
                 if (!player.hasPermission("pixelsjump.arena.damage")) {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
                 player.performCommand("pixelsjump damage ${PixelsJump.utility.arenaPlayerNames[player]}")
+            }
+
+            Items.finishLocationItem -> {
+                if (!player.hasPermission("pixelsjump.addLocation.finish")) {
+                    player.sendMessage(Messages.messages["no-permission"]!!)
+                    return
+                }
+                player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} finish")
+
             }
         }
 

@@ -22,7 +22,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 
-class PlayerMovesInJumpnRun : Listener {
+class PlayerMoves : Listener {
 
     @EventHandler
     fun playerMovesInJumpNRun(event: PlayerMoveEvent) {
@@ -31,9 +31,9 @@ class PlayerMovesInJumpnRun : Listener {
         if (!ArenaHelper.playersInArenas.contains(event.player)) return
         val arena = ArenaHelper.arenas.find { it.players.contains(event.player) }!!
 
-        if (!failChecker(arena, event)) return
-        if (!blockRelated(event, arena)) return
-        if (!locationRelated(arena, event)) return
+        if (failChecker(arena, event)) return
+        if (blockRelated(event, arena)) return
+        if (locationRelated(arena, event)) return
 
         if (arena.single && event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
             BlockGenerator.generateBlock(event.player)
@@ -46,12 +46,12 @@ class PlayerMovesInJumpnRun : Listener {
         if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.checkPointMaterial && BlockGenerator.playerCheckpoints[event.player]!!.toCenterLocation() != event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()) {
             BlockGenerator.playerCheckpoints[event.player] = event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation().add(0.0, 1.0, 0.0)
             event.player.sendMessage(Messages.messages["arena-checkpoint-reached"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
-            return false
+            return true
         } else if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.endPointFinish && BlockGenerator.playerCheckpoints[event.player]!!.toCenterLocation() != event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()) {
             jumpWon(event, arena)
-            return false
+            return true
         }
-        return true
+        return false
     }
 
     private fun jumpWon(event: PlayerMoveEvent, arena: Arena) {
@@ -63,15 +63,15 @@ class PlayerMovesInJumpnRun : Listener {
     }
 
     private fun locationRelated(arena: Arena, event: PlayerMoveEvent): Boolean {
-        if (arena.checkPoints.size == arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1) {
+        if (arena.finishLocation == event.player.location.toCenterLocation()) {
             jumpWon(event, arena)
-            return false
+            return true
         } else if (event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1].toCenterLocation()) {
             BlockGenerator.playerCheckpoints[event.player] = arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1]
             event.player.sendMessage(Messages.messages["arena-checkpoint-reached"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
-            return false
+            return true
         }
-        return true
+        return false
     }
 
     private fun failChecker(arena: Arena, event: PlayerMoveEvent): Boolean {
@@ -80,16 +80,16 @@ class PlayerMovesInJumpnRun : Listener {
                 event.player.sendMessage(Messages.messages["arena-player-failed"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
                 PlayerStats.addFail(event.player)
                 event.player.performCommand("pixelsjump leave")
-                return false
+                return true
             }
         } else {
             if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerCheckpoints[event.player]!!.y - 2) {
                 event.player.sendMessage(Messages.messages["arena-player-fell"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
                 PlayerStats.addFail(event.player)
                 event.player.teleport(BlockGenerator.playerCheckpoints[event.player]!!)
-                return false
+                return true
             }
         }
-        return true
+        return false
     }
 }
