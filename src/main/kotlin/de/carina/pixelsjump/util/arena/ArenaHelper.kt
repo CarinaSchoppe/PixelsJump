@@ -75,7 +75,7 @@ object ArenaHelper {
 
     }
 
-    fun arenaExists(arenaName: String): Boolean {
+    fun arenaNotExists(arenaName: String): Boolean {
         for (arena in arenas) {
             if (arena.name == arenaName) {
                 return true

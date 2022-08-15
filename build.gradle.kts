@@ -29,12 +29,13 @@ repositories {
 }
 
 dependencies {
+    implementation("com.google.code.gson:gson:+")
     compileOnly("io.papermc.paper:paper-api:+")
     testImplementation(kotlin("test"))
 }
 java {
     // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(18))
 }
 tasks {
     runServer {
@@ -54,9 +55,9 @@ tasks {
         kotlinOptions {
             freeCompilerArgs = listOf(
                 "-Xuse-k2",
-                "-Xjdk-release=17"
+                "-Xjdk-release=18"
             )
-            jvmTarget = "17"
+            jvmTarget = "18"
             languageVersion = "1.7"
         }
     }

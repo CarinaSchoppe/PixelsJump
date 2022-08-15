@@ -34,7 +34,7 @@ class SignCreator : Listener {
             return
 
         val arenaName = PlainTextComponentSerializer.plainText().serialize(event.line(1)!!)
-        if (!ArenaHelper.arenaExists(arenaName))
+        if (!ArenaHelper.arenaNotExists(arenaName))
             return
 
         event.line(0, LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix))

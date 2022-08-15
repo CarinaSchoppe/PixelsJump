@@ -23,7 +23,7 @@ class SingleJumpNRun(private val sender: CommandSender, private val command: Com
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "single", "pixelsjump.single"))
             return
         print("test")
-        if (!ArenaHelper.arenaExists(args[1])) {
+        if (!ArenaHelper.arenaNotExists(args[1])) {
             sender.sendMessage(PixelsJump.utility.messageConverter("no-arena").replace("%arena%", args[1]))
             return
         }

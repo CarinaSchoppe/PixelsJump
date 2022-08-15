@@ -41,8 +41,9 @@ class PixelsJump : JavaPlugin() {
     * TODO: leave item?
     * TODO: Hide all other players item?
     *  TODO: Code kommentieren
-    *
-    *
+    * TODO: Singlejump no to checkpoint
+    *  TODO: movement for checkpoints
+    *   Damage when not in same arena
     * */
 
 

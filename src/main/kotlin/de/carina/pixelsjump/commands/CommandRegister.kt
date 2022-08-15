@@ -33,7 +33,7 @@ class CommandRegister : CommandExecutor {
             "list" -> LocationList(sender, command, args).execute()
             "single" -> SingleJumpNRun(sender, command, args).execute()
             "setup" -> ArenaSetup(sender, command, args).execute()
-            "finish" -> LocationFinish(sender, command, args).execute()
+            "finish" -> ArenaFinish(sender, command, args).execute()
             "gui" -> InventoryStart(sender, command, args).execute()
             "arenas" -> ArenaInventory(sender, command, args).execute()
             "join" -> JoinArena(sender, command, args).execute()

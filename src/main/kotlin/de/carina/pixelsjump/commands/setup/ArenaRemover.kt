@@ -22,7 +22,7 @@ class ArenaRemover(private val sender: CommandSender, private val command: Comma
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "remove", "pixelsjump.remove"))
             return
 
-        if (!ArenaHelper.arenaExists(args[1])) {
+        if (!ArenaHelper.arenaNotExists(args[1])) {
             sender.sendMessage(PixelsJump.utility.messageConverter("no-arena").replace("%arena%", args[1]))
             return
         }

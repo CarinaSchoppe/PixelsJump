@@ -20,16 +20,7 @@ object Inventories {
     }
 
     fun arenaInventory(): Inventory {
-        var builder = InventoryBuilder(InventoryNames.ARENAS.text, (ArenaHelper.arenas.size / 9 + 1) * 9)
-        for ((index, arena) in ArenaHelper.arenas.withIndex()) {
-            builder.addItem(Items.arenaItem("${ItemNames.ARENA_FRAME_COLOR.text}${arena.name}"), index)
-        }
-        builder.fillInventory(Items.paneFillerItem())
-        return builder.buildInventory()
-    }
-
-    fun arenaInventoryPage(): Inventory {
-        var builder = InventoryBuilder(InventoryNames.ARENAS.text, (ArenaHelper.arenas.size / 9 + 1) * 9)
+        val builder = InventoryBuilder(InventoryNames.ARENAS.text, (ArenaHelper.arenas.size / 9 + 1) * 9)
         for ((index, arena) in ArenaHelper.arenas.withIndex()) {
             builder.addItem(Items.arenaItem("${ItemNames.ARENA_FRAME_COLOR.text}${arena.name}"), index)
         }

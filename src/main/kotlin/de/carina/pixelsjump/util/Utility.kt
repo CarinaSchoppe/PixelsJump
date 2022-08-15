@@ -46,10 +46,8 @@ class Utility {
         }
 
 
-        if (commandEnter != null) {
-            if (!args[0].equals(commandEnter, true)) {
-                return false
-            }
+        if (commandEnter != null && !args[0].equals(commandEnter, true)) {
+            return false
         }
 
 

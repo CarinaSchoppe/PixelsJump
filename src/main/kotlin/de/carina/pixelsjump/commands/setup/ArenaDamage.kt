@@ -20,7 +20,7 @@ class ArenaDamage(private val sender: CommandSender, private val command: Comman
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "damage", "pixelsjump.arena.damage"))
             return
-        if (!ArenaHelper.arenaExists(args[1])) {
+        if (!ArenaHelper.arenaNotExists(args[1])) {
             sender.sendMessage(PixelsJump.utility.messageConverter("no-arena").replace("%arena%", args[1]))
             return
         }

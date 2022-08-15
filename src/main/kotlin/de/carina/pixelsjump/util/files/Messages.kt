@@ -64,7 +64,7 @@ object Messages {
         saveMessageFile()
     }
 
-    fun saveMessageFile() {
+    private fun saveMessageFile() {
         ymlConfiguration.options().copyDefaults(true)
         ymlConfiguration.save(messagesFile)
 

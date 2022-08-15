@@ -35,11 +35,9 @@ class PlayerMovesInJumpnRun : Listener {
         if (!blockRelated(event, arena)) return
         if (!locationRelated(arena, event)) return
 
-        if (arena.single == true) {
-            if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
-                BlockGenerator.generateBlock(event.player)
-                Statistics.addPoints(event.player, Configuration.pointsPerJump)
-            }
+        if (arena.single == true && event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
+            BlockGenerator.generateBlock(event.player)
+            Statistics.addPoints(event.player, Configuration.pointsPerJump)
         }
 
     }

@@ -30,7 +30,6 @@ class PlayerDamage : Listener {
                 event.isCancelled = true
                 return
             }
-
         }
     }
 }

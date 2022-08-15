@@ -49,7 +49,7 @@ object BlockGenerator {
         playerJumps[player] = (playerJumps[player] ?: 0) + 1
         val type = Blocks.values().random()
         var length = Random().nextInt(4) + 1
-        val height = Random().nextInt(1)
+        val height = Random().nextInt(2)
         var x = Random().nextInt(3) - 1
         var z = Random().nextInt(3) - 1
         if (height == 1 && length == 4) {
@@ -66,7 +66,7 @@ object BlockGenerator {
         playerJumpBlocks[player]!!.add(block)
         block.type = type.material
         playerBlock[player] = block
-        if (playerJumps[player] ?: 0 >= 2) {
+        if ((playerJumps[player] ?: 0) >= 2) {
             player.world.getBlockAt(playerJumpBlocks[player]!![0].location).type = Material.AIR
             playerJumpBlocks[player]!!.removeAt(0)
         }

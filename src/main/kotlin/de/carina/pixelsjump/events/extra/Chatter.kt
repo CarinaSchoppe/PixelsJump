@@ -24,7 +24,7 @@ class Chatter : Listener {
     fun onChat(event: AsyncChatEvent) {
         if (ArenaHelper.playersInArenas.contains(event.player)) {
             event.isCancelled = true
-            var arena = ArenaHelper.arenas.find { it.players.contains(event.player) }!!
+            val arena = ArenaHelper.arenas.find { it.players.contains(event.player) }!!
             arena.players.forEach {
                 it.sendMessage("${PixelsJump.prefix} ${event.player.name} says: ${PlainTextComponentSerializer.plainText().serialize(event.message())}")
             }
