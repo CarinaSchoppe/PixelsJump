@@ -72,4 +72,15 @@ object ArenaHelper {
         arenas.add(arena)
         return arena
     }
+
+    fun isInSameArena(player: Player, onlinePlayers: Player): Boolean {
+        for (arena in arenas) {
+            if (arena.players.contains(player) && arena.players.contains(onlinePlayers)) {
+                return true
+            }
+        }
+        return false
+
+
+    }
 }

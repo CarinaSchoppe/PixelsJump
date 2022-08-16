@@ -70,11 +70,8 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
                 BlockGenerator.playerAFK[player] = Pair(BlockGenerator.playerAFK[player]!!.first, true)
         }, 250, 250), true)
         player.level = 0
+       PixelsJump.utility.hideAllPlayersNotInSameArena(player, arena)
         player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1.toFloat(), 1.toFloat())
-        Bukkit.getOnlinePlayers().forEach {
-            if (it != sender) {
-                it.hidePlayer(PixelsJump.instance, player)
-            }
-        }
+
     }
 }

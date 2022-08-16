@@ -95,6 +95,7 @@ class PlayerMoves : Listener {
                 return true
             }
         } else {
+            print("here")
             if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerCheckpoints[event.player]!!.y - 3) {
                 event.player.sendMessage(Messages.messages["arena-player-fell"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
                 PlayerStats.addFail(event.player)

@@ -16,7 +16,6 @@ import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import net.kyori.adventure.text.Component
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
@@ -26,29 +25,29 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
 
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "leave", "pixelsjump.leave")) return
-        if (!ArenaHelper.playersInArenas.contains(sender)) {
-            sender.sendMessage(Messages.messages["no-jump"]!!)
+        val player = sender as Player
+        if (!ArenaHelper.playersInArenas.contains(player)) {
+            player.sendMessage(Messages.messages["no-jump"]!!)
             return
         }
 
-        Bukkit.getOnlinePlayers().forEach {
-            if (it != sender) {
-                it.showPlayer(PixelsJump.instance, sender as Player)
-            }
-        }
-        (sender as Player).playerListName(Component.text(sender.name))
-        ArenaHelper.playersInArenas.remove(sender)
-        BlockGenerator.playerCheckpoints.remove(sender)
-        BlockGenerator.playerBlock.remove(sender)
-        BlockGenerator.playerJumpBlocks[sender]!!.forEach {
+
+        player.playerListName(Component.text(player.name))
+        ArenaHelper.playersInArenas.remove(player)
+        BlockGenerator.playerCheckpoints.remove(player)
+        BlockGenerator.playerBlock.remove(player)
+        BlockGenerator.playerJumpBlocks[player]!!.forEach {
             it.type = Material.AIR
         }
-        BlockGenerator.playerAFK[sender]!!.first.cancel()
-        BlockGenerator.playerAFK.remove(sender)
-        sender.level = 0
-        BlockGenerator.playerJumpBlocks.remove(sender)
-        sender.teleport(ArenaHelper.arenas.find { it.players.contains(sender) }!!.backLocation!!.toLocation())
-        sender.inventory.clear()
-        sender.sendMessage(Messages.messages["arena-leave"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
+        BlockGenerator.playerAFK[player]!!.first.cancel()
+        BlockGenerator.playerAFK.remove(player)
+        player.level = 0
+        BlockGenerator.playerJumpBlocks.remove(player)
+        var arena = ArenaHelper.arenas.find { it.players.contains(player) }
+        player.teleport(arena!!.backLocation!!.toLocation())
+        arena.players.remove(player)
+        player.inventory.clear()
+        PixelsJump.utility.showAllPlayersInSameArena(player, null)
+        player.sendMessage(Messages.messages["arena-leave"]!!.replace("%arena%", arena.name))
     }
 }

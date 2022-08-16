@@ -11,8 +11,11 @@
 
 package de.carina.pixelsjump.util
 
+import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
+import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -53,6 +56,33 @@ class Utility {
             return false
         }
         return true
+    }
+
+    fun hideAllPlayersNotInSameArena(player: Player, arena: Arena?) {
+        for (onlinePlayers in Bukkit.getOnlinePlayers()) {
+            if (arena != null && arena.players.contains(player) && arena.players.contains(onlinePlayers)) {
+                continue
+            }
+
+            onlinePlayers.hidePlayer(PixelsJump.instance, player)
+            player.hidePlayer(PixelsJump.instance, onlinePlayers)
+        }
+    }
+
+    fun showAllPlayersInSameArena(player: Player, arena: Arena?) {
+        for (onlinePlayer in Bukkit.getOnlinePlayers()) {
+            if (arena != null && arena.players.contains(player) && arena.players.contains(onlinePlayer)) {
+                onlinePlayer.showPlayer(PixelsJump.instance, player)
+                player.showPlayer(PixelsJump.instance, onlinePlayer)
+                continue
+            } else {
+                if (ArenaHelper.playersInArenas.contains(onlinePlayer)) continue
+                player.showPlayer(PixelsJump.instance, onlinePlayer)
+                onlinePlayer.showPlayer(PixelsJump.instance, player)
+            }
+
+
+        }
     }
 
     fun checkForArena(name: String, sender: Player? = null): Boolean {
