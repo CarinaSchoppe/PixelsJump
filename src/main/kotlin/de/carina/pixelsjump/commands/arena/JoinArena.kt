@@ -41,17 +41,12 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
     }
 
     private fun addPlayerToArena(player: Player, arena: Arena) {
-
         player.sendMessage(Messages.messages["arena-join"]!!.replace("%arena%", args[1]))
-
         player.playerListName(LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix + "§7" + sender.name))
         PlayerStats.joinArena(player)
         player.teleport(arena.startLocation!!.toLocation())
         BlockGenerator.playerJumpBlocks[player] = mutableListOf()
-        PixelsJump.utility.playerInventory[player] = player.inventory
-        player.gameMode = GameMode.SURVIVAL
         BlockGenerator.playerCheckpoints[player] = arena.startLocation!!
-        player.inventory.clear()
         if (arena.single)
             player.inventory.setItem(8, Items.leaveItem)
         else {
@@ -62,6 +57,7 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
             BlockGenerator.generateBlock(player)
         BlockGenerator.playerJumps[player] = 0
         arena.players.add(player)
+        //afk handler
         ArenaHelper.playersInArenas.add(player)
         BlockGenerator.playerAFK[player] = Pair(Bukkit.getScheduler().runTaskTimer(PixelsJump.instance, Runnable {
             if (BlockGenerator.playerAFK[player]?.second == true)
@@ -69,8 +65,13 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
             else
                 BlockGenerator.playerAFK[player] = Pair(BlockGenerator.playerAFK[player]!!.first, true)
         }, 250, 250), true)
+
+        //extras
+        player.inventory.clear()
         player.level = 0
-       PixelsJump.utility.hideAllPlayersNotInSameArena(player, arena)
+        player.gameMode = GameMode.ADVENTURE
+
+        PixelsJump.utility.hideAllPlayersNotInSameArena(player, arena)
         player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1.toFloat(), 1.toFloat())
 
     }

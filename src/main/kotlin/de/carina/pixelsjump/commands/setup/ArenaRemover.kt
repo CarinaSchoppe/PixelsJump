@@ -27,9 +27,14 @@ class ArenaRemover(private val sender: CommandSender, private val command: Comma
             sender.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", args[1]))
             return
         }
+
+        //removes an arena from the game
         ArenaHelper.arenas.forEach {
             if (it.name == args[1]) {
                 ArenaHelper.arenas.remove(it)
+                it.players.forEach { player ->
+                    player.performCommand("pixelsjump leave")
+                }
                 sender.sendMessage(Messages.messages["arena-removed"]!!.replace("%arena%", args[1]))
                 File("plugins/PixelsJumpRemastered/arenas/${args[1]}.yml").delete()
                 return

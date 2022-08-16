@@ -17,10 +17,16 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.io.File
 
+@Suppress("BooleanMethodIsAlwaysInverted")
 object ArenaHelper {
 
     val arenas = mutableSetOf<Arena>()
     val playersInArenas = mutableSetOf<Player>()
+
+
+    /**
+     * Loads the arena from json format into an actual arena
+     */
     fun loadArenas() {
         Bukkit.getConsoleSender().sendMessage(Messages.messages["loading-arenas-start"]!!)
         val directory = File("plugins/PixelsJumpRemastered/arenas")
@@ -73,14 +79,5 @@ object ArenaHelper {
         return arena
     }
 
-    fun isInSameArena(player: Player, onlinePlayers: Player): Boolean {
-        for (arena in arenas) {
-            if (arena.players.contains(player) && arena.players.contains(onlinePlayers)) {
-                return true
-            }
-        }
-        return false
 
-
-    }
 }

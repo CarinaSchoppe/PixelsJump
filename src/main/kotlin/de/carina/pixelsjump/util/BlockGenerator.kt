@@ -49,6 +49,11 @@ object BlockGenerator {
     }
 
     //TODO: ist die generierung so richtig? Mathe?
+    /**
+     *
+     * @param player the one who will generate the block to
+     * generates a new block proper for the player. does all other handling and cleaning after calulation
+     * */
     fun generateBlock(player: Player) {
         playerJumps[player] = (playerJumps[player] ?: 0) + 1
         val type = Blocks.values().random()
@@ -65,6 +70,9 @@ object BlockGenerator {
             x = 1
             z = -1
         }
+
+        //calculation done for the location of the next block
+
         val newLocation = player.location.add((length * x).toDouble(), height.toDouble() - 1, (length * z).toDouble())
         player.level += 1
         player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1.toFloat(), 1.toFloat())
@@ -73,6 +81,7 @@ object BlockGenerator {
         block.type = type.material
         playerBlock[player] = block
 
+        //remove the last 2nd (so current and next) are the only one left
         if ((playerJumps[player] ?: 0) >= 2) {
             player.world.getBlockAt(playerJumpBlocks[player]!!.first().location).type = Material.AIR
             playerJumpBlocks[player]!!.removeAt(0)

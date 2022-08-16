@@ -35,6 +35,8 @@ class CommandInventoryListener : Listener {
             player.sendMessage(Messages.messages["no-arena-name"]!!)
             return
         }
+
+        //get current item in the arena_builder inventory and perform the action related
         when (item) {
             Items.startLocationItem -> {
                 if (!player.hasPermission("pixelsjump.addLocation.start")) {

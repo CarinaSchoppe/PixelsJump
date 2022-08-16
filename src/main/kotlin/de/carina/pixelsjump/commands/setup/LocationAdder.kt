@@ -22,19 +22,34 @@ class LocationAdder(private val sender: CommandSender, private val command: Comm
             return
         }
         val arena = ArenaHelper.getOrCreateArena(args[1])
-        if (args[2].equals("start", true)) {
-            arena.startLocation = CustomLocation(player.location.toCenterLocation())
-            sender.sendMessage(Messages.messages["add-start"]!!.replace("%arena%", args[1]))
-        } else if (args[2].equals("checkpoint", true)) {
-            arena.addCheckpointLocation(player.location)
-            sender.sendMessage(Messages.messages["add-checkpoint"]!!.replace("%arena%", args[1]).replace("%number%", arena.checkPoints.size.toString()))
-        } else if (args[2].equals("back", true)) {
-            arena.backLocation = CustomLocation(player.location.toCenterLocation())
-            sender.sendMessage(Messages.messages["add-back"]!!.replace("%arena%", args[1]))
-        } else if (args[2].equals("finish", true)) {
-            arena.finishLocation = CustomLocation(player.location.toCenterLocation())
-            sender.sendMessage(Messages.messages["add-end"]!!.replace("%arena%", args[1]))
+
+        when (args[2].lowercase()) {
+            "start" -> {
+                arena.startLocation = CustomLocation(player.location.toCenterLocation())
+                sender.sendMessage(Messages.messages["add-start"]!!.replace("%arena%", args[1]))
+            }
+
+            "checkpoint" -> {
+                arena.addCheckpointLocation(player.location)
+                sender.sendMessage(Messages.messages["add-checkpoint"]!!.replace("%arena%", args[1]).replace("%number%", arena.checkPoints.size.toString()))
+
+            }
+
+            "back" -> {
+                arena.backLocation = CustomLocation(player.location.toCenterLocation())
+                sender.sendMessage(Messages.messages["add-back"]!!.replace("%arena%", args[1]))
+
+            }
+
+            "finish" -> {
+                arena.finishLocation = CustomLocation(player.location.toCenterLocation())
+                sender.sendMessage(Messages.messages["add-end"]!!.replace("%arena%", args[1]))
+
+            }
+
+            else -> throw IllegalArgumentException("Unknown location type: ${args[2]}")
         }
+
     }
 
 }

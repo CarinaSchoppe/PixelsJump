@@ -18,6 +18,9 @@ import org.bukkit.event.player.PlayerInteractEvent
 
 class CheckpointItem : Listener {
 
+    /**
+     * player clicks on the checkpoint item
+     */
     @EventHandler
     fun onCheckpoint(event: PlayerInteractEvent) {
         if (!event.player.hasPermission("pixelsjump.checkpoint"))

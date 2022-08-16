@@ -39,7 +39,7 @@ class Arena(val name: String) {
     fun saveArena() {
         file = File("plugins/PixelsJumpRemastered/arenas/$name.json")
         val gson = GsonBuilder().setPrettyPrinting().create()
-        var json = gson.toJson(this)
+        val json = gson.toJson(this)
         file.writeText(json)
     }
 

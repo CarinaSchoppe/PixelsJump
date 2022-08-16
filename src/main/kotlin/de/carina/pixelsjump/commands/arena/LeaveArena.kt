@@ -23,6 +23,7 @@ import org.bukkit.entity.Player
 
 class LeaveArena(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
+
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "leave", "pixelsjump.leave")) return
         val player = sender as Player
@@ -32,6 +33,7 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         }
 
 
+        //remove the player from everywhere
         player.playerListName(Component.text(player.name))
         ArenaHelper.playersInArenas.remove(player)
         BlockGenerator.playerCheckpoints.remove(player)

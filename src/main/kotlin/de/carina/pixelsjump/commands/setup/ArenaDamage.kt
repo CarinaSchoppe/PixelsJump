@@ -25,7 +25,7 @@ class ArenaDamage(private val sender: CommandSender, private val command: Comman
             sender.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", args[1]))
             return
         }
-        if (ArenaHelper.getOrCreateArena(args[1]).damage == false) {
+        if (!ArenaHelper.getOrCreateArena(args[1]).damage) {
             ArenaHelper.getOrCreateArena(args[1]).damage = true
             sender.sendMessage(Messages.messages["arena-damage-yes"]!!.replace("%arena%", args[1]))
             return

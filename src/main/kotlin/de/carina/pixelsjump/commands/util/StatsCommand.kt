@@ -21,6 +21,10 @@ import org.bukkit.entity.Player
 
 class StatsCommand(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
+
+    /**
+     * check if the players stats exist and than print them out based on own stats, foreign stats or not existing stats
+     * */
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "stats", "pixelsjump.stats"))
             return

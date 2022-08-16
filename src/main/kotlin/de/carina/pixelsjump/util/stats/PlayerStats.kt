@@ -9,6 +9,8 @@
  * requires the express written consent of Carina Sophie Schoppe.
  */
 
+@file:Suppress("SameReturnValue")
+
 package de.carina.pixelsjump.util.stats
 
 import com.google.gson.Gson
@@ -26,6 +28,8 @@ object PlayerStats {
     private const val path = "plugins/PixelsJumpRemastered/statistics.json"
     private var file: File = File(path)
     val statistics = mutableListOf<PlayerStats>()
+
+
     private fun loadPlayers() {
         if (!file.exists()) return
         val itemType = object : TypeToken<List<PlayerStats>>() {}.type

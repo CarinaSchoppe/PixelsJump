@@ -55,7 +55,7 @@ object Messages {
         ymlConfiguration.addDefault("arena-goal-reached", "&aYou reached the goal in the arena &6%arena%&a!")
         ymlConfiguration.addDefault("arena-leave", "&7You left the arena &6%arena%&7!")
         ymlConfiguration.addDefault("arena-single-yes", "&aYou successfully set the arena &6%arena%&a to single!")
-        ymlConfiguration.addDefault("arena-single-no", "&cYou successfully set the arena &6%arena%&c to multi!")
+        ymlConfiguration.addDefault("arena-single-no", "&aYou successfully set the arena &6%arena%&a to multi!")
         ymlConfiguration.addDefault("loading-arenas-start", "&7Loading arenas...")
         ymlConfiguration.addDefault("loading-arenas-end", "&7Loading arenas finished!")
         ymlConfiguration.addDefault("loading-statistics-start", "&7Loading player statistics...")

@@ -29,18 +29,10 @@ import org.bukkit.plugin.java.JavaPlugin
 class PixelsJump : JavaPlugin() {
 
     /*
-    * TODO: Single Jump modus in bezug auf end
-    * TODO: Single jump arena no goal possible
-    * TODO: Endlocation?
     * TODO: Hiding?
     * TODO: Multi player
-    * TODO: checkPoints
-    * TODO: Edit commands on premise in GUI?
-    * TODO: leave item?
     * TODO: Hide all other players item?
     *  TODO: Code kommentieren
-    * TODO: Singlejump no to checkpoint
-    *  TODO: movement for checkpoints
     *   TODO: Damage when not in same arena
     * TODO: Player Chat
     * */

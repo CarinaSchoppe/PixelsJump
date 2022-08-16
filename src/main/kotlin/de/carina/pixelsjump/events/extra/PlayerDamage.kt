@@ -26,7 +26,7 @@ class PlayerDamage : Listener {
             return
 
         ArenaHelper.arenas.forEach {
-            if (it.players.contains(event.entity as Player) && it.damage == false) {
+            if (it.players.contains(event.entity as Player) && !it.damage) {
                 event.isCancelled = true
                 return
             }

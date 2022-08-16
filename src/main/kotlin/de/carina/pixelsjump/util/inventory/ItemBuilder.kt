@@ -36,7 +36,7 @@ class ItemBuilder(material: Material, amount: Int) {
     }
 
     fun addItemLore(lore: List<String>): ItemBuilder {
-        itemMeta.lore(lore.map { LegacyComponentSerializer.legacySection().deserialize(it) })
+        lore.forEach { addItemLore(it) }
         itemStack.itemMeta = itemMeta
         return this
     }
@@ -49,12 +49,6 @@ class ItemBuilder(material: Material, amount: Int) {
 
     fun addItemFlags(flags: Array<org.bukkit.inventory.ItemFlag>): ItemBuilder {
         itemMeta.addItemFlags(*flags)
-        itemStack.itemMeta = itemMeta
-        return this
-    }
-
-    fun makeIndistructable(): ItemBuilder {
-        itemMeta.isUnbreakable = true
         itemStack.itemMeta = itemMeta
         return this
     }

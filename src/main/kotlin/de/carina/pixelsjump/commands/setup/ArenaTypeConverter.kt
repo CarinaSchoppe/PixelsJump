@@ -19,6 +19,9 @@ import org.bukkit.command.CommandSender
 
 class ArenaTypeConverter(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
+    /**
+     * Switches the mode of the different arena types (single, multi)
+     */
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "single", "pixelsjump.single"))
             return
@@ -27,7 +30,7 @@ class ArenaTypeConverter(private val sender: CommandSender, private val command:
             return
         }
         val arena = ArenaHelper.getOrCreateArena(args[1])
-        if (arena.single != false) {
+        if (arena.single) {
             arena.single = false
             sender.sendMessage(Messages.messages["arena-single-no"]!!.replace("%arena%", args[1]))
         } else {

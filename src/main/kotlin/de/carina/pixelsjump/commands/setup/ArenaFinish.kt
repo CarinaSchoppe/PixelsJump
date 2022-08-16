@@ -24,6 +24,7 @@ class ArenaFinish(private val sender: CommandSender, private val command: Comman
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "finish", "pixelsjump.finish-arena"))
             return
 
+        //perform savety checks if all configs are valid
         if (ArenaHelper.arenaNotExists(args[1])) {
             sender.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", args[1]))
             return

@@ -14,13 +14,19 @@ package de.carina.pixelsjump.util
 import org.bukkit.Bukkit
 import org.bukkit.Location
 
+
+/**
+ * data class for handling the serialisation of Json locations from @see Gson
+ * @see Location
+ * @author Carina Sophie
+ * @see com.google.gson.Gson
+ */
 data class CustomLocation(var world: String, var x: Double, var y: Double, var z: Double, var yaw: Float, var pitch: Float) {
     constructor(location: Location) : this(location.world.name, location.x, location.y, location.z, location.yaw, location.pitch)
 
 
     fun toLocation(): Location {
-        val location = Location(Bukkit.getWorld(world), x, y, z, yaw, pitch)
-        return location
+        return Location(Bukkit.getWorld(world), x, y, z, yaw, pitch)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -33,6 +39,16 @@ data class CustomLocation(var world: String, var x: Double, var y: Double, var z
         if (z != other.z) return false
 
         return true
+    }
+
+    override fun hashCode(): Int {
+        var result = world.hashCode()
+        result = 31 * result + x.hashCode()
+        result = 31 * result + y.hashCode()
+        result = 31 * result + z.hashCode()
+        result = 31 * result + yaw.hashCode()
+        result = 31 * result + pitch.hashCode()
+        return result
     }
 
 

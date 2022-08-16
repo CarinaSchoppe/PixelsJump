@@ -19,12 +19,19 @@ import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.bukkit.inventory.Inventory
 
 class Utility {
 
-    val playerInventory = mutableMapOf<Player, Inventory>()
 
+    /**
+     * @param sender the sender of the command
+     * @param command: the prefix command
+     * @param argsLength: total amount of arguments including command self
+     * @param permission: permission to perform the command
+     * @param commandEnter the command after the prefix
+     *
+     * @return true if the command can be excecuted if not send proper messages
+     */
     fun preCommandStuff(sender: CommandSender, command: Command, args: Array<out String>, argsLength: Int, commandEnter: String?, permission: String): Boolean {
         if (!command.name.equals("pixelsjump", true)) {
             return false
@@ -58,6 +65,13 @@ class Utility {
         return true
     }
 
+
+    /**
+     * @param player Player to check
+     * @param arena Arena to check
+     * if arena = null: hide all players
+     * if arena != null hide all players that are not in the same arena
+     */
     fun hideAllPlayersNotInSameArena(player: Player, arena: Arena?) {
         for (onlinePlayers in Bukkit.getOnlinePlayers()) {
             if (arena != null && arena.players.contains(player) && arena.players.contains(onlinePlayers)) {
@@ -69,6 +83,12 @@ class Utility {
         }
     }
 
+    /**
+     * @param player Player to show to
+     * @param arena Arena to show to
+     * if arena is null shows all players that are not in an arena
+     * if arena != null: shows all players in the same arena
+     */
     fun showAllPlayersInSameArena(player: Player, arena: Arena?) {
         for (onlinePlayer in Bukkit.getOnlinePlayers()) {
             if (arena != null && arena.players.contains(player) && arena.players.contains(onlinePlayer)) {
@@ -85,6 +105,12 @@ class Utility {
         }
     }
 
+    /**
+     * @param name of the arena
+     * @param sender who asks if the arena exists
+     * checks if an arena with the @param name exists
+     * if not sends a message to @param player
+     * */
     fun checkForArena(name: String, sender: Player? = null): Boolean {
         if (ArenaHelper.arenas.find { it.name == name } == null) {
             sender?.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", name))
