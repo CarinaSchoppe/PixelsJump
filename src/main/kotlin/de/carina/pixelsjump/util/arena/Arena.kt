@@ -12,7 +12,7 @@
 package de.carina.pixelsjump.util.arena
 
 import com.google.gson.GsonBuilder
-import de.carina.pixelsjump.util.json.CustomLocation
+import de.carina.pixelsjump.util.CustomLocation
 import org.bukkit.Location
 import org.bukkit.block.BlockFace
 import org.bukkit.entity.Player

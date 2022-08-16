@@ -1,7 +1,7 @@
 /*
  * Copyright Notice for PixelsJumpRemastered
  * Copyright (c) at Carina Sophie Schoppe 2022
- * File created on 8/15/22, 4:06 PM by Carina The Latest changes made by Carina on 8/15/22, 4:06 PM.
+ * File created on 8/16/22, 2:12 AM by Carina The Latest changes made by Carina on 8/16/22, 1:54 AM.
  *  All contents of "CustomLocation.kt" are protected by copyright. The copyright law, unless expressly indicated otherwise, is
  * at Carina Sophie Schoppe. All rights reserved
  * Any type of duplication, distribution, rental, sale, award,
@@ -9,7 +9,7 @@
  * requires the express written consent of Carina Sophie Schoppe.
  */
 
-package de.carina.pixelsjump.util.json
+package de.carina.pixelsjump.util
 
 import org.bukkit.Bukkit
 import org.bukkit.Location

@@ -43,7 +43,7 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         BlockGenerator.playerAFK.remove(player)
         player.level = 0
         BlockGenerator.playerJumpBlocks.remove(player)
-        var arena = ArenaHelper.arenas.find { it.players.contains(player) }
+        val arena = ArenaHelper.arenas.find { it.players.contains(player) }
         player.teleport(arena!!.backLocation!!.toLocation())
         arena.players.remove(player)
         player.inventory.clear()

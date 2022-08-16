@@ -11,7 +11,6 @@
 
 package de.carina.pixelsjump.util
 
-import de.carina.pixelsjump.util.json.CustomLocation
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.block.Block
