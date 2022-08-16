@@ -54,10 +54,12 @@ class PlayerMoves : Listener {
      */
     private fun blockRelated(event: PlayerMoveEvent, arena: Arena): Boolean {
         if (arena.single) return false
+        //check if its a checkpointblock
         if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.checkPointMaterial && BlockGenerator.playerCheckpoints[event.player]!! != CustomLocation(event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation())) {
             BlockGenerator.playerCheckpoints[event.player] = CustomLocation(event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation().add(0.0, 1.0, 0.0))
             event.player.sendMessage(Messages.messages["arena-checkpoint-reached"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
             return true
+            //check if its the winning block
         } else if (event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.endPointFinish && BlockGenerator.playerCheckpoints[event.player]!! != CustomLocation(event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation())) {
             jumpWon(event.player, arena)
             return true
