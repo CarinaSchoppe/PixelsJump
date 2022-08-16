@@ -12,6 +12,7 @@
 package de.carina.pixelsjump.util
 
 import de.carina.pixelsjump.PixelsJump
+import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.block.Block
@@ -56,28 +57,35 @@ object BlockGenerator {
      * generates a new block proper for the player. does all other handling and cleaning after calulation
      * */
     fun generateBlock(player: Player) {
+        lateinit var block: Block
+        lateinit var type: Blocks
+        lateinit var newLocation: Location
+        while (true) {
+            type = Blocks.values().random()
+            var length = Random().nextInt(4) + 1
+            val height = if (Random().nextBoolean()) 1 else 0
+            var x = Random().nextInt(3) - 1
+            var z = Random().nextInt(3) - 1
+            if (height == 1 && length == 4) {
+                length = 2
+            }
+            if (abs(x) == 1 && abs(z) == 1) {
+                length = 2
+            } else if (x == 0 && z == 0) {
+                x = 1
+                z = -1
+            }
+
+            //calculation done for the location of the next block
+            newLocation = player.location.add((length * x).toDouble(), height.toDouble() - 1, (length * z).toDouble())
+            block = player.world.getBlockAt(newLocation)
+            if (block.type == Material.AIR)
+                break
+        }
+
         playerJumps[player] = (playerJumps[player] ?: 0) + 1
-        val type = Blocks.values().random()
-        var length = Random().nextInt(4) + 1
-        val height = if (Random().nextBoolean()) 1 else 0
-        var x = Random().nextInt(3) - 1
-        var z = Random().nextInt(3) - 1
-        if (height == 1 && length == 4) {
-            length = 2
-        }
-        if (abs(x) == 1 && abs(z) == 1) {
-            length = 2
-        } else if (x == 0 && z == 0) {
-            x = 1
-            z = -1
-        }
-
-        //calculation done for the location of the next block
-
-        val newLocation = player.location.add((length * x).toDouble(), height.toDouble() - 1, (length * z).toDouble())
         player.level += 1
         player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1.toFloat(), 1.toFloat())
-        val block = player.world.getBlockAt(newLocation)
         playerJumpBlocks[player]!!.add(block)
         val data = block.blockData.clone()
         block.type = type.material

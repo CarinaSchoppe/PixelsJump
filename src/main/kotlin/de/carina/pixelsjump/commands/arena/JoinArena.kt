@@ -59,6 +59,7 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         if (arena.single)
             BlockGenerator.generateBlock(player)
         arena.players.add(player)
+        BlockGenerator.playerJumps[player] = 0
         //afk handler
         ArenaHelper.playersInArenas.add(player)
         BlockGenerator.playerAFK[player] = Pair(Bukkit.getScheduler().runTaskTimer(PixelsJump.instance, Runnable {

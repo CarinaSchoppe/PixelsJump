@@ -47,7 +47,7 @@ object Messages {
         ymlConfiguration.addDefault("add-checkpoint", "&aYou added a checkpoint to the arena &6%arena%&a, Checkpoints: &6%number%&a!")
         ymlConfiguration.addDefault("arena-setup", "&aYou successfully setup the arena &6%arena%&a you can now use other commands!")
         ymlConfiguration.addDefault("player-stats", "&7Your Stats: &6%wins%&7 Wins, &6%games%&7 Games, &6%fails%&7 Fails, &6%points%&7 Points")
-        ymlConfiguration.addDefault("player-stats-other", "&6%player% &7Stats: &6%wins%&7 Wins, &6%games%&7 Games, &6%blocks%&7 Max-Blocks, &6%fails%&7 Fails, &6%points%&7 Points")
+        ymlConfiguration.addDefault("player-stats-other", "&6%player% &7Stats: &6%wins%&7 Wins, &6%games%&7 Games, &6%fails%&7 Fails, &6%points%&7 Points")
         ymlConfiguration.addDefault("player-no-stats", "&cThe Player &6%player% &cdoesnt have any stats cuz he never joined!")
         ymlConfiguration.addDefault("arena-loaded", "&7Loaded the arena &6%arena%&7!")
         ymlConfiguration.addDefault("stats-loaded", "&7Loaded the stats for player &6%player%&7!")
