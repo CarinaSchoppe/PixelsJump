@@ -29,12 +29,7 @@ import org.bukkit.plugin.java.JavaPlugin
 class PixelsJump : JavaPlugin() {
 
     /*
-    * TODO: Hiding?
-    * TODO: Multi player
     * TODO: Hide all other players item?
-    *  TODO: Code kommentieren
-    *   TODO: Damage when not in same arena
-    * TODO: Player Chat
     * */
 
 
@@ -77,6 +72,7 @@ class PixelsJump : JavaPlugin() {
         pluginManager.registerEvents(PlayerChat(), this)
         pluginManager.registerEvents(CheckpointItem(), this)
         pluginManager.registerEvents(SignCreator(), this)
+        pluginManager.registerEvents(PlayerVisibilitySwitch(), this)
 
         extra()
     }

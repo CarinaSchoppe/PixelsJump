@@ -33,6 +33,7 @@ class Arena(val name: String) {
 
     @Transient
     private lateinit var file: File
+    val chat: Boolean = false
     var single: Boolean = false
     var damage: Boolean = false
 

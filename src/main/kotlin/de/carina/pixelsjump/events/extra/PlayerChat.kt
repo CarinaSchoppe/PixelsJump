@@ -15,6 +15,7 @@ import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
@@ -27,6 +28,13 @@ class PlayerChat : Listener {
             val arena = ArenaHelper.arenas.find { it.players.contains(event.player) }!!
             arena.players.forEach {
                 it.sendMessage("${PixelsJump.prefix} ${event.player.name} says: ${PlainTextComponentSerializer.plainText().serialize(event.message())}")
+            }
+        } else {
+            event.isCancelled = true
+            Bukkit.getOnlinePlayers().forEach {
+                if (!ArenaHelper.playersInArenas.contains(it))
+                    it.sendMessage("${PixelsJump.prefix} ${event.player.name} says: ${PlainTextComponentSerializer.plainText().serialize(event.message())}")
+
             }
         }
     }

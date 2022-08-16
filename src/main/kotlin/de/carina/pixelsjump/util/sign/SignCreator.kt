@@ -54,7 +54,6 @@ class SignCreator : Listener {
             return
         if (!event.player.hasPermission("pixelsjump.signuse"))
             return
-        println(LegacyComponentSerializer.legacySection().serialize(sign.line(1)).substring(2))
         event.player.performCommand("pixelsjump join ${LegacyComponentSerializer.legacySection().serialize(sign.line(1)).substring(2)}")
     }
 }

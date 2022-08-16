@@ -23,6 +23,8 @@ object Items {
     val singleJumpNRunItem = ItemBuilder(Material.RABBIT_FOOT, 1).addItemName(ItemNames.SINGLE_JUMP_N_RUN.text).addItemLore(listOf("§aClick to set the arena to a single jump n run")).build()
 
 
+    val visibilitySwitchItem = ItemBuilder(Material.STICK, 1).addItemName(ItemNames.VISIBILITY_SWITCH.text).addItemLore(listOf("§aClick to switch the visibility of the other players!")).build()
+
     val toCheckPointItem: ItemStack =
         ItemBuilder(Material.BARRIER, 1).addItemName(ItemNames.CHECKPOINT.text).addItemLore(listOf("§aClick to go back to your latest checkpoint")).build()
 

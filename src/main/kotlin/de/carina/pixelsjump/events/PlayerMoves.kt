@@ -41,12 +41,13 @@ class PlayerMoves : Listener {
             event.player.playSound(event.player.location, Sound.ENTITY_PLAYER_LEVELUP, 1.toFloat(), 1.toFloat())
             return
         }
-
         //if player is in singleplayer mode and on the next jump block -> generate a new jump block
-        if (arena.single && event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
+        if (BlockGenerator.playerBlock.containsKey(event.player) && arena.single && event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
             BlockGenerator.generateBlock(event.player)
             PlayerStats.addPoints(event.player, Configuration.pointsPerJump)
+            return
         }
+
     }
 
     /**
@@ -108,7 +109,7 @@ class PlayerMoves : Listener {
      */
     private fun failChecker(arena: Arena, event: PlayerMoveEvent): Boolean {
         //Player is in a single arena
-        if (arena.single && event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerBlock[event.player]!!.location.y - 2) {
+        if (BlockGenerator.playerBlock.contains(event.player) && arena.single && event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerBlock[event.player]!!.location.y - 2) {
             event.player.sendMessage(Messages.messages["arena-player-failed"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
             PlayerStats.addFail(event.player)
             event.player.performCommand("pixelsjump leave")
@@ -116,11 +117,9 @@ class PlayerMoves : Listener {
         }
         //player is in a multi arena
         if (event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerCheckpoints[event.player]!!.y - 3) {
-            event.player.sendMessage(Messages.messages["arena-player-fell"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
-            PlayerStats.addFail(event.player)
+            event.player.performCommand("pixelsjump checkpoint")
             return true
         }
-
         return false
     }
 }

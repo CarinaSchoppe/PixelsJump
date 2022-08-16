@@ -16,6 +16,7 @@ import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import net.kyori.adventure.text.Component
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
@@ -50,6 +51,7 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         arena.players.remove(player)
         player.inventory.clear()
         PixelsJump.utility.showAllPlayersInSameArena(player, null)
+        player.gameMode = GameMode.SURVIVAL
         player.sendMessage(Messages.messages["arena-leave"]!!.replace("%arena%", arena.name))
     }
 }

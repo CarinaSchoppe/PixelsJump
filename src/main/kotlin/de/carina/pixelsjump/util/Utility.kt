@@ -16,12 +16,16 @@ import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.block.data.BlockData
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class Utility {
 
+
+    val playerVisibilitySwitchMap = mutableMapOf<Player, Boolean>()
 
     /**
      * @param sender the sender of the command
@@ -66,20 +70,25 @@ class Utility {
     }
 
 
+    fun makeJumpBlockInvisible(location: Location, block: BlockData, player: Player) {
+        Bukkit.getOnlinePlayers().forEach {
+            if (it != player) {
+                it.sendBlockChange(location, block)
+            }
+        }
+    }
+
     /**
      * @param player Player to check
      * @param arena Arena to check
      * if arena = null: hide all players
-     * if arena != null hide all players that are not in the same arena
      */
     fun hideAllPlayersNotInSameArena(player: Player, arena: Arena?) {
-        for (onlinePlayers in Bukkit.getOnlinePlayers()) {
-            if (arena != null && arena.players.contains(player) && arena.players.contains(onlinePlayers)) {
+        for (onlinePlayer in Bukkit.getOnlinePlayers()) {
+            if (arena != null && arena.players.contains(player) && arena.players.contains(onlinePlayer) || player == onlinePlayer)
                 continue
-            }
-
-            onlinePlayers.hidePlayer(PixelsJump.instance, player)
-            player.hidePlayer(PixelsJump.instance, onlinePlayers)
+            onlinePlayer.hidePlayer(PixelsJump.instance, player)
+            player.hidePlayer(PixelsJump.instance, onlinePlayer)
         }
     }
 
@@ -96,7 +105,7 @@ class Utility {
                 player.showPlayer(PixelsJump.instance, onlinePlayer)
                 continue
             } else {
-                if (ArenaHelper.playersInArenas.contains(onlinePlayer)) continue
+                if (ArenaHelper.playersInArenas.contains(onlinePlayer) && player != onlinePlayer) continue
                 player.showPlayer(PixelsJump.instance, onlinePlayer)
                 onlinePlayer.showPlayer(PixelsJump.instance, player)
             }

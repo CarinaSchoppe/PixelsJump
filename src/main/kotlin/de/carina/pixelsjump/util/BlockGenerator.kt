@@ -11,6 +11,7 @@
 
 package de.carina.pixelsjump.util
 
+import de.carina.pixelsjump.PixelsJump
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.block.Block
@@ -78,9 +79,10 @@ object BlockGenerator {
         player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1.toFloat(), 1.toFloat())
         val block = player.world.getBlockAt(newLocation)
         playerJumpBlocks[player]!!.add(block)
+        val data = block.blockData.clone()
         block.type = type.material
+        PixelsJump.utility.makeJumpBlockInvisible(newLocation, data, player)
         playerBlock[player] = block
-
         //remove the last 2nd (so current and next) are the only one left
         if ((playerJumps[player] ?: 0) >= 2) {
             player.world.getBlockAt(playerJumpBlocks[player]!!.first().location).type = Material.AIR

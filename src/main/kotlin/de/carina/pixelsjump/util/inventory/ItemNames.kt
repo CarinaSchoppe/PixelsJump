@@ -23,5 +23,6 @@ enum class ItemNames(val text: String) {
     FINISH_ARENA("§dFinish Arena"),
     ADD_END_LOCATION("§dAdd Location End"),
     LEAVE_GAME("§dLeave"),
+    VISIBILITY_SWITCH("§dVisibility"),
 
 }

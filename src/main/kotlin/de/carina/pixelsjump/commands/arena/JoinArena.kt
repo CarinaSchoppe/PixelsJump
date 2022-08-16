@@ -47,15 +47,17 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         player.teleport(arena.startLocation!!.toLocation())
         BlockGenerator.playerJumpBlocks[player] = mutableListOf()
         BlockGenerator.playerCheckpoints[player] = arena.startLocation!!
+        player.inventory.clear()
         if (arena.single)
             player.inventory.setItem(8, Items.leaveItem)
         else {
             player.inventory.setItem(8, Items.toCheckPointItem)
             player.inventory.setItem(5, Items.leaveItem)
         }
+        player.inventory.setItem(6, Items.visibilitySwitchItem)
+
         if (arena.single)
             BlockGenerator.generateBlock(player)
-        BlockGenerator.playerJumps[player] = 0
         arena.players.add(player)
         //afk handler
         ArenaHelper.playersInArenas.add(player)
@@ -67,7 +69,6 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         }, 250, 250), true)
 
         //extras
-        player.inventory.clear()
         player.level = 0
         player.gameMode = GameMode.ADVENTURE
 
