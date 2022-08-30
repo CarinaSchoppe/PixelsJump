@@ -29,7 +29,7 @@ class CommandRegister : CommandExecutor {
         }
         when (args[0]) {
             "add" -> LocationAdder(sender, command, args).execute()
-            "remove" -> ArenaRemover(sender, command, args).execute()
+            "delete" -> ArenaRemover(sender, command, args).execute()
             "list" -> LocationListPrinter(sender, command, args).execute()
             "single" -> ArenaTypeConverter(sender, command, args).execute()
             "setup" -> ArenaSetup(sender, command, args).execute()

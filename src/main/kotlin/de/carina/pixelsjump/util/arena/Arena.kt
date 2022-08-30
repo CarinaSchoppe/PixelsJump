@@ -50,6 +50,8 @@ class Arena(val name: String) {
 
 
     fun addCheckpointLocation(location: Location) {
+        if (checkPoints.any { CustomLocation(location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()) == it })
+            return
         checkPoints.add(CustomLocation(location.block.getRelative(BlockFace.DOWN).location.toCenterLocation()))
     }
 }

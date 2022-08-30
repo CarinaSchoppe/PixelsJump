@@ -20,7 +20,7 @@ import java.io.File
 
 class ArenaRemover(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
     fun execute() {
-        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "remove", "pixelsjump.remove"))
+        if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "delete", "pixelsjump.remove"))
             return
 
         if (ArenaHelper.arenaNotExists(args[1])) {

@@ -43,7 +43,12 @@ class CommandInventoryListener : Listener {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
-                player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} start")
+                if (event.isLeftClick) {
+                    player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} start")
+
+                } else if (event.isRightClick) {
+                    player.performCommand("pixelsjump remove ${PixelsJump.utility.arenaPlayerNames[player]} start")
+                }
             }
 
             Items.singleJumpNRunItem -> {
@@ -60,7 +65,11 @@ class CommandInventoryListener : Listener {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
-                player.performCommand("pixelsjump finish ${PixelsJump.utility.arenaPlayerNames[player]}")
+                if (event.isLeftClick) {
+                    player.performCommand("pixelsjump finish ${PixelsJump.utility.arenaPlayerNames[player]}")
+                } else if (event.isRightClick) {
+                    player.performCommand("pixelsjump delete ${PixelsJump.utility.arenaPlayerNames[player]}")
+                }
                 player.closeInventory()
             }
 
@@ -84,8 +93,6 @@ class CommandInventoryListener : Listener {
                 }
                 if (event.isLeftClick) {
                     player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} back")
-
-
                 } else if (event.isRightClick) {
                     player.performCommand("pixelsjump remove ${PixelsJump.utility.arenaPlayerNames[player]} back")
 

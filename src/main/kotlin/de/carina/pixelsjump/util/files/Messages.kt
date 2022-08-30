@@ -25,7 +25,7 @@ object Messages {
         ymlConfiguration.addDefault("start-location-removed", "&7The Start-location for the arena &6%arena% &7has been removed.")
         ymlConfiguration.addDefault("back-location-removed", "&7The Back-location for the arena &6%arena% &7 has been removed.")
         ymlConfiguration.addDefault("checkpoint-location-removed", "&7The last Checkpoint-location for the arena &6%arena% &7has been removed.")
-        ymlConfiguration.addDefault("end-location-removed", "&7The Finish-location has been removed.")
+        ymlConfiguration.addDefault("end-location-removed", "&7The End-location for the arena &6%arena% has been removed.")
         ymlConfiguration.addDefault("load", "&7The Plugin was successfully loaded!")
         ymlConfiguration.addDefault("unload", "&7The Plugin was successfully unloaded!")
         ymlConfiguration.addDefault("error", "&cAn Error occurred!")
