@@ -26,6 +26,7 @@ class PlayerChat : Listener {
         if (ArenaHelper.playersInArenas.contains(event.player)) {
             event.isCancelled = true
             val arena = ArenaHelper.arenas.find { it.players.contains(event.player) }!!
+            if (!arena.chat) return
             arena.players.forEach {
                 it.sendMessage("${PixelsJump.prefix} ${event.player.name} says: ${PlainTextComponentSerializer.plainText().serialize(event.message())}")
             }

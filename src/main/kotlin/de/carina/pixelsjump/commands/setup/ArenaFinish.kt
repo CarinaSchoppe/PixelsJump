@@ -14,7 +14,6 @@ package de.carina.pixelsjump.commands.setup
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
-import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -34,13 +33,9 @@ class ArenaFinish(private val sender: CommandSender, private val command: Comman
         }
         val arena = ArenaHelper.getOrCreateArena(args[1])
         arena.active = false
-        Bukkit.getScheduler().runTaskAsynchronously(PixelsJump.instance, Runnable {
-            val file = File("plugins/PixelsJumpRemastered/arenas/${arena.name}.json")
-            file.delete()
-        })
-
+        val file = File("plugins/PixelsJumpRemastered/arenas/${arena.name}.json")
+        file.delete()
         if (ArenaHelper.arenaInvalid(args[1], arena, sender as Player)) return
-
 
         sender.sendMessage(Messages.messages["arena-saved"]!!.replace("%arena%", args[1]))
         PixelsJump.utility.arenaPlayerNames.remove(sender)
