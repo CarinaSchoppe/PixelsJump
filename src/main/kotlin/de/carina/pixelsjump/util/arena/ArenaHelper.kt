@@ -14,6 +14,7 @@ package de.carina.pixelsjump.util.arena
 import com.google.gson.Gson
 import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.Bukkit
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.io.File
 
@@ -25,7 +26,7 @@ object ArenaHelper {
 
 
     /**
-     * Loads the arena from json format into an actual arena
+     * Loads the arena from a json format into an actual arena
      */
     fun loadArenas() {
         Bukkit.getConsoleSender().sendMessage(Messages.messages["loading-arenas-start"]!!)
@@ -41,6 +42,7 @@ object ArenaHelper {
                     continue
                 }
                 val arena = Gson().fromJson(file.bufferedReader(), Arena::class.java)
+                if (arenaInvalid(null, arena, Bukkit.getConsoleSender())) return
                 arena.players = mutableSetOf()
                 Bukkit.getConsoleSender().sendMessage(Messages.messages["arena-loaded"]!!.replace("%arena%", arena.name.replace(".yml", "")))
                 arenas.add(arena)
@@ -49,6 +51,28 @@ object ArenaHelper {
         Bukkit.getConsoleSender().sendMessage(Messages.messages["loading-arenas-end"]!!)
 
 
+    }
+
+    fun arenaInvalid(args: String?, arena: Arena, sender: CommandSender?): Boolean {
+        if (arena.startLocation == null) {
+            sender?.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args ?: arena.name))
+            return true
+        }
+        if (arena.backLocation == null) {
+            sender?.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args ?: arena.name))
+            return true
+        }
+
+        if (!arena.single && arena.endLocation == null) {
+            sender?.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args ?: arena.name))
+            return true
+        }
+
+        if (arena.single) {
+            sender?.sendMessage(Messages.messages["arena-single"]!!.replace("%arena%", args ?: ""))
+        }
+
+        return false
     }
 
     fun arenaNotExists(arenaName: String): Boolean {

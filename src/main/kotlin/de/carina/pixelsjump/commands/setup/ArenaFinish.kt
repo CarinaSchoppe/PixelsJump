@@ -14,9 +14,11 @@ package de.carina.pixelsjump.commands.setup
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
+import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import java.io.File
 
 class ArenaFinish(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
@@ -24,34 +26,26 @@ class ArenaFinish(private val sender: CommandSender, private val command: Comman
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "finish", "pixelsjump.finish-arena"))
             return
 
+
         //perform savety checks if all configs are valid
         if (ArenaHelper.arenaNotExists(args[1])) {
             sender.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", args[1]))
             return
         }
         val arena = ArenaHelper.getOrCreateArena(args[1])
-        if (arena.startLocation == null) {
-            sender.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args[1]))
-            return
-        }
-        if (arena.backLocation == null) {
-            sender.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args[1]))
-            return
-        }
+        arena.active = false
+        Bukkit.getScheduler().runTaskAsynchronously(PixelsJump.instance, Runnable {
+            val file = File("plugins/PixelsJumpRemastered/arenas/${arena.name}.json")
+            file.delete()
+        })
 
-        if (!arena.single && arena.finishLocation == null) {
-            sender.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args[1]))
-            return
-        }
-
-        if (arena.single) {
-            sender.sendMessage(Messages.messages["arena-single"]!!.replace("%arena%", args[1]))
-        }
+        if (ArenaHelper.arenaInvalid(args[1], arena, sender as Player)) return
 
 
         sender.sendMessage(Messages.messages["arena-saved"]!!.replace("%arena%", args[1]))
-        PixelsJump.utility.arenaPlayerNames.remove(sender as Player)
+        PixelsJump.utility.arenaPlayerNames.remove(sender)
         arena.saveArena()
+        arena.active = true
 
     }
 }

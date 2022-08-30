@@ -22,6 +22,10 @@ object Messages {
     }
 
     fun createMessagesFile() {
+        ymlConfiguration.addDefault("start-location-removed", "&7The Start-location for the arena &6%arena% &7has been removed.")
+        ymlConfiguration.addDefault("back-location-removed", "&7The Back-location for the arena &6%arena% &7 has been removed.")
+        ymlConfiguration.addDefault("checkpoint-location-removed", "&7The last Checkpoint-location for the arena &6%arena% &7has been removed.")
+        ymlConfiguration.addDefault("end-location-removed", "&7The Finish-location has been removed.")
         ymlConfiguration.addDefault("load", "&7The Plugin was successfully loaded!")
         ymlConfiguration.addDefault("unload", "&7The Plugin was successfully unloaded!")
         ymlConfiguration.addDefault("error", "&cAn Error occurred!")
@@ -40,7 +44,7 @@ object Messages {
         ymlConfiguration.addDefault("checkpoint-loaded", "&7Checkpoint &6%number% for arena &6%arena%&7, &7loaded!")
         ymlConfiguration.addDefault("no-arena-name", "&cYou must enter the arena name first before you can do this!")
         ymlConfiguration.addDefault("arena-join", "&7You were teleported to the arena &6%arena%&7!")
-        ymlConfiguration.addDefault("arena-allready", "&cYou are allready in the arena &6%arena%&c!")
+        ymlConfiguration.addDefault("arena-already", "&cYou are allready in the arena &6%arena%&c!")
         ymlConfiguration.addDefault("arna-no-damage", "&cYou can't damage others in the arena &6%arena%&c!")
         ymlConfiguration.addDefault("visibility-enabled", "&aThe arena-players for the arena &6%arena% &ahas been enabled for visibility!")
         ymlConfiguration.addDefault("visibility-disabled", "&cThe arena-players for the arena &6%arena% &chas been disabled for visibility!")

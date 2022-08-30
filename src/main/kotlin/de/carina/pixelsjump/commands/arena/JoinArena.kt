@@ -33,7 +33,7 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         if (!PixelsJump.utility.checkForArena(args[1], sender as Player)) return
         val arena = ArenaHelper.getOrCreateArena(args[1])
         if (ArenaHelper.playersInArenas.contains(sender)) {
-            sender.sendMessage(Messages.messages["arena-allready"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
+            sender.sendMessage(Messages.messages["arena-already"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
             return
         }
 

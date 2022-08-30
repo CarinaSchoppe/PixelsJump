@@ -28,8 +28,11 @@ class Arena(val name: String) {
 
     val checkPoints: MutableList<CustomLocation> = mutableListOf()
     var startLocation: CustomLocation? = null
-    var finishLocation: CustomLocation? = null
+    var endLocation: CustomLocation? = null
     var backLocation: CustomLocation? = null
+
+    @Transient
+    var active = false
 
     @Transient
     private lateinit var file: File
@@ -42,6 +45,7 @@ class Arena(val name: String) {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val json = gson.toJson(this)
         file.writeText(json)
+        active = true
     }
 
 

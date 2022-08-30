@@ -41,6 +41,7 @@ class CommandRegister : CommandExecutor {
             "stats" -> StatsCommand(sender, command, args).execute()
             "damage" -> ArenaDamage(sender, command, args).execute()
             "checkpoint" -> Checkpoint(sender, command, args).execute()
+            "remove" -> LocationRemover(sender, command, args).execute()
         }
 
         return true

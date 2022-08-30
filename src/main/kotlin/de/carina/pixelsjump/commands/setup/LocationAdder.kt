@@ -42,7 +42,7 @@ class LocationAdder(private val sender: CommandSender, private val command: Comm
             }
 
             "finish" -> {
-                arena.finishLocation = CustomLocation(player.location.toCenterLocation())
+                arena.endLocation = CustomLocation(player.location.toCenterLocation())
                 sender.sendMessage(Messages.messages["add-end"]!!.replace("%arena%", args[1]))
 
             }

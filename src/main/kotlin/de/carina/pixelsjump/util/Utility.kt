@@ -121,7 +121,8 @@ class Utility {
      * if not sends a message to @param player
      * */
     fun checkForArena(name: String, sender: Player? = null): Boolean {
-        if (ArenaHelper.arenas.find { it.name == name } == null) {
+        var arena = ArenaHelper.arenas.find { it.name == name }
+        if (arena == null || !arena.active) {
             sender?.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", name))
             return false
         }

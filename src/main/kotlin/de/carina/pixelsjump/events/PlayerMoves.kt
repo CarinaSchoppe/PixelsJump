@@ -88,7 +88,7 @@ class PlayerMoves : Listener {
      */
     private fun locationRelated(arena: Arena, event: PlayerMoveEvent): Boolean {
         if (arena.single) return false
-        if (arena.finishLocation == CustomLocation(event.player.location.toCenterLocation()) && !arena.single) {
+        if (arena.endLocation == CustomLocation(event.player.location.toCenterLocation()) && !arena.single) {
             jumpWon(event.player, arena)
             return true
         }

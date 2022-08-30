@@ -30,6 +30,7 @@ class PixelsJump : JavaPlugin() {
 
     /*
     * TODO: Hide all other players item?
+    *  TODO: leftclick checkpoint item removes last checkpoint
     * */
 
 

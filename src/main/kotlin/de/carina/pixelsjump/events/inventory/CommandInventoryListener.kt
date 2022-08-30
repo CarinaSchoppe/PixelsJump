@@ -51,6 +51,7 @@ class CommandInventoryListener : Listener {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
+
                 player.performCommand("pixelsjump single ${PixelsJump.utility.arenaPlayerNames[player]}")
             }
 
@@ -68,7 +69,12 @@ class CommandInventoryListener : Listener {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
-                player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} checkpoint")
+                if (event.isLeftClick) {
+                    player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} checkpoint")
+
+                } else if (event.isRightClick) {
+                    player.performCommand("pixelsjump remove ${PixelsJump.utility.arenaPlayerNames[player]} checkpoint")
+                }
             }
 
             Items.backLocationItem -> {
@@ -76,7 +82,14 @@ class CommandInventoryListener : Listener {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
-                player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} back")
+                if (event.isLeftClick) {
+                    player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} back")
+
+
+                } else if (event.isRightClick) {
+                    player.performCommand("pixelsjump remove ${PixelsJump.utility.arenaPlayerNames[player]} back")
+
+                }
             }
 
             Items.arenaDamageItem -> {
@@ -92,8 +105,11 @@ class CommandInventoryListener : Listener {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
-                player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} finish")
-
+                if (event.isLeftClick) {
+                    player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} finish")
+                } else if (event.isRightClick) {
+                    player.performCommand("pixelsjump remove ${PixelsJump.utility.arenaPlayerNames[player]} finish")
+                }
             }
         }
 
