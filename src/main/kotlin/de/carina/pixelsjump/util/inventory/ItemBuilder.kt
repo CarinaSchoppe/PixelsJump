@@ -29,7 +29,7 @@ class ItemBuilder(material: Material, amount: Int) {
     }
 
 
-    fun addItemLore(lore: String): ItemBuilder {
+    private fun addItemLore(lore: String): ItemBuilder {
         itemMeta.lore()?.add(LegacyComponentSerializer.legacySection().deserialize(lore))
         itemStack.itemMeta = itemMeta
         return this

@@ -61,12 +61,7 @@ object PlayerStats {
     }
 
     private fun getStatsPlayer(name: String): PlayerStats? {
-        statistics.forEach {
-            if (it.playerName == name) {
-                return it
-            }
-        }
-        return null
+        return statistics.firstOrNull { it.playerName == name }
     }
 
     private fun saveStatsFile() {

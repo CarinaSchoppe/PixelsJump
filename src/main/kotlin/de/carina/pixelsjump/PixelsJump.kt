@@ -28,11 +28,6 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class PixelsJump : JavaPlugin() {
 
-    /*
-    * TODO: Hide all other players item?
-    *  TODO: leftclick checkpoint item removes last checkpoint
-    * */
-
 
     companion object {
         lateinit var instance: PixelsJump
