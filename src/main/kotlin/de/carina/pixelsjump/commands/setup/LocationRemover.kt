@@ -28,7 +28,8 @@ class LocationRemover(private val sender: CommandSender, private val command: Co
             }
 
             "checkpoint" -> {
-                arena.checkPoints.remove(arena.checkPoints.last())
+                if (!arena.checkPoints.isEmpty())
+                    arena.checkPoints.remove(arena.checkPoints.last())
                 sender.sendMessage(Messages.messages["checkpoint-location-removed"]!!.replace("%arena%", args[1]))
 
             }
