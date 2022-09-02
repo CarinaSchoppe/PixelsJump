@@ -39,6 +39,15 @@ object Configuration {
         ymlConfiguration.addDefault("arena-break", true)
         ymlConfiguration.addDefault("arena-place", true)
         ymlConfiguration.addDefault("jump-points", 1)
+        ymlConfiguration.addDefault("mysql", false)
+        ymlConfiguration.addDefault("sql-lite", false)
+        ymlConfiguration.addDefault("sqlite-path", "plugins/TheHunter/sqlite.db")
+        ymlConfiguration.addDefault("mysql-host", "localhost")
+        ymlConfiguration.addDefault("mysql-port", 3306)
+        ymlConfiguration.addDefault("mysql-database", "thehunter")
+        ymlConfiguration.addDefault("mysql-user", "root")
+        ymlConfiguration.addDefault("mysql-password", "")
+        ymlConfiguration.addDefault("scoreboard", true)
         ymlConfiguration.addDefault("prefix", "&8[&6PixelsJump&8]&r")
 
 

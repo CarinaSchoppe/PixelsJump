@@ -22,6 +22,7 @@ import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.scoreboard.DisplaySlot
 
 class LeaveArena(private val sender: CommandSender, private val command: Command, private val args: Array<out String>) {
 
@@ -50,6 +51,8 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         val arena = ArenaHelper.arenas.find { it.players.contains(player) }
         player.teleport(arena!!.backLocation!!.toLocation())
         arena.players.remove(player)
+        //remove player scoreboard
+        player.scoreboard.clearSlot(DisplaySlot.SIDEBAR)
         player.playSound(player, Sound.ENTITY_GHAST_SCREAM, 1f, 1f)
         player.inventory.clear()
         PixelsJump.utility.showAllPlayersInSameArena(player, null)
