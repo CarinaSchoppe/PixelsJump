@@ -74,6 +74,7 @@ class PlayerMoves : Listener {
     private fun jumpWon(player: Player, arena: Arena) {
         if (arena.single) return
         PlayerStats.addWin(player)
+        player.playSound(player, Sound.ENTITY_ENDER_DRAGON_DEATH, 1f, 1f)
         player.sendMessage(Messages.messages["arena-goal-reached"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(player) }!!.name))
         player.performCommand("pixelsjump leave")
         return
@@ -97,6 +98,8 @@ class PlayerMoves : Listener {
         //check if the current position corresponts to a checkpoint in the arena checkpoints and the current checkpoint != locationCheckpoint
         if (arena.checkPoints.size > arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1 && CustomLocation(event.player.location.toCenterLocation().subtract(0.toDouble(), 1.toDouble(), 0.toDouble())) == arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1]) {
             BlockGenerator.playerCheckpoints[event.player] = arena.checkPoints[arena.checkPoints.indexOf(BlockGenerator.playerCheckpoints[event.player]!!) + 1]
+            event.player.playSound(event.player, Sound.BLOCK_ANVIL_HIT, 1f, 1f)
+
             event.player.sendMessage(Messages.messages["arena-checkpoint-reached"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
             return true
         }

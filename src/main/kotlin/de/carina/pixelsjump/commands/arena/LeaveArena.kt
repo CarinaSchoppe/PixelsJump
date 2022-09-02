@@ -18,6 +18,7 @@ import de.carina.pixelsjump.util.files.Messages
 import net.kyori.adventure.text.Component
 import org.bukkit.GameMode
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -49,6 +50,7 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         val arena = ArenaHelper.arenas.find { it.players.contains(player) }
         player.teleport(arena!!.backLocation!!.toLocation())
         arena.players.remove(player)
+        player.playSound(player, Sound.ENTITY_GHAST_SCREAM, 1f, 1f)
         player.inventory.clear()
         PixelsJump.utility.showAllPlayersInSameArena(player, null)
         player.gameMode = GameMode.SURVIVAL

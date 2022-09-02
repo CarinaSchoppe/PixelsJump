@@ -16,6 +16,7 @@ import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.inventory.Items
 import org.bukkit.Bukkit
+import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -49,6 +50,7 @@ class PlayerVisibilitySwitch : Listener {
 
         if (!PixelsJump.utility.playerVisibilitySwitchMap.containsKey(event.player))
             PixelsJump.utility.playerVisibilitySwitchMap[event.player] = true
+        event.player.playSound(event.player, Sound.BLOCK_LAVA_POP, 1f, 1f)
 
         val arena = ArenaHelper.arenas.find { it.players.contains(event.player) } ?: return
 

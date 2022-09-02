@@ -16,6 +16,7 @@ import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.inventory.InventoryNames
 import de.carina.pixelsjump.util.inventory.Items
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -45,9 +46,12 @@ class CommandInventoryListener : Listener {
                 }
                 if (event.isLeftClick) {
                     player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} start")
+                    player.playSound(player, Sound.BLOCK_LAVA_POP, 1f, 1f)
 
                 } else if (event.isRightClick) {
                     player.performCommand("pixelsjump remove ${PixelsJump.utility.arenaPlayerNames[player]} start")
+                    player.playSound(player, Sound.ITEM_GOAT_HORN_SOUND_0, 1f, 1f)
+
                 }
             }
 
@@ -56,6 +60,7 @@ class CommandInventoryListener : Listener {
                     player.sendMessage(Messages.messages["no-permission"]!!)
                     return
                 }
+                player.playSound(player, Sound.BLOCK_LAVA_POP, 1f, 1f)
 
                 player.performCommand("pixelsjump single ${PixelsJump.utility.arenaPlayerNames[player]}")
             }
@@ -67,8 +72,12 @@ class CommandInventoryListener : Listener {
                 }
                 if (event.isLeftClick) {
                     player.performCommand("pixelsjump finish ${PixelsJump.utility.arenaPlayerNames[player]}")
+                    player.playSound(player, Sound.BLOCK_LAVA_POP, 1f, 1f)
+
                 } else if (event.isRightClick) {
                     player.performCommand("pixelsjump delete ${PixelsJump.utility.arenaPlayerNames[player]}")
+                    player.playSound(player, Sound.ITEM_GOAT_HORN_SOUND_0, 1f, 1f)
+
                 }
                 player.closeInventory()
             }
@@ -80,9 +89,13 @@ class CommandInventoryListener : Listener {
                 }
                 if (event.isLeftClick) {
                     player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} checkpoint")
+                    player.playSound(player, Sound.BLOCK_LAVA_POP, 1f, 1f)
+
 
                 } else if (event.isRightClick) {
                     player.performCommand("pixelsjump remove ${PixelsJump.utility.arenaPlayerNames[player]} checkpoint")
+                    player.playSound(player, Sound.ITEM_GOAT_HORN_SOUND_0, 1f, 1f)
+
                 }
             }
 
@@ -93,8 +106,12 @@ class CommandInventoryListener : Listener {
                 }
                 if (event.isLeftClick) {
                     player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} back")
+                    player.playSound(player, Sound.BLOCK_LAVA_POP, 1f, 1f)
+
                 } else if (event.isRightClick) {
                     player.performCommand("pixelsjump remove ${PixelsJump.utility.arenaPlayerNames[player]} back")
+                    player.playSound(player, Sound.ITEM_GOAT_HORN_SOUND_0, 1f, 1f)
+
 
                 }
             }
@@ -105,6 +122,8 @@ class CommandInventoryListener : Listener {
                     return
                 }
                 player.performCommand("pixelsjump damage ${PixelsJump.utility.arenaPlayerNames[player]}")
+                player.playSound(player, Sound.BLOCK_LAVA_POP, 1f, 1f)
+
             }
 
             Items.finishLocationItem -> {
@@ -113,8 +132,10 @@ class CommandInventoryListener : Listener {
                     return
                 }
                 if (event.isLeftClick) {
+                    player.playSound(player, Sound.BLOCK_LAVA_POP, 1f, 1f)
                     player.performCommand("pixelsjump add ${PixelsJump.utility.arenaPlayerNames[player]} finish")
                 } else if (event.isRightClick) {
+                    player.playSound(player, Sound.ITEM_GOAT_HORN_SOUND_0, 1f, 1f)
                     player.performCommand("pixelsjump remove ${PixelsJump.utility.arenaPlayerNames[player]} finish")
                 }
             }
