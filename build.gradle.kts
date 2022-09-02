@@ -33,6 +33,7 @@ dependencies {
     implementation("com.google.code.gson:gson:+")
     compileOnly("io.papermc.paper:paper-api:+")
     testImplementation(kotlin("test"))
+    implementation("org.xerial:sqlite-jdbc:+")
 }
 java {
     // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
@@ -66,6 +67,3 @@ tasks {
         useJUnitPlatform()
     }
 }
-
-
-
