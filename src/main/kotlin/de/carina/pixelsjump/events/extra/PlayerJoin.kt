@@ -12,7 +12,7 @@
 package de.carina.pixelsjump.events.extra
 
 import de.carina.pixelsjump.PixelsJump
-import de.carina.pixelsjump.util.stats.PlayerStats
+import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -21,14 +21,14 @@ class PlayerJoin : Listener {
 
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
-        PlayerStats.statistics.forEach {
+        PlayerStatsHandler.statistics.forEach {
             if (it.uuid == event.player.uniqueId) {
                 return
             }
         }
 
-        PlayerStats.statistics.add(PlayerStats.PlayerStats(event.player.name, event.player.uniqueId))
-        PlayerStats.addStats(event.player)
+        PlayerStatsHandler.statistics.add(PlayerStatsHandler.PlayerStats(event.player.name, event.player.uniqueId))
+        PlayerStatsHandler.addStats(event.player)
 
 
         PixelsJump.utility.hideAllPlayersNotInSameArena(event.player, null)

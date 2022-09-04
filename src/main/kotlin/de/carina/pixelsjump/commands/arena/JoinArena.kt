@@ -17,7 +17,7 @@ import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.inventory.Items
-import de.carina.pixelsjump.util.stats.PlayerStats
+import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
@@ -43,7 +43,7 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
     private fun addPlayerToArena(player: Player, arena: Arena) {
         player.sendMessage(Messages.messages["arena-join"]!!.replace("%arena%", args[1]))
         player.playerListName(LegacyComponentSerializer.legacySection().deserialize(PixelsJump.prefix + "§7" + sender.name))
-        PlayerStats.joinArena(player)
+        PlayerStatsHandler.joinArena(player)
         player.teleport(arena.startLocation!!.toLocation())
         BlockGenerator.playerJumpBlocks[player] = mutableListOf()
         BlockGenerator.playerCheckpoints[player] = arena.startLocation!!

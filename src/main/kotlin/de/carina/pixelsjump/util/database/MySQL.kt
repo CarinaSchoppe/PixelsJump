@@ -3,7 +3,7 @@ package de.carina.pixelsjump.util.database
 
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
-import de.carina.pixelsjump.util.stats.PlayerStats
+import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import java.io.File
@@ -34,7 +34,7 @@ class MySQL {
                     Bukkit.getConsoleSender().sendMessage(
                         Messages.messages["stats-loaded"]!!.replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId == uuid }?.name ?: "offline")
                     )
-                    PlayerStats.statistics.add(PlayerStats.PlayerStats(playerName, uuid, games, points, fails, wins))
+                    PlayerStatsHandler.statistics.add(PlayerStatsHandler.PlayerStats(playerName, uuid, games, points, fails, wins))
                 }
             }
         }
@@ -42,7 +42,7 @@ class MySQL {
         fun saveStats() {
             if (Configuration.config["mysql"] as Boolean) {
                 val statement = connection.createStatement()
-                for (stats in PlayerStats.statistics) {
+                for (stats in PlayerStatsHandler.statistics) {
                     statement.execute("REPLACE INTO statsPlayer (playerName, uuid, games, points, fails, wins) VALUES ('${stats.playerName}', '${stats.uuid}', ${stats.games}, ${stats.points}, ${stats.fails}, ${stats.wins})")
                 }
             }
@@ -142,8 +142,8 @@ class MySQL {
             val points = result.getInt("points")
             val fails = result.getInt("fails")
             val wins = result.getInt("wins")
-            val playerStats = PlayerStats.PlayerStats(playerName, UUID.fromString(uuid), games, points, fails, wins)
-            PlayerStats.statistics.add(playerStats)
+            val playerStats = PlayerStatsHandler.PlayerStats(playerName, UUID.fromString(uuid), games, points, fails, wins)
+            PlayerStatsHandler.statistics.add(playerStats)
 
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Configuration.config["prefix"] as String) + "§aAdded all players from database to playerlist...")

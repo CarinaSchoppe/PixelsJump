@@ -17,10 +17,11 @@ import de.carina.pixelsjump.events.extra.*
 import de.carina.pixelsjump.events.inventory.ArenaInventoriesListener
 import de.carina.pixelsjump.events.inventory.CommandInventoryListener
 import de.carina.pixelsjump.util.arena.ArenaHelper
+import de.carina.pixelsjump.util.database.MySQL
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.sign.SignCreator
-import de.carina.pixelsjump.util.stats.PlayerStats
+import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.PluginManager
@@ -46,7 +47,8 @@ class PixelsJump : JavaPlugin() {
         Configuration.initiateConfig()
         prefix = ChatColor.translateAlternateColorCodes('&', Configuration.config["prefix"]!!.toString())
         Messages.createMessagesFile()
-        PlayerStats.loadStats()
+        MySQL()
+        PlayerStatsHandler.loadStats()
         ArenaHelper.loadArenas()
         // Plugin startup logic
         init(Bukkit.getPluginManager())

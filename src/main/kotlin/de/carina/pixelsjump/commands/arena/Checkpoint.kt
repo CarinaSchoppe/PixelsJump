@@ -15,7 +15,7 @@ import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
-import de.carina.pixelsjump.util.stats.PlayerStats
+import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
@@ -30,7 +30,7 @@ class Checkpoint(private val sender: CommandSender, private val command: Command
             return
         }
 
-        PlayerStats.addFail(sender as Player)
+        PlayerStatsHandler.addFail(sender as Player)
         sender.level += 1
         sender.playSound(sender.location, Sound.BLOCK_ANVIL_USE, 1f, 1f)
         sender.teleport(BlockGenerator.playerCheckpoints[sender]!!.toLocation().add(0.toDouble(), 1.toDouble(), 0.toDouble()))

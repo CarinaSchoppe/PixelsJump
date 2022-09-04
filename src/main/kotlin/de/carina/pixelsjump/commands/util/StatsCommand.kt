@@ -13,7 +13,7 @@ package de.carina.pixelsjump.commands.util
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.files.Messages
-import de.carina.pixelsjump.util.stats.PlayerStats
+import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
@@ -32,12 +32,12 @@ class StatsCommand(private val sender: CommandSender, private val command: Comma
             sender.sendMessage(Messages.messages["player-no-stats"]!!.replace("%player%", args[1]))
             return
         }
-        if (PlayerStats.statistics.find { it.uuid == Bukkit.getOfflinePlayerIfCached(args[1])!!.uniqueId } == null) {
+        if (PlayerStatsHandler.statistics.find { it.uuid == Bukkit.getOfflinePlayerIfCached(args[1])!!.uniqueId } == null) {
             sender.sendMessage(Messages.messages["player-no-stats"]!!.replace("%player%", args[1]))
             return
         }
 
-        val stats = PlayerStats.statistics.find { it.uuid == Bukkit.getOfflinePlayerIfCached(args[1])!!.uniqueId }!!
+        val stats = PlayerStatsHandler.statistics.find { it.uuid == Bukkit.getOfflinePlayerIfCached(args[1])!!.uniqueId }!!
         if ((sender as Player).uniqueId == stats.uuid)
             sender.sendMessage(Messages.messages["player-stats"]!!.replace("%wins%", stats.wins.toString()).replace("%fails%", stats.fails.toString()).replace("%games%", stats.games.toString()).replace("%points%", stats.points.toString()))
         else

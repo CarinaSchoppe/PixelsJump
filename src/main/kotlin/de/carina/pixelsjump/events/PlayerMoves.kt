@@ -17,7 +17,7 @@ import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
-import de.carina.pixelsjump.util.stats.PlayerStats
+import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.Sound
 import org.bukkit.block.BlockFace
 import org.bukkit.entity.Player
@@ -44,7 +44,7 @@ class PlayerMoves : Listener {
         //if player is in singleplayer mode and on the next jump block -> generate a new jump block
         if (BlockGenerator.playerBlock.containsKey(event.player) && arena.single && event.player.location.block.getRelative(BlockFace.DOWN).type == BlockGenerator.playerBlock[event.player]!!.type && event.player.location.block.getRelative(BlockFace.DOWN).location.toCenterLocation() == BlockGenerator.playerBlock[event.player]!!.location.toCenterLocation()) {
             BlockGenerator.generateBlock(event.player)
-            PlayerStats.addPoints(event.player, Configuration.pointsPerJump)
+            PlayerStatsHandler.addPoints(event.player, Configuration.pointsPerJump)
             return
         }
 
@@ -73,7 +73,7 @@ class PlayerMoves : Listener {
      */
     private fun jumpWon(player: Player, arena: Arena) {
         if (arena.single) return
-        PlayerStats.addWin(player)
+        PlayerStatsHandler.addWin(player)
         player.playSound(player, Sound.ENTITY_ENDER_DRAGON_DEATH, 1f, 1f)
         player.sendMessage(Messages.messages["arena-goal-reached"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(player) }!!.name))
         player.performCommand("pixelsjump leave")
@@ -114,7 +114,7 @@ class PlayerMoves : Listener {
         //Player is in a single arena
         if (BlockGenerator.playerBlock.contains(event.player) && arena.single && event.player.location.block.getRelative(BlockFace.DOWN).location.y < BlockGenerator.playerBlock[event.player]!!.location.y - 2) {
             event.player.sendMessage(Messages.messages["arena-player-failed"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
-            PlayerStats.addFail(event.player)
+            PlayerStatsHandler.addFail(event.player)
             event.player.performCommand("pixelsjump leave")
             return true
         }

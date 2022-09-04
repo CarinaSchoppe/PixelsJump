@@ -24,8 +24,9 @@ import org.bukkit.entity.Player
 import java.io.File
 import java.util.*
 
-object PlayerStats {
+object PlayerStatsHandler {
     data class PlayerStats(var playerName: String, var uuid: UUID, var games: Int = 0, var points: Int = 0, var fails: Int = 0, var wins: Int = 0)
+
 
     private const val path = "plugins/PixelsJumpRemastered/statistics.json"
     private var file: File = File(path)
