@@ -2,11 +2,14 @@ package de.carina.pixelsjump.util.database
 
 
 import de.carina.pixelsjump.util.files.Configuration
+import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.stats.PlayerStats
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import java.io.File
 import java.sql.Connection
 import java.sql.DriverManager
+import java.util.*
 
 class MySQL {
 
@@ -17,6 +20,34 @@ class MySQL {
     }
 
     companion object {
+        fun loadPlayers() {
+            if (Configuration.config["mysql"] as Boolean) {
+                val statement = connection.createStatement()
+                val result = statement.executeQuery("SELECT * FROM statsPlayer")
+                while (result.next()) {
+                    val playerName = result.getString("playerName")
+                    val uuid = UUID.fromString(result.getString("uuid"))
+                    val games = result.getInt("games")
+                    val points = result.getInt("points")
+                    val fails = result.getInt("fails")
+                    val wins = result.getInt("wins")
+                    Bukkit.getConsoleSender().sendMessage(
+                        Messages.messages["stats-loaded"]!!.replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId == uuid }?.name ?: "offline")
+                    )
+                    PlayerStats.statistics.add(PlayerStats.PlayerStats(playerName, uuid, games, points, fails, wins))
+                }
+            }
+        }
+
+        fun saveStats() {
+            if (Configuration.config["mysql"] as Boolean) {
+                val statement = connection.createStatement()
+                for (stats in PlayerStats.statistics) {
+                    statement.execute("REPLACE INTO statsPlayer (playerName, uuid, games, points, fails, wins) VALUES ('${stats.playerName}', '${stats.uuid}', ${stats.games}, ${stats.points}, ${stats.fails}, ${stats.wins})")
+                }
+            }
+        }
+
         lateinit var connection: Connection
     }
 
@@ -76,16 +107,15 @@ class MySQL {
         return true
     }
 
+    //    data class PlayerStats(var playerName: String, var uuid: UUID, var games: Int = 0, var points: Int = 0, var fails: Int = 0, var wins: Int = 0)
     private fun createTableStatsPlayer(): Boolean {
         val sqlCommand = "CREATE TABLE IF NOT EXISTS statsPlayer (" +
+                "playerName VARCHAR(36) NOT NULL," +
                 "uuid VARCHAR(36) NOT NULL," +
-                "kills INT NOT NULL," +
-                "deaths INT NOT NULL," +
-                "points INT NOT NULL," +
-                "kdr DOUBLE NOT NULL," +
-                "wins INT NOT NULL," +
-                "loses INT NOT NULL," +
                 "games INT NOT NULL," +
+                "points INT NOT NULL," +
+                "fails DOUBLE NOT NULL," +
+                "wins INT NOT NULL," +
                 "PRIMARY KEY (uuid)" +
                 ");"
         //execute the sqlCommand on the connection
@@ -106,8 +136,14 @@ class MySQL {
         val statement = connection.prepareStatement(sqlCommand)
         val result = statement.executeQuery()
         while (result.next()) {
-            //  StatsSystem.playerStats[UUID.fromString(result.getString("uuid"))] = StatsPlayer(result.getInt("kills"), result.getInt("deaths"), result.getInt("points"), result.getDouble("kdr"), result.getInt("wins"), result.getInt("loses"), result.getInt("games"))
-            //      data class PlayerStats(var playerName: String, var uuid: UUID, var games: Int = 0, var points: Int = 0, var fails: Int = 0, var wins: Int = 0)
+            val playerName = result.getString("playerName")
+            val uuid = result.getString("uuid")
+            val games = result.getInt("games")
+            val points = result.getInt("points")
+            val fails = result.getInt("fails")
+            val wins = result.getInt("wins")
+            val playerStats = PlayerStats.PlayerStats(playerName, UUID.fromString(uuid), games, points, fails, wins)
+            PlayerStats.statistics.add(playerStats)
 
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Configuration.config["prefix"] as String) + "§aAdded all players from database to playerlist...")

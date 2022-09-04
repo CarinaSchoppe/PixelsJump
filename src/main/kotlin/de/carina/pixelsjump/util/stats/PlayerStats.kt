@@ -16,6 +16,8 @@ package de.carina.pixelsjump.util.stats
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import de.carina.pixelsjump.util.database.MySQL
+import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -31,14 +33,18 @@ object PlayerStats {
 
 
     private fun loadPlayers() {
-        if (!file.exists()) return
-        val itemType = object : TypeToken<List<PlayerStats>>() {}.type
-        val playerStats = Gson().fromJson<MutableList<PlayerStats>>(file.bufferedReader(), itemType)
-        playerStats.forEach { player ->
-            Bukkit.getConsoleSender().sendMessage(
-                Messages.messages["stats-loaded"]!!.replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId == player.uuid }?.name ?: "offline")
-            )
-            statistics.add(player)
+        if (Configuration.config["mysql"] as Boolean) {
+            MySQL.loadPlayers()
+        } else {
+            if (!file.exists()) return
+            val itemType = object : TypeToken<List<PlayerStats>>() {}.type
+            val playerStats = Gson().fromJson<MutableList<PlayerStats>>(file.bufferedReader(), itemType)
+            playerStats.forEach { player ->
+                Bukkit.getConsoleSender().sendMessage(
+                    Messages.messages["stats-loaded"]!!.replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId == player.uuid }?.name ?: "offline")
+                )
+                statistics.add(player)
+            }
         }
 
 
@@ -65,9 +71,13 @@ object PlayerStats {
     }
 
     private fun saveStatsFile() {
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val json = gson.toJson(statistics)
-        file.writeText(json)
+        if (Configuration.config["mysql"] as Boolean) {
+            MySQL.saveStats()
+        } else {
+            val gson = GsonBuilder().setPrettyPrinting().create()
+            val json = gson.toJson(statistics)
+            file.writeText(json)
+        }
     }
 
     fun joinArena(player: Player) {
