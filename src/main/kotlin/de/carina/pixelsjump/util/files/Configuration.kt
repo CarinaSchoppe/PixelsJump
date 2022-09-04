@@ -21,8 +21,8 @@ object Configuration {
     var arenaBreak = false
     var arenaPlace = false
     private const val path = "plugins/PixelsJumpRemastered/config.yml"
-    private var configFile: File = File(path)
-    private var ymlConfiguration: YamlConfiguration = YamlConfiguration.loadConfiguration(configFile)
+    var configFile: File = File(path)
+    var ymlConfiguration: YamlConfiguration = YamlConfiguration.loadConfiguration(configFile)
     val config = mutableMapOf<String, Any>()
 
 
@@ -39,8 +39,8 @@ object Configuration {
         ymlConfiguration.addDefault("arena-break", true)
         ymlConfiguration.addDefault("arena-place", true)
         ymlConfiguration.addDefault("jump-points", 1)
-        ymlConfiguration.addDefault("mysql", false)
-        ymlConfiguration.addDefault("sql-lite", false)
+        ymlConfiguration.addDefault("mysql", true)
+        ymlConfiguration.addDefault("sqlite", true)
         ymlConfiguration.addDefault("sqlite-path", "plugins/TheHunter/sqlite.db")
         ymlConfiguration.addDefault("mysql-host", "localhost")
         ymlConfiguration.addDefault("mysql-port", 3306)
