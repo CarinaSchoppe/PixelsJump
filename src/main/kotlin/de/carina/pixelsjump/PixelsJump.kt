@@ -28,12 +28,6 @@ import org.bukkit.plugin.PluginManager
 import org.bukkit.plugin.java.JavaPlugin
 
 class PixelsJump : JavaPlugin() {
-
-    /*
-    * TODO: mysql
-    *  TODO: add scoreboard
-    *  */
-
     companion object {
         lateinit var instance: PixelsJump
         var prefix = "§8[§6PixelsJump§8]§r"
