@@ -27,7 +27,7 @@ class PlayerVisibilitySwitch : Listener {
 
     @EventHandler
     fun playerInventoryClick(event: InventoryClickEvent) {
-        if (!ArenaHelper.playersInArenas.contains(event.whoClicked))
+        if (!ArenaHelper.playerArena.containsKey(event.whoClicked))
             return
 
         event.isCancelled = true
@@ -36,7 +36,7 @@ class PlayerVisibilitySwitch : Listener {
 
     @EventHandler
     fun onPlayerVisibilitySwitchChange(event: PlayerInteractEvent) {
-        if (!ArenaHelper.playersInArenas.contains(event.player))
+        if (!ArenaHelper.playerArena.containsKey(event.player))
             return
 
         event.isCancelled = true
@@ -52,7 +52,7 @@ class PlayerVisibilitySwitch : Listener {
             PixelsJump.utility.playerVisibilitySwitchMap[event.player] = true
         event.player.playSound(event.player, Sound.BLOCK_LAVA_POP, 1f, 1f)
 
-        val arena = ArenaHelper.arenas.find { it.players.contains(event.player) } ?: return
+        val arena = ArenaHelper.playerArena[event.player] ?: return
 
         if (PixelsJump.utility.playerVisibilitySwitchMap[event.player]!!) {
             Bukkit.getOnlinePlayers().forEach {

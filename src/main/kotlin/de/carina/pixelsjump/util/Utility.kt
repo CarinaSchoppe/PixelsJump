@@ -105,7 +105,7 @@ class Utility {
                 player.showPlayer(PixelsJump.instance, onlinePlayer)
                 continue
             } else {
-                if (ArenaHelper.playersInArenas.contains(onlinePlayer) && player != onlinePlayer) continue
+                if (ArenaHelper.playerArena.containsKey(onlinePlayer) && player != onlinePlayer) continue
                 player.showPlayer(PixelsJump.instance, onlinePlayer)
                 onlinePlayer.showPlayer(PixelsJump.instance, player)
             }

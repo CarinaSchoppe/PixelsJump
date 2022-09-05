@@ -13,9 +13,10 @@ package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
-import de.carina.pixelsjump.util.PlayerStatsHandler
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.misc.PlayerStatsHandler
+import de.carina.pixelsjump.util.misc.Scoreboard
 import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
@@ -25,7 +26,7 @@ class Checkpoint(private val sender: CommandSender, private val command: Command
 
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "checkpoint", "pixelsjump.checkpoint")) return
-        if (!ArenaHelper.playersInArenas.contains(sender)) {
+        if (!ArenaHelper.playerArena.containsKey(sender)) {
             sender.sendMessage(Messages.messages["no-jump"]!!)
             return
         }
@@ -34,7 +35,8 @@ class Checkpoint(private val sender: CommandSender, private val command: Command
         sender.level += 1
         sender.playSound(sender.location, Sound.BLOCK_ANVIL_USE, 1f, 1f)
         sender.teleport(BlockGenerator.playerCheckpoints[sender]!!.toLocation().add(0.toDouble(), 1.toDouble(), 0.toDouble()))
-        sender.sendMessage(Messages.messages["arena-player-fell"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
+        Scoreboard.addPlayerScoreboard(sender)
+        sender.sendMessage(Messages.messages["arena-player-fell"]!!.replace("%arena%", ArenaHelper.playerArena[sender]!!.name))
 
     }
 }

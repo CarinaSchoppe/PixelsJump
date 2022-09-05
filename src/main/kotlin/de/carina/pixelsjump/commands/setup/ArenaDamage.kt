@@ -14,6 +14,7 @@ package de.carina.pixelsjump.commands.setup
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.misc.ConstantStrings
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
@@ -22,16 +23,16 @@ class ArenaDamage(private val sender: CommandSender, private val command: Comman
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "damage", "pixelsjump.arena.damage"))
             return
         if (ArenaHelper.arenaNotExists(args[1])) {
-            sender.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", args[1]))
+            sender.sendMessage(Messages.messages["no-arena"]!!.replace(ConstantStrings.ARENA_PERCENT, args[1]))
             return
         }
         if (!ArenaHelper.getOrCreateArena(args[1]).damage) {
             ArenaHelper.getOrCreateArena(args[1]).damage = true
-            sender.sendMessage(Messages.messages["arena-damage-yes"]!!.replace("%arena%", args[1]))
+            sender.sendMessage(Messages.messages["arena-damage-yes"]!!.replace(ConstantStrings.ARENA_PERCENT, args[1]))
             return
         } else {
             ArenaHelper.getOrCreateArena(args[1]).damage = false
-            sender.sendMessage(Messages.messages["arena-damage-no"]!!.replace("%arena%", args[1]))
+            sender.sendMessage(Messages.messages["arena-damage-no"]!!.replace(ConstantStrings.ARENA_PERCENT, args[1]))
             return
         }
 

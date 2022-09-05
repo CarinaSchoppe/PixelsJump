@@ -27,7 +27,7 @@ class PlayerDamage : Listener {
     fun onPlayerDamage(event: EntityDamageEvent) {
         if (event.entity !is Player)
             return
-        if (!ArenaHelper.playersInArenas.contains(event.entity as Player))
+        if (!ArenaHelper.playerArena.containsKey(event.entity as Player))
             return
 
         ArenaHelper.arenas.forEach {
@@ -43,9 +43,9 @@ class PlayerDamage : Listener {
     fun onPlayerHitOtherEvent(event: EntityDamageByEntityEvent) {
         if (event.damager !is Player)
             return
-        if (!ArenaHelper.playersInArenas.contains(event.damager as Player))
+        if (!ArenaHelper.playerArena.containsKey(event.damager as Player))
             return
-        if (!ArenaHelper.playersInArenas.contains(event.entity as Player) && ArenaHelper.playersInArenas.contains(event.damager as Player)) {
+        if (!ArenaHelper.playerArena.containsKey(event.entity as Player) && ArenaHelper.playerArena.containsKey(event.damager as Player)) {
             event.isCancelled = true
             return
 
@@ -62,7 +62,7 @@ class PlayerDamage : Listener {
 
     @EventHandler
     fun onPlayerDeathInArena(event: PlayerDeathEvent) {
-        if (!ArenaHelper.playersInArenas.contains(event.entity))
+        if (!ArenaHelper.playerArena.containsKey(event.entity))
             return
         Bukkit.getScheduler().runTaskLater(PixelsJump.instance, Runnable {
             event.entity.spigot().respawn()

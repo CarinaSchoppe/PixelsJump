@@ -30,7 +30,7 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
     fun execute() {
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 1, "leave", "pixelsjump.leave")) return
         val player = sender as Player
-        if (!ArenaHelper.playersInArenas.contains(player)) {
+        if (!ArenaHelper.playerArena.containsKey(player)) {
             player.sendMessage(Messages.messages["no-jump"]!!)
             return
         }
@@ -38,7 +38,6 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
 
         //remove the player from everywhere
         player.playerListName(Component.text(player.name))
-        ArenaHelper.playersInArenas.remove(player)
         BlockGenerator.playerCheckpoints.remove(player)
         BlockGenerator.playerBlock.remove(player)
         BlockGenerator.playerJumpBlocks[player]!!.forEach {
@@ -48,9 +47,10 @@ class LeaveArena(private val sender: CommandSender, private val command: Command
         BlockGenerator.playerAFK.remove(player)
         player.level = 0
         BlockGenerator.playerJumpBlocks.remove(player)
-        val arena = ArenaHelper.arenas.find { it.players.contains(player) }
+        val arena = ArenaHelper.playerArena[player]
         player.teleport(arena!!.backLocation!!.toLocation())
         arena.players.remove(player)
+        ArenaHelper.playerArena.remove(player)
         //remove player scoreboard
         player.scoreboard.clearSlot(DisplaySlot.SIDEBAR)
         player.playSound(player, Sound.ENTITY_GHAST_SCREAM, 1f, 1f)

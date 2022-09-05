@@ -13,6 +13,7 @@ package de.carina.pixelsjump.util.arena
 
 import com.google.gson.Gson
 import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.misc.ConstantStrings
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -22,7 +23,7 @@ import java.io.File
 object ArenaHelper {
 
     val arenas = mutableSetOf<Arena>()
-    val playersInArenas = mutableSetOf<Player>()
+    val playerArena = mutableMapOf<Player, Arena>()
 
 
     /**
@@ -44,7 +45,7 @@ object ArenaHelper {
                 val arena = Gson().fromJson(file.bufferedReader(), Arena::class.java)
                 if (arenaInvalid(null, arena, Bukkit.getConsoleSender())) return
                 arena.players = mutableSetOf()
-                Bukkit.getConsoleSender().sendMessage(Messages.messages["arena-loaded"]!!.replace("%arena%", arena.name.replace(".yml", "")))
+                Bukkit.getConsoleSender().sendMessage(Messages.messages["arena-loaded"]!!.replace(ConstantStrings.ARENA_PERCENT, arena.name.replace(".yml", "")))
                 arenas.add(arena)
             }
         }
@@ -55,21 +56,21 @@ object ArenaHelper {
 
     fun arenaInvalid(args: String?, arena: Arena, sender: CommandSender?): Boolean {
         if (arena.startLocation == null) {
-            sender?.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args ?: arena.name))
+            sender?.sendMessage(Messages.messages[ConstantStrings.ARENA_NOT_VALID]!!.replace(ConstantStrings.ARENA_PERCENT, args ?: arena.name))
             return true
         }
         if (arena.backLocation == null) {
-            sender?.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args ?: arena.name))
+            sender?.sendMessage(Messages.messages[ConstantStrings.ARENA_NOT_VALID]!!.replace(ConstantStrings.ARENA_PERCENT, args ?: arena.name))
             return true
         }
 
         if (!arena.single && arena.endLocation == null) {
-            sender?.sendMessage(Messages.messages["arena-not-valid"]!!.replace("%arena%", args ?: arena.name))
+            sender?.sendMessage(Messages.messages[ConstantStrings.ARENA_NOT_VALID]!!.replace(ConstantStrings.ARENA_PERCENT, args ?: arena.name))
             return true
         }
 
         if (arena.single) {
-            sender?.sendMessage(Messages.messages["arena-single"]!!.replace("%arena%", args ?: ""))
+            sender?.sendMessage(Messages.messages["arena-single"]!!.replace(ConstantStrings.ARENA_PERCENT, args ?: ""))
         }
 
         return false

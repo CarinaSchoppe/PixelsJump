@@ -13,11 +13,12 @@ package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
-import de.carina.pixelsjump.util.PlayerStatsHandler
 import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.inventory.Items
+import de.carina.pixelsjump.util.misc.PlayerStatsHandler
+import de.carina.pixelsjump.util.misc.Scoreboard
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
@@ -32,8 +33,8 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "join", "pixelsjump.join")) return
         if (!PixelsJump.utility.checkForArena(args[1], sender as Player)) return
         val arena = ArenaHelper.getOrCreateArena(args[1])
-        if (ArenaHelper.playersInArenas.contains(sender)) {
-            sender.sendMessage(Messages.messages["arena-already"]!!.replace("%arena%", ArenaHelper.arenas.find { it.players.contains(sender) }!!.name))
+        if (ArenaHelper.playerArena.containsKey(sender)) {
+            sender.sendMessage(Messages.messages["arena-already"]!!.replace("%arena%", ArenaHelper.playerArena[sender]!!.name))
             return
         }
 
@@ -59,9 +60,11 @@ class JoinArena(private val sender: CommandSender, private val command: Command,
         if (arena.single)
             BlockGenerator.generateBlock(player)
         arena.players.add(player)
+        ArenaHelper.playerArena[player] = arena
         BlockGenerator.playerJumps[player] = 0
+        Scoreboard.addPlayerScoreboard(player)
+
         //afk handler
-        ArenaHelper.playersInArenas.add(player)
         BlockGenerator.playerAFK[player] = Pair(Bukkit.getScheduler().runTaskTimer(PixelsJump.instance, Runnable {
             if (BlockGenerator.playerAFK[player]?.second == true)
                 player.performCommand("pixelsjump leave")

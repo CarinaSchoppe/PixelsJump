@@ -14,6 +14,7 @@ package de.carina.pixelsjump.commands.setup
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.misc.ConstantStrings
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
@@ -26,16 +27,16 @@ class ArenaTypeConverter(private val sender: CommandSender, private val command:
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "single", "pixelsjump.single"))
             return
         if (ArenaHelper.arenaNotExists(args[1])) {
-            sender.sendMessage(Messages.messages["no-arena"]!!.replace("%arena%", args[1]))
+            sender.sendMessage(Messages.messages["no-arena"]!!.replace(ConstantStrings.ARENA_PERCENT, args[1]))
             return
         }
         val arena = ArenaHelper.getOrCreateArena(args[1])
         if (arena.single) {
             arena.single = false
-            sender.sendMessage(Messages.messages["arena-single-no"]!!.replace("%arena%", args[1]))
+            sender.sendMessage(Messages.messages["arena-single-no"]!!.replace(ConstantStrings.ARENA_PERCENT, args[1]))
         } else {
             arena.single = true
-            sender.sendMessage(Messages.messages["arena-single-yes"]!!.replace("%arena%", args[1]))
+            sender.sendMessage(Messages.messages["arena-single-yes"]!!.replace(ConstantStrings.ARENA_PERCENT, args[1]))
         }
 
     }

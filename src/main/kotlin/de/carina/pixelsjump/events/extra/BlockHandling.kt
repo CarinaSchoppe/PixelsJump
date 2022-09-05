@@ -14,6 +14,7 @@ package de.carina.pixelsjump.events.extra
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.misc.ConstantStrings
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
@@ -21,24 +22,24 @@ class BlockHandling : Listener {
 
     @EventHandler
     fun onBlockBreak(event: org.bukkit.event.block.BlockBreakEvent) {
-        if (!ArenaHelper.playersInArenas.contains(event.player))
+        if (!ArenaHelper.playerArena.containsKey(event.player))
             return
         if (!Configuration.arenaBreak)
             return
         event.isCancelled = true
-        event.player.sendMessage(Messages.messages["block-break-cancelled"]!!.replace("%block%", event.block.type.name).replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
+        event.player.sendMessage(Messages.messages["block-break-cancelled"]!!.replace(ConstantStrings.BLOCK_PERCENT, event.block.type.name).replace(ConstantStrings.ARENA_PERCENT, ArenaHelper.playerArena[event.player]!!.name))
 
     }
 
 
     @EventHandler
     fun onBlockPlace(event: org.bukkit.event.block.BlockPlaceEvent) {
-        if (!ArenaHelper.playersInArenas.contains(event.player))
+        if (!ArenaHelper.playerArena.containsKey(event.player))
             return
         if (!Configuration.arenaPlace)
             return
         event.isCancelled = true
-        event.player.sendMessage(Messages.messages["block-place-cancelled"]!!.replace("%block%", event.block.type.name).replace("%block%", event.block.type.name).replace("%arena%", ArenaHelper.arenas.find { it.players.contains(event.player) }!!.name))
+        event.player.sendMessage(Messages.messages["block-place-cancelled"]!!.replace(ConstantStrings.BLOCK_PERCENT, event.block.type.name).replace(ConstantStrings.BLOCK_PERCENT, event.block.type.name).replace(ConstantStrings.ARENA_PERCENT, ArenaHelper.playerArena[event.player]!!.name))
 
     }
 

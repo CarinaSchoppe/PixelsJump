@@ -12,8 +12,9 @@
 package de.carina.pixelsjump.commands.util
 
 import de.carina.pixelsjump.PixelsJump
-import de.carina.pixelsjump.util.PlayerStatsHandler
 import de.carina.pixelsjump.util.files.Messages
+import de.carina.pixelsjump.util.misc.ConstantStrings
+import de.carina.pixelsjump.util.misc.PlayerStatsHandler
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
@@ -29,11 +30,11 @@ class StatsCommand(private val sender: CommandSender, private val command: Comma
         if (!PixelsJump.utility.preCommandStuff(sender, command, args, 2, "stats", "pixelsjump.stats"))
             return
         if (Bukkit.getOfflinePlayerIfCached(args[1]) == null) {
-            sender.sendMessage(Messages.messages["player-no-stats"]!!.replace("%player%", args[1]))
+            sender.sendMessage(Messages.messages["player-no-stats"]!!.replace(ConstantStrings.PLAYER_PERCENT, args[1]))
             return
         }
         if (PlayerStatsHandler.statistics[Bukkit.getOfflinePlayerIfCached(args[1])!!.uniqueId] == null) {
-            sender.sendMessage(Messages.messages["player-no-stats"]!!.replace("%player%", args[1]))
+            sender.sendMessage(Messages.messages["player-no-stats"]!!.replace(ConstantStrings.PLAYER_PERCENT, args[1]))
             return
         }
 
@@ -41,7 +42,7 @@ class StatsCommand(private val sender: CommandSender, private val command: Comma
         if ((sender as Player).uniqueId == stats.uuid)
             sender.sendMessage(Messages.messages["player-stats"]!!.replace("%wins%", stats.wins.toString()).replace("%fails%", stats.fails.toString()).replace("%games%", stats.games.toString()).replace("%points%", stats.points.toString()))
         else
-            sender.sendMessage(Messages.messages["player-stats-other"]!!.replace("%wins%", stats.wins.toString()).replace("%fails%", stats.fails.toString()).replace("%games%", stats.games.toString()).replace("%points%", stats.points.toString()).replace("%player%", args[1]))
+            sender.sendMessage(Messages.messages["player-stats-other"]!!.replace("%wins%", stats.wins.toString()).replace("%fails%", stats.fails.toString()).replace("%games%", stats.games.toString()).replace("%points%", stats.points.toString()).replace(ConstantStrings.PLAYER_PERCENT, args[1]))
 
     }
 }

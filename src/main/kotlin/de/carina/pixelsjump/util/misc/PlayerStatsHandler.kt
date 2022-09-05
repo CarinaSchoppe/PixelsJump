@@ -11,7 +11,7 @@
 
 @file:Suppress("SameReturnValue")
 
-package de.carina.pixelsjump.util
+package de.carina.pixelsjump.util.misc
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

@@ -23,9 +23,9 @@ class PlayerChat : Listener {
 
     @EventHandler
     fun onChat(event: AsyncChatEvent) {
-        if (ArenaHelper.playersInArenas.contains(event.player)) {
+        if (ArenaHelper.playerArena.containsKey(event.player)) {
             event.isCancelled = true
-            val arena = ArenaHelper.arenas.find { it.players.contains(event.player) }!!
+            val arena = ArenaHelper.playerArena[event.player]!!
             if (!arena.chat) return
             arena.players.forEach {
                 it.sendMessage("${PixelsJump.prefix} ${event.player.name} says: ${PlainTextComponentSerializer.plainText().serialize(event.message())}")
@@ -33,7 +33,7 @@ class PlayerChat : Listener {
         } else {
             event.isCancelled = true
             Bukkit.getOnlinePlayers().forEach {
-                if (!ArenaHelper.playersInArenas.contains(it))
+                if (!ArenaHelper.playerArena.containsKey(it))
                     it.sendMessage("${PixelsJump.prefix} ${event.player.name} says: ${PlainTextComponentSerializer.plainText().serialize(event.message())}")
 
             }

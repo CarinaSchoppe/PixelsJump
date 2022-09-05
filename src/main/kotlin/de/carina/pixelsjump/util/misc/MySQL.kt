@@ -1,4 +1,4 @@
-package de.carina.pixelsjump.util
+package de.carina.pixelsjump.util.misc
 
 
 import de.carina.pixelsjump.util.files.Configuration
@@ -66,7 +66,7 @@ class MySQL {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Configuration.config["prefix"] as String) + "§aUsing SQLite-Settings file")
 
             databaseFile = try {
-                val databaseFile = File(Configuration.config["sqlite-path"]!! as String)
+                val databaseFile = File(Configuration.config[ConstantStrings.SQLITE_PATH]!! as String)
                 if (!databaseFile.exists()) {
                     databaseFile.createNewFile()
                 }
@@ -75,8 +75,8 @@ class MySQL {
                 val file = File("plugins/PixelsJumpRemastered/database.db")
                 if (!file.exists()) {
                     file.createNewFile()
-                    Configuration.config["sqlite-path"] = file.absolutePath
-                    Configuration.ymlConfiguration.set("sqlite-path", file.absolutePath)
+                    Configuration.config[ConstantStrings.SQLITE_PATH] = file.absolutePath
+                    Configuration.ymlConfiguration.set(ConstantStrings.SQLITE_PATH, file.absolutePath)
                     Configuration.ymlConfiguration.save(Configuration.configFile)
                     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Configuration.config["prefix"] as String) + "§aCreating own database-file...")
 
