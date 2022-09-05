@@ -13,9 +13,9 @@ package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
+import de.carina.pixelsjump.util.PlayerStatsHandler
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
-import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender

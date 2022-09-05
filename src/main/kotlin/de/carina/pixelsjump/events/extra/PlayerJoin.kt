@@ -12,7 +12,7 @@
 package de.carina.pixelsjump.events.extra
 
 import de.carina.pixelsjump.PixelsJump
-import de.carina.pixelsjump.util.stats.PlayerStatsHandler
+import de.carina.pixelsjump.util.PlayerStatsHandler
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent

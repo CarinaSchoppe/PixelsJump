@@ -12,8 +12,8 @@
 package de.carina.pixelsjump.commands.util
 
 import de.carina.pixelsjump.PixelsJump
+import de.carina.pixelsjump.util.PlayerStatsHandler
 import de.carina.pixelsjump.util.files.Messages
-import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender

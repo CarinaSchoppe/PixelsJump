@@ -11,12 +11,11 @@
 
 @file:Suppress("SameReturnValue")
 
-package de.carina.pixelsjump.util.stats
+package de.carina.pixelsjump.util
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import de.carina.pixelsjump.util.database.MySQL
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
 import org.bukkit.Bukkit
@@ -30,7 +29,7 @@ object PlayerStatsHandler {
 
     private const val path = "plugins/PixelsJumpRemastered/statistics.json"
     private var file: File = File(path)
-    val statistics = mutableListOf<PlayerStats>()
+    val statistics = mutableMapOf<UUID, PlayerStats>()
 
 
     private fun loadPlayers() {
@@ -44,7 +43,7 @@ object PlayerStatsHandler {
                 Bukkit.getConsoleSender().sendMessage(
                     Messages.messages["stats-loaded"]!!.replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId == player.uuid }?.name ?: "offline")
                 )
-                statistics.add(player)
+                statistics[player.uuid] = player
             }
         }
 
@@ -61,15 +60,12 @@ object PlayerStatsHandler {
 
 
     fun addStats(player: Player) {
-        val statsPlayer = getStatsPlayer(player.name)
+        val statsPlayer = statistics[player.uniqueId]
         if (statsPlayer == null)
-            statistics.add(PlayerStats(player.name, player.uniqueId, 0, 0, 0, 0))
+            statistics[player.uniqueId] = PlayerStats(player.name, player.uniqueId, 0, 0, 0, 0)
         saveStatsFile()
     }
 
-    private fun getStatsPlayer(name: String): PlayerStats? {
-        return statistics.firstOrNull { it.playerName == name }
-    }
 
     private fun saveStatsFile() {
         if (Configuration.config["mysql"] as Boolean) {
@@ -82,25 +78,25 @@ object PlayerStatsHandler {
     }
 
     fun joinArena(player: Player) {
-        val statsPlayer = getStatsPlayer(player.name) ?: return
+        val statsPlayer = statistics[player.uniqueId] ?: return
         statsPlayer.games++
         saveStatsFile()
     }
 
     fun addFail(player: Player) {
-        val playerStats = getStatsPlayer(player.name) ?: return
+        val playerStats = statistics[player.uniqueId] ?: return
         playerStats.fails++
         saveStatsFile()
     }
 
     fun addPoints(player: Player, amount: Int) {
-        val playerStats = getStatsPlayer(player.name) ?: return
+        val playerStats = statistics[player.uniqueId] ?: return
         playerStats.points += amount
         saveStatsFile()
     }
 
     fun addWin(player: Player) {
-        val playerStats = getStatsPlayer(player.name) ?: return
+        val playerStats = statistics[player.uniqueId] ?: return
         playerStats.wins++
         playerStats.points += 5
         saveStatsFile()

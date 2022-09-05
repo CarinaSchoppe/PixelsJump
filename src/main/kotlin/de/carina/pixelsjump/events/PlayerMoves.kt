@@ -13,11 +13,11 @@ package de.carina.pixelsjump.events
 
 import de.carina.pixelsjump.util.BlockGenerator
 import de.carina.pixelsjump.util.CustomLocation
+import de.carina.pixelsjump.util.PlayerStatsHandler
 import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
-import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.Sound
 import org.bukkit.block.BlockFace
 import org.bukkit.entity.Player

@@ -13,11 +13,11 @@ package de.carina.pixelsjump.commands.arena
 
 import de.carina.pixelsjump.PixelsJump
 import de.carina.pixelsjump.util.BlockGenerator
+import de.carina.pixelsjump.util.PlayerStatsHandler
 import de.carina.pixelsjump.util.arena.Arena
 import de.carina.pixelsjump.util.arena.ArenaHelper
 import de.carina.pixelsjump.util.files.Messages
 import de.carina.pixelsjump.util.inventory.Items
-import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.GameMode

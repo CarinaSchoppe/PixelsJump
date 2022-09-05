@@ -1,9 +1,8 @@
-package de.carina.pixelsjump.util.database
+package de.carina.pixelsjump.util
 
 
 import de.carina.pixelsjump.util.files.Configuration
 import de.carina.pixelsjump.util.files.Messages
-import de.carina.pixelsjump.util.stats.PlayerStatsHandler
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import java.io.File
@@ -34,7 +33,7 @@ class MySQL {
                     Bukkit.getConsoleSender().sendMessage(
                         Messages.messages["stats-loaded"]!!.replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId == uuid }?.name ?: "offline")
                     )
-                    PlayerStatsHandler.statistics.add(PlayerStatsHandler.PlayerStats(playerName, uuid, games, points, fails, wins))
+                    PlayerStatsHandler.statistics[uuid] = PlayerStatsHandler.PlayerStats(playerName, uuid, games, points, fails, wins)
                 }
             }
         }
@@ -42,7 +41,7 @@ class MySQL {
         fun saveStats() {
             if (Configuration.config["mysql"] as Boolean) {
                 val statement = connection.createStatement()
-                for (stats in PlayerStatsHandler.statistics) {
+                for (stats in PlayerStatsHandler.statistics.values) {
                     statement.execute("REPLACE INTO statsPlayer (playerName, uuid, games, points, fails, wins) VALUES ('${stats.playerName}', '${stats.uuid}', ${stats.games}, ${stats.points}, ${stats.fails}, ${stats.wins})")
                 }
             }
@@ -137,14 +136,13 @@ class MySQL {
         val result = statement.executeQuery()
         while (result.next()) {
             val playerName = result.getString("playerName")
-            val uuid = result.getString("uuid")
+            val uuid = UUID.fromString(result.getString("uuid"))
             val games = result.getInt("games")
             val points = result.getInt("points")
             val fails = result.getInt("fails")
             val wins = result.getInt("wins")
-            val playerStats = PlayerStatsHandler.PlayerStats(playerName, UUID.fromString(uuid), games, points, fails, wins)
-            PlayerStatsHandler.statistics.add(playerStats)
-
+            val playerStats = PlayerStatsHandler.PlayerStats(playerName, uuid, games, points, fails, wins)
+            PlayerStatsHandler.statistics[uuid] = playerStats
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Configuration.config["prefix"] as String) + "§aAdded all players from database to playerlist...")
 
