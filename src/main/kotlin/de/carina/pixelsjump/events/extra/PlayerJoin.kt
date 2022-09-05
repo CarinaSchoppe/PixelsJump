@@ -21,13 +21,10 @@ class PlayerJoin : Listener {
 
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
-        PlayerStatsHandler.statistics.forEach {
-            if (it.uuid == event.player.uniqueId) {
-                return
-            }
-        }
+        if (PlayerStatsHandler.statistics.contains(event.player.uniqueId))
+            return
 
-        PlayerStatsHandler.statistics.add(PlayerStatsHandler.PlayerStats(event.player.name, event.player.uniqueId))
+        PlayerStatsHandler.statistics[event.player.uniqueId] = PlayerStatsHandler.PlayerStats(event.player.name, event.player.uniqueId)
         PlayerStatsHandler.addStats(event.player)
 
 
