@@ -8,6 +8,7 @@ import org.bukkit.ChatColor
 import java.io.File
 import java.sql.Connection
 import java.sql.DriverManager
+import java.sql.ResultSet
 import java.util.*
 
 class MySQL {
@@ -24,18 +25,24 @@ class MySQL {
                 val statement = connection.createStatement()
                 val result = statement.executeQuery("SELECT * FROM statsPlayer")
                 while (result.next()) {
-                    val playerName = result.getString("playerName")
                     val uuid = UUID.fromString(result.getString("uuid"))
-                    val games = result.getInt("games")
-                    val points = result.getInt("points")
-                    val fails = result.getInt("fails")
-                    val wins = result.getInt("wins")
+
                     Bukkit.getConsoleSender().sendMessage(
                         Messages.messages["stats-loaded"]!!.replace("%player%", Bukkit.getOfflinePlayers().firstOrNull { it.uniqueId == uuid }?.name ?: "offline")
                     )
-                    PlayerStatsHandler.statistics[uuid] = PlayerStatsHandler.PlayerStats(playerName, uuid, games, points, fails, wins)
+                    PlayerStatsHandler.statistics[uuid] = getPlayerStats(result)
                 }
             }
+        }
+
+        fun getPlayerStats(result: ResultSet): PlayerStatsHandler.PlayerStats {
+            val playerName = result.getString("playerName")
+            val uuid = UUID.fromString(result.getString("uuid"))
+            val games = result.getInt("games")
+            val points = result.getInt("points")
+            val fails = result.getInt("fails")
+            val wins = result.getInt("wins")
+            return PlayerStatsHandler.PlayerStats(playerName, uuid, games, points, fails, wins)
         }
 
         fun saveStats() {
@@ -107,7 +114,7 @@ class MySQL {
     }
 
     //    data class PlayerStats(var playerName: String, var uuid: UUID, var games: Int = 0, var points: Int = 0, var fails: Int = 0, var wins: Int = 0)
-    private fun createTableStatsPlayer(): Boolean {
+    private fun createTableStatsPlayer() {
         val sqlCommand = "CREATE TABLE IF NOT EXISTS statsPlayer (" +
                 "playerName VARCHAR(36) NOT NULL," +
                 "uuid VARCHAR(36) NOT NULL," +
@@ -121,8 +128,6 @@ class MySQL {
         val statement = connection.prepareStatement(sqlCommand)
         statement.execute()
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Configuration.config["prefix"] as String) + "§aCreating table statsPlayer...")
-
-        return true
     }
 
     private fun addAllPlayersFromDataBaseToPLayerList(): Boolean {
@@ -135,14 +140,8 @@ class MySQL {
         val statement = connection.prepareStatement(sqlCommand)
         val result = statement.executeQuery()
         while (result.next()) {
-            val playerName = result.getString("playerName")
             val uuid = UUID.fromString(result.getString("uuid"))
-            val games = result.getInt("games")
-            val points = result.getInt("points")
-            val fails = result.getInt("fails")
-            val wins = result.getInt("wins")
-            val playerStats = PlayerStatsHandler.PlayerStats(playerName, uuid, games, points, fails, wins)
-            PlayerStatsHandler.statistics[uuid] = playerStats
+            PlayerStatsHandler.statistics[uuid] = getPlayerStats(result)
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Configuration.config["prefix"] as String) + "§aAdded all players from database to playerlist...")
 
