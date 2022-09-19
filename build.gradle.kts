@@ -31,6 +31,7 @@ repositories {
 
 dependencies {
     implementation("com.google.code.gson:gson:+")
+    implementation("org.xerial:sqlite-jdbc:+")
     compileOnly("io.papermc.paper:paper-api:+")
     testImplementation(kotlin("test"))
     implementation("org.xerial:sqlite-jdbc:+")
