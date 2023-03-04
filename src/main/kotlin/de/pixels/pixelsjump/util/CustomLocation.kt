@@ -36,9 +36,7 @@ data class CustomLocation(var world: String, var x: Double, var y: Double, var z
         if (world != other.world) return false
         if (x != other.x) return false
         if (y != other.y) return false
-        if (z != other.z) return false
-
-        return true
+        return z == other.z
     }
 
     override fun hashCode(): Int {

@@ -19,7 +19,7 @@ plugins {
     id("idea")
 }
 
-group = "me.carina"
+group = "me.pixels"
 version = "1.0.0"
 description = "PixelsJump Remastered Paper Plugin"
 
@@ -46,7 +46,7 @@ tasks {
     }
     compileJava {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
-        options.release.set(18)
+        options.release.set(19)
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
@@ -58,10 +58,10 @@ tasks {
         kotlinOptions {
             freeCompilerArgs = listOf(
                 "-Xuse-k2",
-                "-Xjdk-release=18"
+                "-Xjdk-release=19"
             )
-            jvmTarget = "18"
-            languageVersion = "1.7"
+            jvmTarget = "19"
+            languageVersion = "2.0"
         }
     }
     test {
